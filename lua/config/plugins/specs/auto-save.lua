@@ -8,6 +8,6 @@ return {
       local file_is_mine = vim.bo.filetype ~= '' and vim.bo.buftype == ''
       return file_is_mine
     end,
-    debounce_delay = 5000,
+    debounce_delay = 3000, -- 5000 seemed a bit long
   },
 }
