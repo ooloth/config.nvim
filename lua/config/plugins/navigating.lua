@@ -6,7 +6,7 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldmethod = 'indent'
 vim.opt.foldtext = ''
 
-vim.opt.mouse = '' -- disable mouse mode (use 'a' to enable)
+vim.opt.mouse = '' -- disable mouse mode (set to 'a' to enable)
 vim.opt.sessionoptions = { 'buffers', 'curdir', 'tabpages', 'winsize', 'help', 'globals', 'skiprtp', 'folds' }
 vim.opt.virtualedit = 'block' -- Allow cursor to move where there is no text in visual block mode
 
@@ -33,7 +33,7 @@ set('n', 'g;', 'g,', { desc = 'Next change' }) -- go to next change with g;
 set('n', 'g:', 'g;', { desc = 'Prev change' }) -- go to previous change with g;
 
 -- navigate editors (buffers)
--- WARN: don't add c-[] maps (c-[ means ESC; c-] navigates to :help keywords)
+-- WARN: don't try to add c-[] maps (c-[ means ESC; c-] navigates to :help keywords)
 set('n', '<tab>', '<cmd>bn<cr>', { desc = 'Next editor' })
 set('n', '<s-tab>', '<cmd>bp<cr>', { desc = 'Prev editor' })
 set('n', '<leader>`', '<cmd>e#<cr>', { desc = 'Other editor' }) -- switch to last buffer
