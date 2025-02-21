@@ -3,7 +3,20 @@
 -- TODO: testing: vitest
 -- TODO: testing: jest
 
-local prefer_node_modules_executable = require('config.util.prefer_node_modules').prefer_node_modules_executable
+local get_system_executable_path = require('config.util').get_system_executable_path
+
+local function prefer_node_modules_executable(executable_name)
+  -- get the path to the node_modules binary (if it exists)
+  local node_modules_path = vim.fn.getcwd() .. '/node_modules/.bin/' .. executable_name
+  if vim.fn.executable(node_modules_path) == 1 then return node_modules_path end
+
+  -- fall back to the systemwide binary
+  local system_executable_path = get_system_executable_path(executable_name)
+  if vim.fn.executable(system_executable_path) == 1 then return system_executable_path end
+
+  -- fall back to the original executable name
+  return executable_name
+end
 
 -- TODO: move this to ts_ls settings?
 -- see: https://docs.astral.sh/ruff/editors/setup/#neovim
