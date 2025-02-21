@@ -25,6 +25,9 @@ M.get_venv_executable_path = function(executable_name)
   })
 end
 
+---Check if an executable is installed in the current virtual environment.
+---@param executable_name string: The name of the executable to check
+---@return boolean: Whether the executable is installed in the current virtual environment
 M.is_installed_in_venv = function(executable_name) return M.get_venv_executable_path(executable_name) ~= '' end
 
 -- see: https://github.com/fredrikaverpil/dotfiles/blob/main/nvim-lazyvim/lua/plugins/lsp.lua
