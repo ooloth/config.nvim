@@ -17,6 +17,28 @@ vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP: Disable hover capability from Ruff',
 })
 
+-- TODO: doesn't work quite as well as Conform's ruff CLI integration yet
+-- -- Organize imports with the ruff language server if active
+-- -- see: https://github.com/astral-sh/ruff/issues/12514
+-- -- see: https://github.com/astral-sh/ruff/discussions/12308
+-- vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+--   pattern = { '*.py' },
+--   callback = function(event)
+--     for _, client in pairs(vim.lsp.get_clients({ bufnr = event.buf })) do
+--       if client.name == 'ruff' then
+--         vim.lsp.buf.code_action({
+--           context = {
+--             only = { 'source.organizeImports' },
+--             diagnostics = {},
+--           },
+--           apply = true,
+--         })
+--         break
+--       end
+--     end
+--   end,
+-- })
+
 ---@param paths table A list of paths to check for executables
 ---@return string The first callable in the list of paths
 local function get_first_working_executable(paths)
@@ -82,8 +104,11 @@ local get_linters_in_venv = function(linters)
   return linters_in_venv
 end
 
--- see: https://github.com/stevearc/conform.nvim/blob/master/lua/conform/formatters/black.lua
+---Updates a formatter's command to use the venv installation if found. If ruff is installed in the venv, ensures other formatters are disabled.
+---@param formatter string
+---@return table | nil
 local get_formatter_options = function(formatter)
+  if is_installed_in_venv('ruff') and formatter ~= 'ruff' then return nil end
   local formatter_options = require('conform.formatters.' .. formatter)
   formatter_options.command = prefer_venv_executable(formatter)
   formatter_options.condition = function() return is_installed_in_venv(formatter) end
@@ -152,21 +177,22 @@ return {
     },
   },
 
+  -- TODO: remove ruff here so the ruff server can handle formatting
   {
     'stevearc/conform.nvim',
-    opts = {
-      formatters_by_ft = {
-        python = get_formatters_in_venv({ 'isort', 'black', 'ruff', 'yapf' }), -- ruff language server includes formatting
-      },
-      formatters = {
+    opts = function(_, opts)
+      -- opts.formatters_by_ft.python = {}
+      opts.formatters_by_ft.python = { 'ruff_fix', 'ruff_format', 'ruff_organize_imports' }
+      -- python = get_formatters_in_venv({ 'isort', 'black', 'yapf' }), -- ruff language server includes formatting
+      opts.formatters = {
         black = function() return get_formatter_options('black') end,
         isort = function() return get_formatter_options('isort') end,
-        ruff = function() return get_formatter_options('ruff') end,
         yapf = function() return get_formatter_options('yapf') end,
-      },
-    },
+      }
+    end,
   },
 
+  -- TODO: remove ruff here so the ruff server can handle linting
   {
     'mfussenegger/nvim-lint',
     opts = {
