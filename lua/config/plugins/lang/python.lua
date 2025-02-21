@@ -1,11 +1,11 @@
--- TODO: Exploring Data Science Tools and Workflows in NVIM: https://www.youtube.com/watch?v=1xoUmncDwHQ
--- TODO: testing: unittest?
 -- TODO: https://www.lazyvim.org/extras/lang/python
+-- TODO: Exploring Data Science Tools and Workflows in NVIM: https://www.youtube.com/watch?v=1xoUmncDwHQ
 
 local get_system_executable_path = require('config.util').get_system_executable_path
 
 -- see: https://docs.astral.sh/ruff/editors/setup/#neovim
 vim.api.nvim_create_autocmd('LspAttach', {
+  desc = 'LSP: Disable ruff server hover capability',
   group = vim.api.nvim_create_augroup('lsp_attach_disable_ruff_hover', { clear = true }),
   callback = function(event)
     local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -14,13 +14,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
       client.server_capabilities.hoverProvider = false -- Disable hover in favor of Pyright
     end
   end,
-  desc = 'LSP: Disable hover capability from Ruff',
 })
 
--- Organize imports with the ruff language server if it's active
 -- see: https://github.com/astral-sh/ruff/issues/12514
 -- see: https://github.com/astral-sh/ruff/discussions/12308
-vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+vim.api.nvim_create_autocmd('BufWritePost', {
+  desc = 'LSP: Sort imports on save using ruff server code action',
   pattern = { '*.py' },
   callback = function(event)
     for _, client in pairs(vim.lsp.get_clients({ bufnr = event.buf })) do
@@ -32,8 +31,9 @@ vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
           },
           apply = true,
         })
-        -- Delay the write operation to ensure the code action is applied first
-        vim.defer_fn(function() vim.cmd('update') end, 100) -- 100 milliseconds delay
+        -- Save after sorting to dismiss ruff warning a couple seconds sooner
+        -- Delay the write operation 100ms to ensure the code action is applied first
+        vim.defer_fn(function() vim.cmd('update') end, 100)
         break
       end
     end
