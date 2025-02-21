@@ -17,27 +17,28 @@ vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP: Disable hover capability from Ruff',
 })
 
--- TODO: doesn't work quite as well as Conform's ruff CLI integration yet
--- -- Organize imports with the ruff language server if active
--- -- see: https://github.com/astral-sh/ruff/issues/12514
--- -- see: https://github.com/astral-sh/ruff/discussions/12308
--- vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
---   pattern = { '*.py' },
---   callback = function(event)
---     for _, client in pairs(vim.lsp.get_clients({ bufnr = event.buf })) do
---       if client.name == 'ruff' then
---         vim.lsp.buf.code_action({
---           context = {
---             only = { 'source.organizeImports' },
---             diagnostics = {},
---           },
---           apply = true,
---         })
---         break
---       end
---     end
---   end,
--- })
+-- Organize imports with the ruff language server if it's active
+-- see: https://github.com/astral-sh/ruff/issues/12514
+-- see: https://github.com/astral-sh/ruff/discussions/12308
+vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+  pattern = { '*.py' },
+  callback = function(event)
+    for _, client in pairs(vim.lsp.get_clients({ bufnr = event.buf })) do
+      if client.name == 'ruff' then
+        vim.lsp.buf.code_action({
+          context = {
+            only = { 'source.organizeImports' },
+            diagnostics = {},
+          },
+          apply = true,
+        })
+        -- Delay the write operation to ensure the code action is applied first
+        vim.defer_fn(function() vim.cmd('update') end, 100) -- 100 milliseconds delay
+        break
+      end
+    end
+  end,
+})
 
 ---@param paths table A list of paths to check for executables
 ---@return string The first callable in the list of paths
