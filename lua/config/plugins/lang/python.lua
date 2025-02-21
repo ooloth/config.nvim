@@ -107,9 +107,8 @@ end
 
 ---Updates a formatter's command to use the venv installation if found. If ruff is installed in the venv, ensures other formatters are disabled.
 ---@param formatter string
----@return table | nil
+---@return table
 local get_formatter_options = function(formatter)
-  if is_installed_in_venv('ruff') and formatter ~= 'ruff' then return nil end
   local formatter_options = require('conform.formatters.' .. formatter)
   formatter_options.command = prefer_venv_executable(formatter)
   formatter_options.condition = function() return is_installed_in_venv(formatter) end
@@ -180,27 +179,27 @@ return {
 
   {
     'stevearc/conform.nvim',
-    opts = function(_, opts)
-      opts.formatters_by_ft.python = get_formatters_in_venv({ 'isort', 'black', 'yapf' }) -- defaults to ruff server if present
-      opts.formatters = {
-        black = function() return get_formatter_options('black') end,
-        isort = function() return get_formatter_options('isort') end,
-        yapf = function() return get_formatter_options('yapf') end,
-      }
-    end,
+    opts = {
+      formatters_by_ft = {
+        python = get_formatters_in_venv({ 'black', 'isort', 'yapf' }), -- defaults to ruff language server if present
+      },
+      formatters = {
+        black = get_formatter_options('black'),
+        isort = get_formatter_options('isort'),
+        yapf = get_formatter_options('yapf'),
+      },
+    },
   },
 
-  -- TODO: remove ruff here so the ruff server can handle linting
   {
     'mfussenegger/nvim-lint',
     opts = {
       linters_by_ft = {
-        python = get_linters_in_venv({ 'flake8', 'mypy', 'ruff' }), -- ruff language server includes linting
+        python = get_linters_in_venv({ 'flake8', 'mypy' }), -- defaults to ruff language server if present
       },
       linters = {
-        flake8 = function() return get_linter_options('flake8') end,
-        mypy = function() return get_linter_options('mypy') end,
-        ruff = function() return get_linter_options('ruff') end,
+        flake8 = get_linter_options('flake8'),
+        mypy = get_linter_options('mypy'),
       },
     },
   },
