@@ -1,24 +1,8 @@
 -- TODO: Exploring Data Science Tools and Workflows in NVIM: https://www.youtube.com/watch?v=1xoUmncDwHQ
 -- TODO: testing: unittest?
 -- TODO: https://www.lazyvim.org/extras/lang/python
--- TODO: https://www.lazyvim.org/extras/formatting/black
 
-local is_installed_in_venv = require('config.util.prefer_venv').is_installed_in_venv
-local prefer_venv_executable = require('config.util.prefer_venv').prefer_venv_executable
-
--- Help debugger find current project's local (not pip) modules:
--- https://stackoverflow.com/a/63271966/8802485
--- vim.env.PYTHONPATH = vim.fn.getcwd()
-
--- TODO: automate creation of the pynvim venv and the installation of pynvim, debugpy + CopilotChat's pip deps during mac setup
--- get python executable where pynvim is installed for running remote plugins written in python (see :h provider-python)
--- see: https://github.com/neovim/pynvim/issues/498
--- see: https://github.com/neovim/pynvim/issues/16#issuecomment-152417012
--- local pynvim_python = vim.env.HOME .. '/.pyenv/versions/pynvim/bin/python'
--- vim.g.python3_host_prog = pynvim_python
-
--- get the python executable from the project venv (if active) for dap and neotest
-local python = prefer_venv_executable('python')
+local get_system_executable_path = require('config.util').get_system_executable_path
 
 -- see: https://docs.astral.sh/ruff/editors/setup/#neovim
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -32,6 +16,56 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
   desc = 'LSP: Disable hover capability from Ruff',
 })
+
+---@param paths table A list of paths to check for executables
+---@return string The first callable in the list of paths
+local function get_first_working_executable(paths)
+  for _, path in ipairs(paths) do
+    if vim.fn.executable(path) == 1 then return path end
+  end
+  return ''
+end
+
+---Get the path to the executable in the current virtual environment.
+---@param executable_name string: The name of the executable to find
+---@return string: The path to the executable in the current virtual environment
+local function get_venv_executable_path(executable_name)
+  local uv_venv = vim.env.PWD .. '/.venv'
+  local pyenv_venv = (vim.env.PYENV_ROOT or '') .. '/versions/' .. vim.fs.basename(vim.env.PWD)
+
+  return get_first_working_executable({
+    (vim.env.VIRTUAL_ENV or '') .. '/bin/' .. executable_name,
+    uv_venv .. '/bin/' .. executable_name,
+    pyenv_venv .. '/bin/' .. executable_name,
+  })
+end
+
+---Check if an executable is installed in the current virtual environment.
+---@param executable_name string: The name of the executable to check
+---@return boolean: Whether the executable is installed in the current virtual environment
+local function is_installed_in_venv(executable_name) return get_venv_executable_path(executable_name) ~= '' end
+
+-- see: https://github.com/fredrikaverpil/dotfiles/blob/main/nvim-lazyvim/lua/plugins/lsp.lua
+local function prefer_venv_executable(executable_name)
+  -- get the path to the virtualenv binary (if it exists)
+  local venv_executable_path = get_venv_executable_path(executable_name)
+  if venv_executable_path ~= '' then return venv_executable_path end
+
+  -- otherwise, get the path to python outside a virtualenv from pyenv
+  if executable_name == 'python' then
+    -- return output of `pyenv which python` if it exists
+    if vim.fn.executable('pyenv') == 1 then return string.gsub(vim.fn.system('pyenv which python'), '\n', '') end
+    -- otherwise, return the output of `which python3` if it exists
+    return vim.fn.exepath('python3')
+  end
+
+  -- fall back to the systemwide binary
+  local system_executable_path = get_system_executable_path(executable_name)
+  if vim.fn.executable(system_executable_path) == 1 then return system_executable_path end
+
+  -- fall back to the original executable name
+  return executable_name
+end
 
 ---Returns a list of formatters that are installed in the venv. If ruff is installed in the venv, returns an empty list so the ruff server can handle formatting.
 ---@param formatters string[]
@@ -66,6 +100,9 @@ local get_linter_options = function(linter)
   linter_options.cmd = prefer_venv_executable(linter)
   return linter_options
 end
+
+-- get the python executable from the project venv (if active) for pyright, dap and neotest
+local python = prefer_venv_executable('python')
 
 return {
   {
