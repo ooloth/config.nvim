@@ -89,7 +89,7 @@ end
 ---@param formatters string[]
 ---@return string[]
 local get_formatters_in_venv = function(formatters)
-  if is_installed_in_venv('ruff') then return { 'ruff' } end
+  if is_installed_in_venv('ruff') then return {} end
   return vim.tbl_filter(function(formatter) return is_installed_in_venv(formatter) end, formatters)
 end
 
@@ -178,13 +178,10 @@ return {
     },
   },
 
-  -- TODO: remove ruff here so the ruff server can handle formatting
   {
     'stevearc/conform.nvim',
     opts = function(_, opts)
-      -- opts.formatters_by_ft.python = {}
-      opts.formatters_by_ft.python = { 'ruff_fix', 'ruff_format', 'ruff_organize_imports' }
-      -- python = get_formatters_in_venv({ 'isort', 'black', 'yapf' }), -- ruff language server includes formatting
+      opts.formatters_by_ft.python = get_formatters_in_venv({ 'isort', 'black', 'yapf' }) -- defaults to ruff server if present
       opts.formatters = {
         black = function() return get_formatter_options('black') end,
         isort = function() return get_formatter_options('isort') end,
