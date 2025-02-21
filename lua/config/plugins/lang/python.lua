@@ -8,14 +8,14 @@ local prefer_venv_executable = require('config.util.prefer_venv').prefer_venv_ex
 
 -- Help debugger find current project's local (not pip) modules:
 -- https://stackoverflow.com/a/63271966/8802485
-vim.env.PYTHONPATH = vim.fn.getcwd()
+-- vim.env.PYTHONPATH = vim.fn.getcwd()
 
 -- TODO: automate creation of the pynvim venv and the installation of pynvim, debugpy + CopilotChat's pip deps during mac setup
 -- get python executable where pynvim is installed for running remote plugins written in python (see :h provider-python)
 -- see: https://github.com/neovim/pynvim/issues/498
 -- see: https://github.com/neovim/pynvim/issues/16#issuecomment-152417012
-local pynvim_python = vim.env.HOME .. '/.pyenv/versions/pynvim/bin/python'
-vim.g.python3_host_prog = pynvim_python
+-- local pynvim_python = vim.env.HOME .. '/.pyenv/versions/pynvim/bin/python'
+-- vim.g.python3_host_prog = pynvim_python
 
 -- get the python executable from the project venv (if active) for dap and neotest
 local python = prefer_venv_executable('python')
