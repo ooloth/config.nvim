@@ -171,5 +171,10 @@ return {
       -- Set up server
       require('lspconfig')[server_name].setup(server_options)
     end
+
+    -- Call all server setup functions configured via nvim-lspconfig's "opts.setup" table in each lang/* file
+    for _, server_setup in pairs(opts.setup) do
+      server_setup()
+    end
   end,
 }
