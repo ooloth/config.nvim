@@ -21,21 +21,6 @@ local function prefer_node_modules_executable(executable_name)
   return executable_name
 end
 
--- TODO: move this to ts_ls settings?
--- see: https://docs.astral.sh/ruff/editors/setup/#neovim
-vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('lsp_attach_disable_ruff_hover', { clear = true }),
-  callback = function(event)
-    local client = vim.lsp.get_client_by_id(event.data.client_id)
-    if client == nil then return end
-    -- prefer local typescript version (if available)
-    if client.name == 'ts_ls' then
-      client.config.cmd = { prefer_node_modules_executable('typescript-language-server'), '--stdio' }
-    end
-  end,
-  desc = 'Update TS lsp server command',
-})
-
 return {
   {
     'nvim-treesitter/nvim-treesitter',
@@ -100,10 +85,17 @@ return {
       },
       setup = {
         ts_ls = function()
-          require('lazyvim.util').lsp.on_attach(function(client, _) -- FIXME: remove lazyvim import?
-            -- prefer local typescript version (if available)
-            if client.name == 'tsserver' then client.config.cmd = { prefer_node_modules_executable('tsserver'), '--stdio' } end
-          end)
+          vim.api.nvim_create_autocmd('LspAttach', {
+            desc = 'LSP: Prefer local TypeScript executable',
+            group = vim.api.nvim_create_augroup('lsp_attach_use_local_typescript', { clear = true }),
+            callback = function(event)
+              local client = vim.lsp.get_client_by_id(event.data.client_id)
+              if client == nil then return end
+              -- TODO: confirm it's ok to do this rather than using typscript-language-server
+              -- prefer local TypeScript executable (if available)
+              if client.name == 'ts_ls' then client.config.cmd = { prefer_node_modules_executable('tsserver'), '--stdio' } end
+            end,
+          })
         end,
       },
     },
