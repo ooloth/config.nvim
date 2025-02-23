@@ -81,15 +81,23 @@ return {
   config = function()
     vim.api.nvim_set_hl(0, 'DapStoppedLine', { default = true, link = 'Visual' })
 
-    -- for name, sign in pairs(LazyVim.config.icons.dap) do
-    --   sign = type(sign) == 'table' and sign or { sign }
-    --   vim.fn.sign_define(
-    --     'Dap' .. name,
-    --     { text = sign[1], texthl = sign[2] or 'DiagnosticInfo', linehl = sign[3], numhl = sign[3] }
-    --   )
-    -- end
+    ---@type table<string, string[]>
+    local icons = {
+      DapStopped = { '󰁕 ', 'DiagnosticWarn', 'DapStoppedLine' },
+      DapBreakpoint = { ' ' },
+      DapBreakpointCondition = { ' ' },
+      DapBreakpointRejected = { ' ', 'DiagnosticError' },
+      DapLogPoint = { '.>' },
+    }
 
-    -- setup dap config by VsCode launch.json file
+    for name, sign in pairs(icons) do
+      local text = sign[1]
+      local texthl = sign[2] or 'DiagnosticInfo'
+      local linehl = sign[3] or ''
+      vim.fn.sign_define(name, { text = text, texthl = texthl, linehl = linehl, numhl = linehl })
+    end
+
+    -- Set up dap configs using vscode launch.json files
     local vscode = require('dap.ext.vscode')
     local json = require('plenary.json')
     vscode.json_decode = function(str) return vim.json.decode(json.json_strip_comments(str)) end
