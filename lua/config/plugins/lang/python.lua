@@ -209,24 +209,26 @@ return {
     },
   },
 
-  -- TODO: dap
-  -- {
-  --   'mfussenegger/nvim-dap',
-  --   dependencies = {
-  --     'mfussenegger/nvim-dap-python',
-  --     keys = {
-  --       { "<leader>dPt", function() require('dap-python').test_method() end, desc = "Debug Method", ft = "python" },
-  --       { "<leader>dPc", function() require('dap-python').test_class() end, desc = "Debug Class", ft = "python" },
-  --     },
-  --     config = function()
-  --       -- TODO: nope. trying not to have that venv. is there an alternative? otherwise I can just install it in any project complex enough to require debugging.
-  --       -- use the debugpy installed in the pynvim venv so I don't have to install it in every project's venv:
-  --       local pynvim_debugpy_python = vim.env.HOME .. '/.pyenv/versions/pynvim/bin/debugpy' .. '/venv/bin/python'
-  --
-  --       require('dap-python').setup(pynvim_debugpy_python, { include_configs = true, pythonPath = python })
-  --     end,
-  --   },
-  -- },
+  {
+    'mfussenegger/nvim-dap',
+    dependencies = {
+      'mfussenegger/nvim-dap-python',
+      keys = {
+        { '<leader>dPt', function() require('dap-python').test_method() end, desc = 'Debug Method', ft = 'python' },
+        { '<leader>dPc', function() require('dap-python').test_class() end, desc = 'Debug Class', ft = 'python' },
+      },
+      config = function()
+        local debugpy = prefer_venv_executable('debugpy')
+        vim.print('Using debugpy: ' .. vim.inspect(debugpy))
+        vim.print('Using python: ' .. vim.inspect(python))
+
+        -- NOTE: debuypy must be installed in the venv
+        require('dap-python').setup(python)
+        -- require('dap-python').setup('uv')
+        -- require('dap-python').setup(debugpy, { include_configs = true, pythonPath = python })
+      end,
+    },
+  },
 
   -- TODO: testing
   -- {
