@@ -218,14 +218,7 @@ return {
         { '<leader>dPc', function() require('dap-python').test_class() end, desc = 'Debug Class', ft = 'python' },
       },
       config = function()
-        local debugpy = prefer_venv_executable('debugpy')
-        vim.print('Using debugpy: ' .. vim.inspect(debugpy))
-        vim.print('Using python: ' .. vim.inspect(python))
-
-        -- NOTE: debuypy must be installed in the venv
-        require('dap-python').setup(python)
-        -- require('dap-python').setup('uv')
-        -- require('dap-python').setup(debugpy, { include_configs = true, pythonPath = python })
+        require('dap-python').setup('uv') -- uv will provide debugpy (regardless if one is in venv)
       end,
     },
   },
