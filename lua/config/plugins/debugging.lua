@@ -16,4 +16,8 @@ set('n', '[e', diagnostic_goto(false, 'ERROR'), { desc = 'Prev Error' })
 set('n', ']w', diagnostic_goto(true, 'WARN'), { desc = 'Next Warning' })
 set('n', '[w', diagnostic_goto(false, 'WARN'), { desc = 'Prev Warning' })
 
-return {}
+return {
+  require('config.plugins.specs.nvim-dap'),
+  require('config.plugins.specs.nvim-dap-ui'),
+  require('config.plugins.specs.nvim-dap-virtual-text'),
+}
