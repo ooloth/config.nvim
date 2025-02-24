@@ -12,8 +12,7 @@ return {
     -- { "<leader>da", function() require("dap").continue({ before = get_args }) end, desc = "Run with Args" },
     { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
     { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
-    { "<leader>dc", function() require("dap").continue() end, desc = "Run/Continue" },
-    { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
+    { "<leader>dc", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
     { "<leader>dd", function() require("dap").continue() end, desc = "Start/continue" },
     { '<leader>de', function() require('dapui').eval() end, desc = 'Eval', mode = { 'n', 'v' } },
     { '<leader>dg', function() require('dap').goto_() end, desc = 'Go to line (no execute)' },
@@ -24,19 +23,20 @@ return {
     { "<leader>do", function() require("dap").step_out() end, desc = "Step Out" },
     { '<leader>dp', function() require('dap').pause() end, desc = 'Pause' },
     { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
-    -- { '<leader>dr', function() require('dap').restart() end, desc = 'Restart' },
+    { '<leader>dR', function() require('dap').restart() end, desc = 'Restart' },
     { '<leader>ds', function() require('dap').step_over() end, desc = 'Step Over' },
-    -- { "<leader>ds", function() require("dap").session() end, desc = "Session" },
-    -- { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
+    { "<leader>dS", function() require("dap").session() end, desc = "Session" },
+    { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
     { '<leader>du', function() require('dapui').toggle({}) end, desc = 'Dap UI' },
     { '<leader>dw', function() require('dapui').elements.watches.add() end, desc = 'Watch symbol under cursor' },
-    -- { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
+    { "<leader>dW", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
     { '<leader>dx', function() require('dap').terminate() end, desc = 'End session' },
   },
 
   config = function()
     vim.api.nvim_set_hl(0, 'DapStoppedLine', { default = true, link = 'Visual' })
 
+    -- see: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/init.lua#L32
     ---@type table<string, string[]>
     local icons = {
       DapStopped = { '󰁕 ', 'DiagnosticWarn', 'DapStoppedLine' },
