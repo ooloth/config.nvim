@@ -7,6 +7,7 @@ vim.filetype.add({
     tfstate = 'json',
   },
   filename = {
+    ['Brewfile'] = 'ruby',
     ['tsconfig.json'] = 'jsonc',
     -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#docker_compose_language_service
     ['docker-compose.yaml'] = 'yaml.docker-compose',
