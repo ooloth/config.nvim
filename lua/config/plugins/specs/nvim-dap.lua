@@ -1,47 +1,3 @@
--- TODO: https://www.lazyvim.org/extras/dap/core
-
-local attach_debugger = function()
-  -- (re-)reads launch.json if present
-  -- FIXME: fails if comments are present in jsonc file (how to parse jsonc properly?)
-  if vim.fn.filereadable('.vscode/launch.json') then
-    -- TODO: move launch.json config divider here
-    -- for _, language in ipairs(js_based_languages) do
-    --   require('dap').configurations[language] = {
-    --         -- divider before launch.json derived configs
-    --     {
-    --       name = '↓ launch.json configs ↓',
-    --       type = '',
-    --       request = 'launch',
-    --     },
-
-    local js_based_languages = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact', 'vue' }
-
-    -- TODO: move to typescript.lua?
-    require('dap.ext.vscode').load_launchjs(nil, {
-      ['pwa-node'] = js_based_languages,
-      ['chrome'] = js_based_languages,
-      ['pwa-chrome'] = js_based_languages,
-    })
-
-    local dap_configurations = require('dap').configurations
-
-    -- override console in all configurations (including launch.json)
-    for _, config in ipairs(dap_configurations) do
-      config.console = 'integratedTerminal'
-      -- config.justMyCode = true  -- NOTE: sometimes it helps to follow code into dependencies we built
-    end
-
-    -- TODO: can I move this to python.lua?
-    -- override pythonPath in all python configurations
-    -- local python_configurations = dap_configurations.python or {}
-    -- local python = prefer_venv_executable('python')
-    -- for _, config in ipairs(python_configurations) do
-    --   config.pythonPath = python
-    -- end
-  end
-
-  require('dap').continue()
-end
 return {
   'mfussenegger/nvim-dap',
   recommended = true,
@@ -58,7 +14,7 @@ return {
     { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
     { "<leader>dc", function() require("dap").continue() end, desc = "Run/Continue" },
     { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
-    { '<leader>dd', attach_debugger, desc = 'Start debugger' },
+    { "<leader>dd", function() require("dap").continue() end, desc = "Start/continue" },
     { '<leader>de', function() require('dapui').eval() end, desc = 'Eval', mode = { 'n', 'v' } },
     { '<leader>dg', function() require('dap').goto_() end, desc = 'Go to line (no execute)' },
     { "<leader>di", function() require("dap").step_into() end, desc = "Step Into" },
