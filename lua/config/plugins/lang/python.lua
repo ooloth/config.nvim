@@ -218,30 +218,31 @@ return {
         { '<leader>dPc', function() require('dap-python').test_class() end, desc = 'Debug Class', ft = 'python' },
       },
       config = function()
-        require('dap-python').setup('uv') -- uv will provide debugpy (regardless if one is in venv)
+        -- uv will provide its own debugpy executable (ignoring the one in venv, if present)
+        -- see: https://github.com/mfussenegger/nvim-dap-python/blob/master/lua/dap-python.lua#L242-L243
+        require('dap-python').setup('uv')
       end,
     },
   },
 
-  -- TODO: testing
-  -- {
-  --   'nvim-neotest/neotest',
-  --   dependencies = {
-  --     'nvim-neotest/neotest-python',
-  --   },
-  --   opts = {
-  --     adapters = {
-  --       ['neotest-python'] = {
-  --         -- see: https://github.com/nvim-neotest/neotest-python
-  --         args = { '--log-level', 'DEBUG', '--quiet' },
-  --         dap = {
-  --           -- see: https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings#launchattach-settings
-  --           console = 'integratedTerminal',
-  --           justMyCode = true,
-  --         },
-  --         python = python,
-  --       },
-  --     },
-  --   },
-  -- },
+  {
+    'nvim-neotest/neotest',
+    dependencies = {
+      'nvim-neotest/neotest-python',
+    },
+    opts = {
+      adapters = {
+        ['neotest-python'] = {
+          -- see: https://github.com/nvim-neotest/neotest-python
+          args = { '--log-level', 'DEBUG', '--quiet' },
+          dap = {
+            -- see: https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings#launchattach-settings
+            console = 'integratedTerminal',
+            -- justMyCode = true,
+          },
+          python = python,
+        },
+      },
+    },
+  },
 }
