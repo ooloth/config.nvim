@@ -38,9 +38,13 @@ set('n', '<tab>', '<cmd>bn<cr>', { desc = 'Next editor' })
 set('n', '<s-tab>', '<cmd>bp<cr>', { desc = 'Prev editor' })
 set('n', '<leader>`', '<cmd>e#<cr>', { desc = 'Other editor' }) -- switch to last buffer
 set('n', '<leader>ed', '<cmd>bp|bd #<cr>', { desc = 'Close editor' }) -- close buffer but not window
+set('n', '<leader>ee', '<cmd>e#<cr>', { desc = 'Other editor' }) -- switch to last buffer
+set('n', '<leader>en', '<cmd>bn<cr>', { desc = 'Next editor' })
+set('n', '<leader>ep', '<cmd>bp<cr>', { desc = 'Prev editor' })
 -- Close all buffers except the current one (like leader-wo does for windows):
 -- https://stackoverflow.com/a/42071865/8802485
 set('n', '<leader>eo', '<cmd>%bd|e#|bd#<cr>', { desc = 'Only keep this editor' })
+set('n', '<leader>eu', '<cmd>e#<cr>', { desc = 'Undo close editor' }) -- fakes this by opening last buffer (same as switch maps above); doesn't actually reopen last closed editor if others have since been visited
 
 -- navigate to location list
 set('n', 'gl', '<cmd>lopen<cr>', { desc = 'Location list' })
