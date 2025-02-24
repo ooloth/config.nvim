@@ -18,7 +18,11 @@ return {
 
     -- Ensure all linters are merged into the global table (not sure why they aren't otherwise...)
     lint.linters_by_ft = opts.linters_by_ft or {}
-    lint.linters = opts.linters or {}
+
+    -- Override the default linter settings with any custom ones passed via opts.linters
+    for linter, settings in pairs(opts.linters or {}) do
+      lint.linters[linter] = settings
+    end
 
     -- Create autocommand to trigger the actual linting
     -- see: https://github.com/mfussenegger/nvim-lint?tab=readme-ov-file#usage
