@@ -16,12 +16,14 @@ end
 ---@param executable_name string: The name of the executable to find
 ---@return string: The path to the executable in the current virtual environment
 local function get_venv_executable_path(executable_name)
-  local uv_venv = vim.env.PWD .. '/.venv'
+  local uv_venv_default = vim.env.PWD .. '/.venv'
+  local uv_venv_roadie = vim.env.PWD .. '/venv'
   local pyenv_venv = (vim.env.PYENV_ROOT or '') .. '/versions/' .. vim.fs.basename(vim.env.PWD)
 
   return get_first_working_executable({
     (vim.env.VIRTUAL_ENV or '') .. '/bin/' .. executable_name,
-    uv_venv .. '/bin/' .. executable_name,
+    uv_venv_default .. '/bin/' .. executable_name,
+    uv_venv_roadie .. '/bin/' .. executable_name,
     pyenv_venv .. '/bin/' .. executable_name,
   })
 end

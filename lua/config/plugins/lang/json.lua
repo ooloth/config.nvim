@@ -15,12 +15,12 @@ return {
       'b0o/schemastore.nvim',
     },
     opts = function(_, opts)
+      opts.servers = opts.servers or {}
       opts.servers.jsonls = {
         -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#jsonls
         settings = {
           json = {
             format = {
-              -- FIXME: how to avoid formatting vscode settings? skip comments available? ignore file available? need to disable this?
               enable = true,
             },
             -- see: https://github.com/b0o/SchemaStore.nvim?tab=readme-ov-file#usage
@@ -32,16 +32,17 @@ return {
           },
         },
       }
+      return opts
     end,
   },
 
-  -- {
-  --   'stevearc/conform.nvim',
-  --   opts = {
-  --     formatters_by_ft = {
-  --       json = { 'prettier' },
-  --       jsonc = { 'prettier' },
-  --     },
-  --   },
-  --   },
+  {
+    'stevearc/conform.nvim',
+    opts = {
+      formatters_by_ft = {
+        json = { 'prettier' },
+        jsonc = { 'prettier', lsp_format = 'never' }, -- good way to suppress vscode setting.json formatting?
+      },
+    },
+  },
 }
