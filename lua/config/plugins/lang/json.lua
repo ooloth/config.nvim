@@ -1,6 +1,3 @@
--- TODO: https://www.lazyvim.org/extras/lang/json
--- TODO: nvim-lint: consider the default linter: json = { "jsonlint" } (is schemastore enough?)
-
 return {
   {
     'nvim-treesitter/nvim-treesitter',
@@ -41,7 +38,7 @@ return {
     opts = {
       formatters_by_ft = {
         json = { 'prettier' },
-        jsonc = { 'prettier', lsp_format = 'never' }, -- good way to suppress vscode setting.json formatting?
+        jsonc = { 'prettier' },
       },
     },
   },
