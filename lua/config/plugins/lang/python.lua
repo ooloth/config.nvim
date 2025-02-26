@@ -232,19 +232,19 @@ return {
     dependencies = {
       'nvim-neotest/neotest-python',
     },
-    opts = {
-      adapters = {
-        ['neotest-python'] = {
-          -- see: https://github.com/nvim-neotest/neotest-python
-          args = { '--log-level', 'DEBUG', '--quiet' },
-          dap = {
-            -- see: https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings#launchattach-settings
-            console = 'integratedTerminal',
-            -- justMyCode = true,
-          },
-          python = python,
+    opts = function()
+      return {
+        adapters = {
+          require('neotest-python')({
+            args = { '--log-level', 'DEBUG', '--quiet' },
+            dap = {
+              -- see: https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings#launchattach-settings
+              console = 'integratedTerminal',
+            },
+            python = python,
+          }),
         },
-      },
-    },
+      }
+    end,
   },
 }
