@@ -158,12 +158,21 @@ return {
       end,
     })
 
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+    -- Avoid an nvim-ufo error in the yaml-language-server
+    -- see: https://github.com/redhat-developer/yaml-language-server/issues/912#issuecomment-1797097638
+    capabilities.textDocument.foldingRange = {
+      dynamicRegistration = false,
+      lineFoldingOnly = true,
+    }
+
     -- Set up all servers configured via nvim-lspconfig's "opts.servers" table in each lang/* file
     for server_name, server_options in pairs(opts.servers) do
       -- Merge neovim's LSP capabilities + nvim-cmp's capabilities + any overrides I've defined for this server
       server_options.capabilities = vim.tbl_deep_extend(
         'force',
-        vim.lsp.protocol.make_client_capabilities(),
+        capabilities,
         require('cmp_nvim_lsp').default_capabilities(),
         server_options.capabilities or {}
       )
