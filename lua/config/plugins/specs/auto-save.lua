@@ -1,3 +1,4 @@
+-- TODO: never format while I'm in insert mode
 return {
   'okuuva/auto-save.nvim',
   version = '*',
@@ -8,6 +9,6 @@ return {
       local file_is_mine = vim.bo.filetype ~= '' and vim.bo.buftype == ''
       return file_is_mine
     end,
-    debounce_delay = 3000, -- 5000 seemed a bit long
+    debounce_delay = 500, -- 3000 made me race to avoid formatting happening while I was typing (try short or very long)
   },
 }
