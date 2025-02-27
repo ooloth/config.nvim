@@ -37,6 +37,7 @@ return {
         sort = { 'tag', 'filename', 'pos', 'message' },
       },
     },
+    auto_close = true, -- close the trouble window when it's empty
     open_no_results = true, -- open the trouble window when there are no results
     warn_no_results = false, -- show a warning when there are no results
   },
