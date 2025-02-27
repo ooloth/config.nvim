@@ -236,7 +236,8 @@ return {
       return {
         adapters = {
           require('neotest-python')({
-            args = { '--log-level', 'DEBUG', '--quiet' },
+            -- see: https://docs.pytest.org/en/stable/how-to/output.html
+            args = { '--quiet', '--showlocals', '-vv' },
             dap = {
               -- see: https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings#launchattach-settings
               console = 'integratedTerminal',
