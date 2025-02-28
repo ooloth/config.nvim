@@ -34,16 +34,11 @@ return {
       border = 'rounded',
       max_height = 0.9,
       max_width = 0.9,
-      -- options = {},
     },
     output = {
       enabled = true,
       open_on_run = 'short',
     },
-    -- output_panel = {
-    --   enabled = true,
-    --   open = 'botright split | resize 15',
-    -- },
     quickfix = {
       open = function() require('trouble').open({ mode = 'quickfix', focus = false }) end,
     },
