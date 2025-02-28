@@ -24,6 +24,9 @@ return {
               completion = {
                 callSnippet = 'Replace',
               },
+              diagnostics = {
+                disable = { 'missing-fields' }, -- don't complain about partial config overrides (so I can add their types)
+              },
               doc = {
                 privateName = { '^_' },
               },
