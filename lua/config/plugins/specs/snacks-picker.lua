@@ -62,7 +62,11 @@ return {
     -- NOTE: leader-sd is used by trouble.nvim to open diagnostics in Trouble's quickfix view
     { '<leader>se', function() Snacks.picker.buffers() end, desc = 'Editors' },
     { '<leader>sE', function() Snacks.picker.grep_buffers() end, desc = 'Grep open editors' },
-    { '<leader>sf', function() Snacks.picker.files({ hidden = true }) end, desc = 'Files' },
+    {
+      '<leader>sf',
+      function() Snacks.picker.files({ hidden = true, ignored = true }) end,
+      desc = 'Files',
+    },
     { '<leader>sg', function() Snacks.picker.grep() end, desc = 'Grep' },
     { '<leader>sh', function() Snacks.picker.help() end, desc = 'Help pages' },
     { '<leader>sH', function() Snacks.picker.highlights() end, desc = 'Highlights' },
