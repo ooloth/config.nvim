@@ -1,6 +1,7 @@
--- Automatic indentation style detection for Neovim
+---@module 'guess-indent'
+-- https://github.com/NMAC427/guess-indent.nvim
 
--- DOCS: https://github.com/NMAC427/guess-indent.nvim
+-- TODO: still want?
 
 return {
   'nmac427/guess-indent.nvim',

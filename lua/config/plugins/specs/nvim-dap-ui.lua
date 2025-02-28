@@ -1,3 +1,5 @@
+---@module 'nvim-dap-ui'
+
 return {
   'rcarriga/nvim-dap-ui',
   dependencies = {

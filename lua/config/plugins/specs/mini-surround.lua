@@ -1,3 +1,5 @@
+---@module 'mini.surround'
+
 -- Add/delete/replace surroundings (brackets, quotes, etc.)
 
 -- EXAMPLE: gsiw' = Surround word under cursor with ''

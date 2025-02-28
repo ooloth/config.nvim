@@ -1,3 +1,5 @@
+---@module 'nvim-ufo'
+
 -- TODO: folding: Code Folding in Neovim: https://www.youtube.com/watch?v=f_f08KnAJOQ (recommends nvim-ufo over other options like treesitter)
 -- TODO: folding: https://github.com/kevinhwang91/nvim-ufo
 -- TODO: folding: Configuring nvim-ufo to use LSP with lazy.nvim: https://www.reddit.com/r/neovim/comments/12yomtj/configuring_nvimufo_to_use_lsp_with_lazynvim/

@@ -1,3 +1,5 @@
+---@module 'nvim-lspconfig'
+
 -- TODO: gd: go straight to definition?
 -- TODO: inlay hints: leader-u* keymap to toggle
 -- TODO: inlay hints: configure to show only some (e.g. show arg types but hide function reference counts?)

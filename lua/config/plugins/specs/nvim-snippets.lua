@@ -1,5 +1,10 @@
+---@module 'nvim-snippets'
+
+-- TODO: still want?
+
 return {
   'garymjr/nvim-snippets',
+  opts = {},
   keys = {
     {
       '<C-l>',

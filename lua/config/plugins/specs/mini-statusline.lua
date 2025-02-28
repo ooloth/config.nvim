@@ -1,3 +1,5 @@
+---@module 'mini.statusline'
+
 -- TODO: show attached formatters as well: https://gist.github.com/Lamarcke/36e086dd3bb2cebc593d505e2f838e07
 -- TODO: show @recording messages in statusline instead of notify pop-ups? https://github.com/folke/noice.nvim/wiki/Configuration-Recipes#show-recording-messages
 -- TODO: sort all attached lsp servers, formatters, and linters alphabetically

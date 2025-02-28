@@ -1,3 +1,5 @@
+---@module 'mini.files'
+
 -- see: https://github.com/echasnovski/mini.nvim/blob/main/doc/mini-files.txt#L444-L446
 local hide_junk = function(fs_entry) return not vim.startswith(fs_entry.name, '.DS_Store') end
 

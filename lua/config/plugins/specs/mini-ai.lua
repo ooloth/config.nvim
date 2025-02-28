@@ -1,3 +1,5 @@
+---@module 'mini.ai'
+
 -- Extend and create a/i text objects
 -- In addition to nvim-treesitter-textobjects, adds text objects like "b" (block) and "q" (quote)
 -- Adds the "an/in" (around/inside next) and "al/il" (around/inside last) movements

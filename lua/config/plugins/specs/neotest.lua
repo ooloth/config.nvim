@@ -1,4 +1,6 @@
--- https://www.lazyvim.org/extras/test/core
+---@module 'neotest'
+
+-- TODO: https://www.lazyvim.org/extras/test/core
 
 return {
   'nvim-neotest/neotest',

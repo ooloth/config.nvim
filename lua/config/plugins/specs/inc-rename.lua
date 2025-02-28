@@ -1,3 +1,5 @@
+---@module 'inc-rename'
+
 -- Show LSP symbol rename changes in progress as each character is typed
 -- Integrated with noice.nvim
 

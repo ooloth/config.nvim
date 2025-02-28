@@ -1,3 +1,5 @@
+---@module 'conform'
+
 -- TODO: https://www.lazyvim.org/plugins/formatting
 
 return {

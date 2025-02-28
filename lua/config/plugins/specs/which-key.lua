@@ -1,3 +1,5 @@
+---@module 'which-key'
+
 -- DOCS: https://github.com/folke/which-key.nvim
 -- DOCS: https://www.lazyvim.org/plugins/editor#which-keynvim
 -- TODO: `:checkhealth which-key`

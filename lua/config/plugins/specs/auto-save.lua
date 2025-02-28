@@ -1,4 +1,5 @@
--- TODO: never format while I'm in insert mode
+---@module 'auto-save'
+
 return {
   'okuuva/auto-save.nvim',
   version = '*',

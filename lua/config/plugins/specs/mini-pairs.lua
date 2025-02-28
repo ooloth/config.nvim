@@ -1,3 +1,5 @@
+---@module 'mini.pairs'
+
 -- Automatically insert pair of character
 
 -- DOCS: `:h mini.pairs`

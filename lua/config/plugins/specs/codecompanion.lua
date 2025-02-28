@@ -1,3 +1,5 @@
+---@module 'codecompanion'
+
 return {
   'olimorris/codecompanion.nvim',
   dependencies = {

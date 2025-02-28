@@ -1,5 +1,5 @@
--- Useful status updates for LSP
--- see: https://github.com/j-hui/fidget.nvim
+---@module 'fidget'
+-- https://github.com/j-hui/fidget.nvim
 
 return {
   'j-hui/fidget.nvim',

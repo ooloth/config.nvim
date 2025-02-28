@@ -1,3 +1,5 @@
+---@module 'nvim-treesitter'
+
 -- Highlight, edit, and navigate code
 
 -- DOCS: `:h nvim-treesitter`

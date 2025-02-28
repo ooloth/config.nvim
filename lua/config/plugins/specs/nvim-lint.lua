@@ -1,3 +1,5 @@
+---@module 'nvim-lint'
+
 -- TODO: https://www.lazyvim.org/plugins/linting
 
 return {

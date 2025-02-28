@@ -1,3 +1,5 @@
+---@module 'catppuccin'
+
 -- TODO: integrate with other plugins? https://github.com/catppuccin/nvim?tab=readme-ov-file#integrations
 
 -- mocha colors: https://github.com/catppuccin/nvim/blob/main/lua/catppuccin/palettes/mocha.lua

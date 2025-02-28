@@ -1,3 +1,5 @@
+---@module 'nvim-dap'
+
 return {
   'mfussenegger/nvim-dap',
   recommended = true,

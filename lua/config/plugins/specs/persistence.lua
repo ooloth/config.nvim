@@ -1,4 +1,5 @@
--- see: https://www.lazyvim.org/plugins/util#persistencenvim
+---@module 'persistence'
+-- https://www.lazyvim.org/plugins/util#persistencenvim
 
 return {
   'folke/persistence.nvim',

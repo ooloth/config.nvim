@@ -1,3 +1,5 @@
+---@module 'vim-tmux-navigator'
+
 -- navigate vim splits (and tmux panes) with <C-hjkl>
 
 return {

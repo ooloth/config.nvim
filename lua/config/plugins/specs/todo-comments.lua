@@ -1,3 +1,5 @@
+---@module 'todo-comments'
+
 return {
   'folke/todo-comments.nvim',
   event = 'VeryLazy',

@@ -1,5 +1,4 @@
--- Adds git-related signs to the left gutter
--- See `:help gitsigns`
+---@module 'gitsigns'
 
 return {
   'lewis6991/gitsigns.nvim',
