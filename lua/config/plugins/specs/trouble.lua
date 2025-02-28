@@ -2,7 +2,6 @@
 
 return {
   'folke/trouble.nvim',
-  ---@type trouble.Config
   opts = {
     focus = true, -- focus Trouble window when it opens
     indent_guides = false,
