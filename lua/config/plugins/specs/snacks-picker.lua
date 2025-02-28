@@ -53,7 +53,6 @@ return {
     { '<leader>glf', function() Snacks.picker.git_log_file() end, desc = 'File commits' },
     { '<leader>gll', function() Snacks.picker.git_log_line() end, desc = 'Line commits' },
     { '<leader>gs', function() Snacks.picker.git_stash() end, desc = 'Git stashes' },
-    { '<leader>n', function() Snacks.picker.notifications() end, desc = 'Notification history' },
     { '<leader>s,', function() Snacks.picker.commands() end, desc = 'Commands' },
     { '<leader>s"', function() Snacks.picker.registers() end, desc = 'Registers' },
     { '<leader>s/', function() Snacks.picker.search_history() end, desc = 'Search history' },

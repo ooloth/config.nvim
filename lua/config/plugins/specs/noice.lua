@@ -1,7 +1,5 @@
 ---@module 'noice'
 
--- TODO: still want?
--- TODO: how to dismiss a notification immediately if I want to?
 -- DOCS: https://github.com/folke/noice.nvim
 -- DOCS: https://github.com/folke/noice.nvim/wiki/Configuration-Recipes
 -- DOCS: https://www.lazyvim.org/plugins/ui#noicenvim
@@ -11,7 +9,7 @@ return {
   event = 'VeryLazy',
   dependencies = {
     'MunifTanjim/nui.nvim', -- used for proper rendering and multiple views
-    { 'rcarriga/nvim-notify', opts = { background_colour = '#1A1A28' } }, -- use as vim.notify UI
+    'folke/snacks.nvim',
     'nvim-treesitter/nvim-treesitter',
   },
   opts = {
@@ -31,6 +29,15 @@ return {
         ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
       },
     },
+    mini = {
+      enabled = true,
+    },
+    notifier = {
+      enabled = true,
+    },
+    notify = {
+      enabled = false,
+    },
     presets = {
       command_palette = true, -- position the cmdline and popupmenu together
       inc_rename = true, -- enables an input dialog for inc-rename.nvim
@@ -39,10 +46,10 @@ return {
       {
         -- show @recording messages (https://github.com/folke/noice.nvim/wiki/Configuration-Recipes#show-recording-messages)
         filter = { event = 'msg_showmode' },
-        view = 'notify',
+        view = 'snacks',
       },
       {
-        -- send "written" messages to mini view instead of notify view (https://www.lazyvim.org/plugins/ui#noicenvim)
+        -- send "written" messages to mini view instead of snacks view (https://www.lazyvim.org/plugins/ui#noicenvim)
         filter = {
           event = 'msg_show',
           any = {
