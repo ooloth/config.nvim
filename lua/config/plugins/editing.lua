@@ -76,6 +76,7 @@ return {
   require('config.plugins.specs.auto-save'),
   require('config.plugins.specs.guess-indent'),
   require('config.plugins.specs.inc-rename'),
+  require('config.plugins.specs.mini-ai'),
   require('config.plugins.specs.mini-pairs'),
   require('config.plugins.specs.mini-surround'),
   require('config.plugins.specs.netrw'),
