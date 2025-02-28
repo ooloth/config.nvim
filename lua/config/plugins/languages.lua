@@ -18,8 +18,8 @@ vim.filetype.add({
   },
   pattern = {
     ['docker-compose.*%.yaml'] = 'yaml.docker-compose',
-    ['.*/kitty/.*%.conf'] = 'bash',
-    ['.*/kitty/.*/.*%.conf'] = 'bash',
+    ['.*/kitty/.*%.conf'] = 'conf',
+    ['.*/kitty/.*/.*%.conf'] = 'conf',
     ['.*/.vscode/.*%.json'] = 'jsonc',
     ['.*/vscode/.*%.json'] = 'jsonc',
   },
