@@ -9,6 +9,6 @@ return {
       local file_is_mine = vim.bo.filetype ~= '' and vim.bo.buftype == ''
       return file_is_mine
     end,
-    debounce_delay = 500, -- 3000 made me race to avoid formatting happening while I was typing (try short or very long)
+    debounce_delay = 10000, -- slower delays make me race to avoid formatting happening while I'm still editing
   },
 }
