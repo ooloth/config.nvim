@@ -1,11 +1,10 @@
 ---@module 'snacks'
+-- https://github.com/folke/snacks.nvim/blob/main/docs/gitbrowse.md
 
 return {
   'folke/snacks.nvim',
   opts = {
-    gitbrowse = {
-      -- https://github.com/folke/snacks.nvim/blob/main/docs/gitbrowse.md#%EF%B8%8F-config
-    },
+    gitbrowse = {},
   },
   -- stylua: ignore
   keys = {
