@@ -9,11 +9,10 @@ M.get_system_executable_path = function(executable_name)
   return ''
 end
 
------------------------------------------------------------
--- Returns table combining all lazy configs in the given directory
--- Useful for automatically loading new language configs added to plugins/lang
--- @param dir_rel_path: relative path to config subdirectory after 'lua/config'
------------------------------------------------------------
+---Returns table combining all lazy configs in the given directory
+---Useful for automatically loading new language configs added to plugins/lang
+---@param dir_rel_path: relative path to config subdirectory after 'lua/config'
+---@return table
 M.require_all_files_in_config_directory = function(dir_rel_path)
   local config_abs_path = vim.env.HOME .. '/Repos/ooloth/config.nvim/lua/config/'
   local directory_abs_path = config_abs_path .. dir_rel_path
