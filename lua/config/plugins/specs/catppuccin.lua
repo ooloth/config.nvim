@@ -7,6 +7,7 @@
 return {
   'catppuccin/nvim',
   name = 'catppuccin',
+  lazy = false,
   priority = 1000,
   config = function()
     -- see: https://github.com/catppuccin/nvim?tab=readme-ov-file#configuration
@@ -35,7 +36,7 @@ return {
         -- illuminate = true,
         -- indent_blankline = { enabled = true },
         -- leap = true,
-        -- lsp_trouble = true,
+        lsp_trouble = true,
         markdown = true,
         mini = true,
         native_lsp = {
@@ -52,10 +53,8 @@ return {
         },
         neotest = true,
         noice = true,
-        notify = true,
-        -- octo = true,
+        octo = true,
         semantic_tokens = true,
-        telescope = true,
         treesitter = true,
         treesitter_context = true,
         which_key = true,
