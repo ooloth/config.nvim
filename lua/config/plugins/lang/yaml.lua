@@ -21,13 +21,17 @@ return {
     dependencies = {
       'b0o/schemastore.nvim',
     },
-    opts = function(_, opts) -- using function to support lazy loading schemastore below
+    opts = function(_, opts) -- using function syntax to support lazy loading schemastore below
       opts.servers.yamlls = {
         settings = {
           redhat = {
             telemetry = { enabled = false },
           },
           yaml = {
+            -- https://github.com/redhat-developer/yaml-language-server?tab=readme-ov-file#language-server-settings
+            editor = {
+              tabSize = 2, -- does this setting stop eng-infrastructure from setting tab width to 4 on save?
+            },
             format = {
               enable = true, -- yaml language server handles formatting
             },
