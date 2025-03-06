@@ -29,16 +29,12 @@ return {
       { '<leader>s', group = 'Search' },
       { '<leader>t', group = 'Test' },
       { '<leader>u', group = 'UI' },
-      {
-        '<leader>w',
-        group = 'Window',
-        proxy = '<C-w>', -- add all built-in <C-w> mappings
-      },
+      { '<leader>w', group = 'Window', proxy = '<C-w>' }, -- add all built-in <C-w> mappings
       { ']', group = 'Next' },
       { '[', group = 'Previous' },
       { 'g', group = 'Go to' },
+      { 'gs', group = 'Surround' }, -- improve built-in description
       { 'gx', desc = 'Open with system app' }, -- improve built-in description
-      -- { 'gz', group = 'Surround' },
       { 'z', group = 'fold' },
     },
   },
