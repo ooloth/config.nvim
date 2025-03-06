@@ -42,5 +42,6 @@ return {
   },
   keys = {
     { '<leader>sd', '<cmd>Trouble diagnostics toggle<cr>', desc = 'Diagnostics (open editors)' },
+    { '<leader>x', '<cmd>Trouble<cr>', desc = 'Diagnostics (open editors)' },
   },
 }

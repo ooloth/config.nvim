@@ -34,7 +34,6 @@ return {
         group = 'Window',
         proxy = '<C-w>', -- add all built-in <C-w> mappings
       },
-      { '<leader>x', group = 'Diagnostics' },
       { ']', group = 'Next' },
       { '[', group = 'Previous' },
       { 'g', group = 'Go to' },
