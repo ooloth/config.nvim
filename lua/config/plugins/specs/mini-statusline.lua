@@ -1,4 +1,5 @@
 ---@module 'mini.statusline'
+---@module 'dropbar'
 
 -- TODO: show attached formatters as well: https://gist.github.com/Lamarcke/36e086dd3bb2cebc593d505e2f838e07
 -- TODO: show @recording messages in statusline instead of notify pop-ups? https://github.com/folke/noice.nvim/wiki/Configuration-Recipes#show-recording-messages
@@ -50,6 +51,9 @@ end
 
 return {
   'echasnovski/mini.statusline',
+  dependencies = {
+    'Bekaboo/dropbar.nvim',
+  },
   opts = {
     content = {
       active = function()
@@ -79,7 +83,8 @@ return {
         return statusline.combine_groups({
           { hl = mode_hl, strings = { mode } },
           '%<', -- Mark general truncate point
-          { hl = 'MiniStatuslineFilename', strings = { filename } },
+          _G.dropbar(),
+          -- { hl = 'MiniStatuslineFilename', strings = { filename } },
           '%=', -- End left alignment
           { hl = mode_hl, strings = { search } },
           { hl = 'MiniStatuslineDiagnostics', strings = { diagnostics } },
@@ -89,6 +94,7 @@ return {
         })
       end,
       inactive = function()
+        -- return _G.dropbar()
         -- see: https://github.com/echasnovski/mini.statusline/blob/main/lua/mini/statusline.lua#L633C30-L633C83
         return '%#MiniStatuslineInactive#%f%=' -- show relative file path instead of absolute path
       end,
