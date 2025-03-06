@@ -3,6 +3,11 @@
 
 local get_system_executable_path = require('config.util').get_system_executable_path
 
+vim.cmd([[
+  autocmd InsertEnter * set colorcolumn=120
+  autocmd InsertLeave * set colorcolumn=""
+]])
+
 ---@param paths table A list of paths to check for executables
 ---@return string The first callable in the list of paths
 local function get_first_working_executable(paths)
