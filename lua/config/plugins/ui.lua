@@ -90,6 +90,7 @@ return {
   require('config.plugins.specs.dressing'),
   require('config.plugins.specs.fidget'),
   require('config.plugins.specs.mini-statusline'),
+  require('config.plugins.specs.nerd-column'),
   require('config.plugins.specs.noice'),
   require('config.plugins.specs.snacks-input'),
   require('config.plugins.specs.snacks-notifier'),
