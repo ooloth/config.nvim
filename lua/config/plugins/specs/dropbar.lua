@@ -1,4 +1,4 @@
--- TODO: show just the path breadcrumbs in inactive windows
+-- TODO: show just the path breadcrumbs in inactive windows: https://github.com/Bekaboo/dropbar.nvim/discussions/60
 
 return {
   'Bekaboo/dropbar.nvim',
