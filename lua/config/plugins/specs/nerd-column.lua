@@ -17,10 +17,38 @@ return {
         typescript = 120, -- TODO: derive from .prettierrc? or what conform.nvim knows?
         typescriptreact = 120, -- TODO: derive from .prettierrc? or what conform.nvim knows?
       },
-      disabled_file_types = vim.list_extend(
-        default_config.disabled_file_types,
-        { 'c', 'css', 'csv', 'markdown', 'text', 'tmux', 'yaml' }
-      ),
+      disabled_file_types = vim.list_extend(default_config.disabled_file_types, {
+        'c',
+        'css',
+        'csv',
+        'deno',
+        'docker',
+        'git',
+        'gleam',
+        'go',
+        'graphql',
+        'helm',
+        'html',
+        'json',
+        'markdown',
+        'perl',
+        'protobuf',
+        'pug',
+        'rego',
+        'ruby',
+        'rust',
+        'shell',
+        'sql',
+        'svelte',
+        'terraform',
+        'text',
+        'tmux',
+        'toml',
+        'vim',
+        'vue',
+        'xml',
+        'yaml',
+      }),
       scope = 'line',
     }
 
