@@ -104,13 +104,6 @@ return {
       servers = {
         -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pyright
         pyright = {
-          capabilities = (function()
-            -- Disable Pyright diagnostics (use flake8 or ruff for linting):
-            -- see: https://www.reddit.com/r/neovim/comments/11k5but/how_to_disable_pyright_diagnostics/
-            local capabilities = vim.lsp.protocol.make_client_capabilities()
-            capabilities.textDocument.publishDiagnostics.tagSupport.valueSet = { 2 }
-            return capabilities
-          end)(),
           settings = {
             -- see: https://microsoft.github.io/pyright/#/settings
             pyright = {
@@ -118,7 +111,7 @@ return {
             },
             python = {
               analysis = {
-                ignore = { '*' }, -- use ruff for linting
+                -- ignore = { '*' }, -- use ruff for linting -- NOTE: don't ignore '*' or unused code won't be grayed out (disabe individual diagnostics I don't want to see as I encounter them)
                 typeCheckingMode = 'off', -- use mypy for type checking
               },
               pythonPath = python, -- point pyright to venv
