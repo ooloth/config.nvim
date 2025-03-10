@@ -2,6 +2,8 @@
 
 return {
   'folke/snacks.nvim',
+  lazy = false,
+  priority = 1000,
   opts = {
     picker = {
       -- see: https://github.com/folke/snacks.nvim/blob/main/docs/picker.md
