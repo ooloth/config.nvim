@@ -24,7 +24,7 @@ return {
     auto_install = true, -- install missing parsers when entering buffer
     -- The following parsers MUST always be installed to override the versions that ship with neovim and avoid errors
     -- https://github.com/nvim-treesitter/nvim-treesitter#i-get-query-error-invalid-node-type-at-position
-    ensure_installed = { 'c', 'lua', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+    ensure_installed = { 'c', 'lua', 'markdown', 'markdown_inline', 'query', 'regex', 'vim', 'vimdoc' },
     highlight = { enable = true },
     indent = { enable = true },
     incremental_selection = {
