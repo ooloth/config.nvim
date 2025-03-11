@@ -7,22 +7,25 @@
 
 local get_attached_tools = function()
   local lsp_servers_attached_to_this_buffer = vim.lsp.get_clients({ bufnr = vim.fn.bufnr('%') })
-
-  -- NOTE: nvim-lint doesn't provide a way confirm which linters are "attached"; just which are configured
-  -- see: https://github.com/mfussenegger/nvim-lint/issues/559#issuecomment-2010049274
   local linters_configured_for_this_filetype = require('lint').linters_by_ft[vim.bo.filetype] or {}
+  local formatters_configured_for_this_filetype = require('conform').list_formatters_for_buffer(vim.fn.bufnr('%')) or {}
 
   -- Use a table's keys to track unique tool names (to prevent duplicates from accumulating)
   local unique_tool_names = {}
+
+  -- Add LSP clients to the unique tool names
+  for _, lsp_client in ipairs(lsp_servers_attached_to_this_buffer) do
+    unique_tool_names[lsp_client.name] = true
+  end
 
   -- Add linters to the unique tool names
   for _, linter in ipairs(linters_configured_for_this_filetype) do
     unique_tool_names[linter] = true
   end
 
-  -- Add LSP clients to the unique tool names
-  for _, lsp_client in ipairs(lsp_servers_attached_to_this_buffer) do
-    unique_tool_names[lsp_client.name] = true
+  -- Add formatters to the unique tool names
+  for _, formatter in ipairs(formatters_configured_for_this_filetype) do
+    unique_tool_names[formatter] = true
   end
 
   -- Convert the keys of the table back into a list
