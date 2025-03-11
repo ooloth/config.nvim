@@ -20,7 +20,13 @@ return {
       lsp_fallback = true,
     },
     formatters_by_ft = {
-      ['_'] = { 'trim_whitespace' }, -- "_" applies to all filetypes
+      ['_'] = function() -- "_" applies to filetypes with no formatter configured
+        if vim.bo.filetype ~= 'python' then
+          return { 'trim_whitespace' }
+        else
+          return {} -- Python is formatted by the ruff language server
+        end
+      end,
     },
     notify_on_error = true,
     -- # Example of using dprint only when a dprint.json file is present
