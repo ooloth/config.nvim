@@ -2,8 +2,6 @@
 
 -- TODO: integrate with other plugins? https://github.com/catppuccin/nvim?tab=readme-ov-file#integrations
 
--- mocha colors: https://github.com/catppuccin/nvim/blob/main/lua/catppuccin/palettes/mocha.lua
-
 return {
   'catppuccin/nvim',
   name = 'catppuccin',
@@ -74,9 +72,6 @@ return {
     vim.cmd.colorscheme('catppuccin')
 
     local mocha = require('catppuccin.palettes.mocha')
-
-    -- Brighter comments
-    vim.api.nvim_set_hl(0, 'Comment', { fg = '#7f849c' })
 
     -- Non-italic diagnostic counts in statusline
     vim.api.nvim_set_hl(0, 'DiagnosticError', { fg = mocha.red, italic = false })
