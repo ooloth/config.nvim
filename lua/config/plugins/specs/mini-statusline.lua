@@ -1,7 +1,6 @@
 ---@module 'mini.statusline'
 
--- TODO: show @recording messages in statusline instead of notify pop-ups? https://github.com/folke/noice.nvim/wiki/Configuration-Recipes#show-recording-messages
--- TODO: sort all attached lsp servers, formatters, and linters alphabetically
+-- TODO: cache values that are expensive to compute each time cursor moves?
 
 local get_file_path = function()
   local rel_path = vim.fn.expand('%:~:.')
@@ -23,6 +22,14 @@ local get_file_path = function()
   if vim.bo.readonly then file_path = file_path .. ' [RO]' end
 
   return file_path
+end
+
+local macro_recording_in_progress = function()
+  if vim.fn.reg_recording() ~= '' then
+    return 'Recording @' .. vim.fn.reg_recording()
+  else
+    return ''
+  end
 end
 
 local get_attached_tools = function()
@@ -82,6 +89,7 @@ return {
         local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 999 }) -- always truncate to just the filetype + icon
         local filepath = get_file_path()
         local location = '%2l:%-2v' -- LINE:COLUMN
+        local macro_recording = macro_recording_in_progress()
         local tools_attached_to_buffer = get_attached_tools()
         local search = statusline.section_searchcount({ trunc_width = 75 })
         local venv = get_active_venv()
@@ -98,6 +106,7 @@ return {
           '%<', -- Mark general truncate point
           { hl = 'MiniStatuslineFilename', strings = { filepath } },
           '%=', -- End left alignment
+          { hl = mode_hl, strings = { macro_recording } },
           { hl = mode_hl, strings = { search } },
           { hl = 'MiniStatuslineDiagnostics', strings = { diagnostics } },
           { hl = 'MiniStatuslineLspServers', strings = { tools_attached_to_buffer } },
@@ -106,9 +115,8 @@ return {
         })
       end,
       inactive = function()
-        -- return _G.dropbar()
         -- see: https://github.com/echasnovski/mini.statusline/blob/main/lua/mini/statusline.lua#L633C30-L633C83
-        return '%#MiniStatuslineInactive#%f%=' -- show relative file path instead of absolute path
+        return '%#MiniStatuslineInactive#%f%=' -- relative file path
       end,
     },
     set_vim_settings = false, -- don't override laststatus option

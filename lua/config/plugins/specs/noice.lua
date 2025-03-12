@@ -44,11 +44,6 @@ return {
     },
     routes = {
       {
-        -- show @recording messages (https://github.com/folke/noice.nvim/wiki/Configuration-Recipes#show-recording-messages)
-        filter = { event = 'msg_showmode' },
-        view = 'snacks',
-      },
-      {
         -- send "written" messages to mini view instead of snacks view (https://www.lazyvim.org/plugins/ui#noicenvim)
         filter = {
           event = 'msg_show',
