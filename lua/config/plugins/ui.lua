@@ -88,11 +88,11 @@ autocmd('FileType', {
 return {
   require('config.plugins.specs.catppuccin'),
   require('config.plugins.specs.dressing'),
-  require('config.plugins.specs.dropbar'),
   require('config.plugins.specs.fidget'),
   require('config.plugins.specs.mini-statusline'),
   require('config.plugins.specs.nerd-column'),
   require('config.plugins.specs.noice'),
+  require('config.plugins.specs.nvim-treesitter-context'),
   require('config.plugins.specs.snacks-input'),
   require('config.plugins.specs.snacks-notifier'),
   require('config.plugins.specs.snacks-zen'),

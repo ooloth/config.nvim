@@ -80,5 +80,9 @@ return {
 
     -- Must call after setup
     vim.cmd.colorscheme('catppuccin')
+
+    -- Halfway between "surface0" and "base"
+    vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = '#282839' })
+    vim.api.nvim_set_hl(0, 'TreesitterContextBottom', { bg = '#282839' })
   end,
 }
