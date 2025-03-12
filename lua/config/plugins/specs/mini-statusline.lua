@@ -1,6 +1,6 @@
 ---@module 'mini.statusline'
 
--- TODO: cache values that are expensive to compute each time cursor moves?
+-- TODO: cache values that are expensive to compute each time cursor moves? worth it?
 
 local get_file_path = function()
   local rel_path = vim.fn.expand('%:~:.')
@@ -83,9 +83,17 @@ return {
         -- see: https://github.com/echasnovski/mini.statusline/blob/main/lua/mini/statusline.lua#L606-L631
         local statusline = require('mini.statusline')
 
+        -- See: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/init.lua#L46-L51
+        local diagnostics_icons = {
+          ERROR = '%#DiagnosticError# ',
+          HINT = '%#DiagnosticHint# ',
+          INFO = '%#DiagnosticInfo# ',
+          WARN = '%#DiagnosticWarn# ',
+        }
+
         -- Get strings to display
         local mode, mode_hl = statusline.section_mode({ trunc_width = 9999 }) -- always truncate to one letter
-        local diagnostics = statusline.section_diagnostics({ trunc_width = 75 })
+        local diagnostics = statusline.section_diagnostics({ icon = '', signs = diagnostics_icons, trunc_width = 75 })
         local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 999 }) -- always truncate to just the filetype + icon
         local filepath = get_file_path()
         local location = '%2l:%-2v' -- LINE:COLUMN
