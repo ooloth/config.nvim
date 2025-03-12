@@ -84,7 +84,7 @@ return {
     local mocha = require('catppuccin.palettes.mocha')
     vim.api.nvim_set_hl(0, 'DiagnosticError', { fg = mocha.red, italic = false })
     vim.api.nvim_set_hl(0, 'DiagnosticHint', { fg = mocha.teal, italic = false })
-    vim.api.nvim_set_hl(0, 'DiagnosticInfo', { fg = mocha.blue, italic = false })
+    vim.api.nvim_set_hl(0, 'DiagnosticInfo', { fg = mocha.sky, italic = false })
     vim.api.nvim_set_hl(0, 'DiagnosticWarn', { fg = mocha.yellow, italic = false })
 
     -- Halfway between "surface0" and "base"
