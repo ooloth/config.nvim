@@ -7,8 +7,10 @@ return {
   },
   config = function()
     local opts = {
-      bar = {
-        enable = false, -- disable interactive winbar in favor of readonly string in statusline
+      sources = {
+        path = {
+          max_depth = 0, -- no path
+        },
       },
     }
 
