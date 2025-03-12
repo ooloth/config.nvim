@@ -13,19 +13,11 @@ return {
     -- see: https://github.com/catppuccin/nvim?tab=readme-ov-file#configuration
     require('catppuccin').setup({
       dim_inactive = {
-        enabled = false, -- dims the background color of inactive window
+        enabled = true, -- dims the background color of inactive window - FIXME: doesn't work
         shade = 'dark',
         percentage = 0.15, -- percentage of the shade to apply to the inactive window
       },
       flavour = 'mocha', -- latte, frappe, macchiato, mocha
-      highlight_overrides = {
-        -- see: https://github.com/catppuccin/nvim?tab=readme-ov-file#overwriting-highlight-groups
-        mocha = function(mocha)
-          return {
-            Comment = { fg = '#7f849c' }, -- brighter comments
-          }
-        end,
-      },
       -- see: https://github.com/catppuccin/nvim#integrations
       integrations = {
         cmp = true,
@@ -82,16 +74,18 @@ return {
     vim.cmd.colorscheme('catppuccin')
 
     local mocha = require('catppuccin.palettes.mocha')
+
+    -- Brighter comments
+    vim.api.nvim_set_hl(0, 'Comment', { fg = '#7f849c' })
+
+    -- Non-italic diagnostic counts in statusline
     vim.api.nvim_set_hl(0, 'DiagnosticError', { fg = mocha.red, italic = false })
     vim.api.nvim_set_hl(0, 'DiagnosticHint', { fg = mocha.teal, italic = false })
     vim.api.nvim_set_hl(0, 'DiagnosticInfo', { fg = mocha.sky, italic = false })
     vim.api.nvim_set_hl(0, 'DiagnosticWarn', { fg = mocha.yellow, italic = false })
 
+    -- Subtle background instead of underline
     vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = mocha.base })
     vim.api.nvim_set_hl(0, 'TreesitterContextBottom', { bg = mocha.base })
-
-    -- Halfway between "surface0" and "base"
-    -- vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = '#282839' })
-    -- vim.api.nvim_set_hl(0, 'TreesitterContextBottom', { bg = '#282839' })
   end,
 }
