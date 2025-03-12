@@ -1,9 +1,29 @@
 ---@module 'mini.statusline'
----@module 'dropbar'
 
--- TODO: show attached formatters as well: https://gist.github.com/Lamarcke/36e086dd3bb2cebc593d505e2f838e07
 -- TODO: show @recording messages in statusline instead of notify pop-ups? https://github.com/folke/noice.nvim/wiki/Configuration-Recipes#show-recording-messages
 -- TODO: sort all attached lsp servers, formatters, and linters alphabetically
+
+local get_file_path = function()
+  local rel_path = vim.fn.expand('%:~:.')
+  local width = vim.api.nvim_win_get_width(0)
+
+  -- In terminal always use plain name
+  local file_path = vim.bo.buftype == 'terminal' and '%t'
+    or rel_path == '' and '[No Name]'
+    or width < 125 and vim.fn.pathshorten(rel_path, 1)
+    or width < 130 and vim.fn.pathshorten(rel_path, 2)
+    or width < 135 and vim.fn.pathshorten(rel_path, 3)
+    or width < 140 and vim.fn.pathshorten(rel_path, 4)
+    or width < 145 and vim.fn.pathshorten(rel_path, 5)
+    or width < 150 and vim.fn.pathshorten(rel_path, 6)
+    or width < 155 and vim.fn.pathshorten(rel_path, 7)
+    or width < 160 and vim.fn.pathshorten(rel_path, 8)
+    or rel_path
+
+  if vim.bo.readonly then file_path = file_path .. ' [RO]' end
+
+  return file_path
+end
 
 local get_attached_tools = function()
   local lsp_servers_attached_to_this_buffer = vim.lsp.get_clients({ bufnr = vim.fn.bufnr('%') })
@@ -43,20 +63,12 @@ end
 
 local get_active_venv = function()
   if vim.bo.filetype ~= 'python' then return '' end
-
   if not vim.env.VIRTUAL_ENV then return '(no venv activated)' end
-
-  -- TODO: need anymore with uv?
-  -- example path (pyenv) = '/Users/michael/.pyenv/versions/3.12.1/envs/scraper'
-  -- example path (uv) = '/Users/michael/Repos/ooloth/some-python-project/.venv'
   return '(' .. vim.fs.basename(vim.env.VIRTUAL_ENV) .. ')'
 end
 
 return {
   'echasnovski/mini.statusline',
-  dependencies = {
-    'Bekaboo/dropbar.nvim',
-  },
   opts = {
     content = {
       active = function()
@@ -67,11 +79,9 @@ return {
         -- Get strings to display
         local mode, mode_hl = statusline.section_mode({ trunc_width = 9999 }) -- always truncate to one letter
         local diagnostics = statusline.section_diagnostics({ trunc_width = 75 })
-        local filename = statusline.section_filename({ trunc_width = 999 }) -- always truncate to the relative path
         local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 999 }) -- always truncate to just the filetype + icon
+        local filepath = get_file_path()
         local location = '%2l:%-2v' -- LINE:COLUMN
-        -- See: https://github.com/echasnovski/mini.statusline/blob/main/lua/mini/statusline.lua#L433
-        -- local location = '%l/%L %2v/%-2{virtcol("$") - 1}' -- LINE/LINES COLUMN/COLUMNS
         local tools_attached_to_buffer = get_attached_tools()
         local search = statusline.section_searchcount({ trunc_width = 75 })
         local venv = get_active_venv()
@@ -86,8 +96,7 @@ return {
         return statusline.combine_groups({
           { hl = mode_hl, strings = { mode } },
           '%<', -- Mark general truncate point
-          _G.dropbar(),
-          -- { hl = 'MiniStatuslineFilename', strings = { filename } },
+          { hl = 'MiniStatuslineFilename', strings = { filepath } },
           '%=', -- End left alignment
           { hl = mode_hl, strings = { search } },
           { hl = 'MiniStatuslineDiagnostics', strings = { diagnostics } },
