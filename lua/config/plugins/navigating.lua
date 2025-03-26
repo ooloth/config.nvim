@@ -80,8 +80,6 @@ set('n', '<leader>wt', '<cmd>tab split<cr>', { desc = 'Open in new tab' })
 set('n', '<leader>ww', '<c-w>p', { desc = 'Other Window', remap = true })
 -- TODO: "leader-ww" = pick window (see nvim-window-picker.lua)?
 
--- new file
-
 -- lazy
 set('n', '<leader>l', '<cmd>Lazy<cr>', { desc = 'Lazy' })
 
