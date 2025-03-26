@@ -2,6 +2,13 @@
 
 -- TODO: cache values that are expensive to compute each time cursor moves? worth it?
 
+-- TODO: identify json/yaml/toml schema active in buffer?
+-- local get_json_schema = function()
+--   local schema = lsp.get_jsonschema(0)
+--   if not schema or not schema.result[1] then return '' end
+--   return schema.result[1]
+-- end
+
 local get_file_path = function()
   local rel_path = vim.fn.expand('%:~:.')
   local width = vim.api.nvim_win_get_width(0)
@@ -99,6 +106,7 @@ return {
         local location = '%2l:%-2v' -- LINE:COLUMN
         local macro_recording = macro_recording_in_progress()
         local tools_attached_to_buffer = get_attached_tools()
+        -- local schema = get_json_schema()
         local search = statusline.section_searchcount({ trunc_width = 75 })
         local venv = get_active_venv()
 
