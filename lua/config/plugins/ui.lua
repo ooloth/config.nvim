@@ -40,6 +40,9 @@ vim.opt.wrap = false -- disable line wrap
 local set = vim.keymap.set
 local autocmd = vim.api.nvim_create_autocmd
 
+-- Toggle line numbers (when hiding, hide relative numbers too)
+set('n', '<leader>on', '<cmd>set nu! nornu<cr>', { desc = 'Line numbers (toggle)' })
+
 -- Resize window using <ctrl> arrow keys
 set('n', '<C-Up>', '<cmd>resize +2<cr>', { desc = 'Increase Window Height' })
 set('n', '<C-Down>', '<cmd>resize -2<cr>', { desc = 'Decrease Window Height' })
