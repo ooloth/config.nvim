@@ -1,5 +1,4 @@
--- TODO:
--- fidget: fix bg color
+-- TODO: fidget: fix bg color
 
 vim.opt.background = 'dark' -- colorschemes that can be light or dark will be made dark
 vim.opt.breakindent = true
@@ -51,7 +50,7 @@ set({ 'i', 'n' }, '<esc>', '<cmd>nohlsearch<cr><esc>', { silent = true })
 
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua
-set('n', '<leader>ur', '<cmd>nohlsearch<bar>diffupdate<bar>normal! <C-L><cc>', { desc = 'Redraw' })
+set('n', '<leader>ur', '<cmd>nohlsearch<bar>diffupdate<bar>normal! <C-L><cr>', { desc = 'Redraw' })
 
 vim.cmd([[
   autocmd InsertEnter * set nocursorline
