@@ -10,11 +10,6 @@ return {
   config = function()
     -- see: https://github.com/catppuccin/nvim?tab=readme-ov-file#configuration
     require('catppuccin').setup({
-      dim_inactive = {
-        enabled = true, -- dims the background color of inactive window - FIXME: doesn't work
-        shade = 'dark',
-        percentage = 0.15, -- percentage of the shade to apply to the inactive window
-      },
       flavour = 'mocha', -- latte, frappe, macchiato, mocha
       -- see: https://github.com/catppuccin/nvim#integrations
       integrations = {
@@ -80,7 +75,7 @@ return {
     vim.api.nvim_set_hl(0, 'DiagnosticWarn', { fg = mocha.yellow, italic = false })
 
     -- Subtle background instead of underline
-    vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = mocha.base })
-    vim.api.nvim_set_hl(0, 'TreesitterContextBottom', { bg = mocha.base })
+    vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = '#232333' }) -- 25% of way from base to surface0
+    vim.api.nvim_set_hl(0, 'TreesitterContextBottom', { bg = '#232333' })
   end,
 }

@@ -1,5 +1,4 @@
--- TODO:
--- fidget: fix bg color
+-- TODO: fidget: fix bg color
 
 vim.opt.background = 'dark' -- colorschemes that can be light or dark will be made dark
 vim.opt.breakindent = true
@@ -40,18 +39,18 @@ vim.opt.wrap = false -- disable line wrap
 local set = vim.keymap.set
 local autocmd = vim.api.nvim_create_autocmd
 
--- Resize window using <ctrl> arrow keys
-set('n', '<C-Up>', '<cmd>resize +2<cr>', { desc = 'Increase Window Height' })
-set('n', '<C-Down>', '<cmd>resize -2<cr>', { desc = 'Decrease Window Height' })
-set('n', '<C-Left>', '<cmd>vertical resize -2<cr>', { desc = 'Decrease Window Width' })
-set('n', '<C-Right>', '<cmd>vertical resize +2<cr>', { desc = 'Increase Window Width' })
+-- Toggle line numbers (when hiding, hide relative numbers too)
+set('n', '<leader>on', '<cmd>set nu! nornu<cr>', { desc = 'Line numbers (toggle)' })
+
+-- Toggle relative line numbers (show/hide absolute numbers at same time)
+set('n', '<leader>or', '<cmd>set rnu! nu!<cr>', { desc = 'Relative line numbers (toggle)' })
 
 -- Clear search highlights on <esc>
 set({ 'i', 'n' }, '<esc>', '<cmd>nohlsearch<cr><esc>', { silent = true })
 
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua
-set('n', '<leader>ur', '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>', { desc = 'Redraw / Clear hlsearch / Diff Update' })
+set('n', '<leader>ur', '<cmd>nohlsearch<bar>diffupdate<bar>normal! <C-L><cr>', { desc = 'Redraw' })
 
 vim.cmd([[
   autocmd InsertEnter * set nocursorline

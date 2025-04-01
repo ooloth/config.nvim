@@ -23,7 +23,7 @@ return {
       { '<leader>gl', group = 'Log' },
       { '<leader>gt', group = 'Toggle' },
       { '<leader>i', group = 'Inspect' },
-      { '<leader>o', group = 'Open' },
+      { '<leader>o', group = 'Option' },
       { '<leader>q', group = 'Quit' },
       { '<leader>r', group = 'Refactor' },
       { '<leader>s', group = 'Search' },

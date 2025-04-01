@@ -27,6 +27,9 @@ end)
 local autocmd = vim.api.nvim_create_autocmd
 local set = vim.keymap.set
 
+-- new file
+set('n', '<leader>fn', ':ene <BAR> startinsert<cr>', { desc = 'New file' })
+
 -- better indenting
 set('v', '<', '<gv')
 set('v', '>', '>gv')

@@ -48,11 +48,9 @@ set('n', '<leader>eu', '<cmd>e#<cr>', { desc = 'Undo close editor' }) -- fakes t
 
 -- navigate to location list
 set('n', 'gl', '<cmd>lopen<cr>', { desc = 'Location list' })
-set('n', '<leader>ol', '<cmd>lopen<cr>', { desc = 'Location list' }) -- use ]l + [l to navigate
 
 -- navigate to quickfix list
 set('n', 'gq', '<cmd>botright copen<cr>', { desc = 'Quickfix list' })
-set('n', '<leader>oq', '<cmd>copen<cr>', { desc = 'Quickfix list' }) -- use ]q + [q to navigate
 
 -- navigate out of neovim
 set('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit All' })
@@ -81,10 +79,6 @@ set('n', '<leader>wd', '<c-w>c', { desc = 'Delete Window', remap = true })
 set('n', '<leader>wt', '<cmd>tab split<cr>', { desc = 'Open in new tab' })
 set('n', '<leader>ww', '<c-w>p', { desc = 'Other Window', remap = true })
 -- TODO: "leader-ww" = pick window (see nvim-window-picker.lua)?
-
--- new file
-set('n', '<leader>fn', '<cmd>enew<cr>', { desc = 'New File' })
-set('n', '<leader>on', ':ene <BAR> startinsert<cr>', { desc = 'New file' })
 
 -- lazy
 set('n', '<leader>l', '<cmd>Lazy<cr>', { desc = 'Lazy' })

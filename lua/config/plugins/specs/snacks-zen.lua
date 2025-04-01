@@ -12,7 +12,6 @@ return {
     },
   },
   keys = {
-    -- { '<c-m>', function() Snacks.zen.zoom() end, desc = 'Maximize (toggle)', mode = { 't' } }, -- FIXME: do something along these lines in the c-t terminal split window?
     { '<leader>em', function() Snacks.zen.zoom() end, desc = 'Maximize (toggle)', mode = { 'n', 'v' } },
     { '<leader>uz', function() Snacks.zen.zen() end, desc = 'Zen mode (toggle)', mode = { 'n', 'v' } },
     { '<leader>wm', function() Snacks.zen.zoom() end, desc = 'Maximize (toggle)', mode = { 'n', 'v' } },
