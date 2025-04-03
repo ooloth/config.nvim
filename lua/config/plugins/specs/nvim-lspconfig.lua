@@ -63,9 +63,9 @@ local set_lsp_keymaps = function(lsp_attach_event)
   if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
     buffer_map(
       'n',
-      '<leader>uh',
+      '<leader>ui',
       function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = lsp_attach_event.buf })) end,
-      'Toggle inlay hints'
+      'Inlay hints (toggle)'
     )
   end
 end
