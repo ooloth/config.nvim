@@ -32,11 +32,8 @@ local get_file_path = function()
 end
 
 local macro_recording_in_progress = function()
-  if vim.fn.reg_recording() ~= '' then
-    return 'Recording @' .. vim.fn.reg_recording()
-  else
-    return ''
-  end
+  if vim.fn.reg_recording() == '' then return '' end
+  return 'Recording @' .. vim.fn.reg_recording()
 end
 
 local get_attached_tools = function()
