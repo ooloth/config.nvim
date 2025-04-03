@@ -46,13 +46,13 @@ return {
     layouts = {
       {
         elements = {
-          { id = 'watches', size = 0.15 },
-          { id = 'breakpoints', size = 0.15 },
           { id = 'stacks', size = 0.25 },
           { id = 'scopes', size = 0.45 },
+          { id = 'watches', size = 0.15 },
+          { id = 'breakpoints', size = 0.15 },
         },
         position = 'right',
-        size = 0.25,
+        size = 70,
       },
       {
         elements = { 'console', 'repl' },
