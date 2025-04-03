@@ -52,7 +52,7 @@ set('n', '<leader>uw', '<cmd>set wrap!<cr>', { desc = 'Line wrapping (toggle)' }
 
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua
-set('n', '<leader>ur', '<cmd>nohlsearch<bar>diffupdate<bar>normal! <C-L><cr>', { desc = 'Redraw' })
+set('n', '<leader>ud', '<cmd>nohlsearch<bar>diffupdate<bar>normal! <C-L><cr>', { desc = 'Draw screen again' })
 
 vim.cmd([[
   autocmd InsertEnter * set nocursorline
