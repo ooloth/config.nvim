@@ -1,5 +1,6 @@
 ---@module 'neotest'
 
+-- TODO: https://tamerlan.dev/setting-up-a-testing-environment-in-neovim/
 -- TODO: https://www.lazyvim.org/extras/test/core
 
 return {
