@@ -10,7 +10,7 @@ return {
     notify = {},
   },
   keys = {
-    { '<leader>n', function() Snacks.notifier.show_history() end, desc = 'Notification History' },
-    { '<leader>un', function() Snacks.notifier.hide() end, desc = 'Dismiss All Notifications' },
+    { '<leader>n', function() Snacks.notifier.show_history() end, desc = 'Notifications (history)' },
+    { '<leader>un', function() Snacks.notifier.hide() end, desc = 'Notifications (dismiss)' },
   },
 }

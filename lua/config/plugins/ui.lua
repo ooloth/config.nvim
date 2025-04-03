@@ -45,14 +45,15 @@ set('n', '<leader>ul', '<cmd>set nu! nornu<cr>', { desc = 'Line numbers (toggle)
 -- Toggle relative line numbers (show/hide absolute numbers at same time)
 set('n', '<leader>ur', '<cmd>set rnu! nu!<cr>', { desc = 'Relative line numbers (toggle)' })
 
--- Clear search highlights on <esc>
-set({ 'i', 'n' }, '<esc>', '<cmd>nohlsearch<cr><esc>', { silent = true })
 -- Toggle line wrapping
 set('n', '<leader>uw', '<cmd>set wrap!<cr>', { desc = 'Line wrapping (toggle)' })
 
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua
 set('n', '<leader>ud', '<cmd>nohlsearch<bar>diffupdate<bar>normal! <C-L><cr>', { desc = 'Draw screen again' })
+
+-- Clear search highlights on <esc>
+set({ 'i', 'n' }, '<esc>', '<cmd>nohlsearch<cr><esc>', { silent = true })
 
 vim.cmd([[
   autocmd InsertEnter * set nocursorline
