@@ -1,7 +1,6 @@
 ---@module 'nvim-lspconfig'
 
 -- TODO: gd: go straight to definition?
--- TODO: inlay hints: leader-u* keymap to toggle
 -- TODO: inlay hints: configure to show only some (e.g. show arg types but hide function reference counts?)
 -- TODO: more ideas: https://github.com/ilias777/nvim/blob/1d0f2e122525869025c4fd6171d69a23020234e1/lua/plugins/lsp/lsp-config.lua
 
@@ -155,7 +154,7 @@ return {
         highlight_references_to_cursor_word_in_editor(event)
         show_active_diagnostics_on_cursor_line()
         change_diagnostic_signs()
-        enable_inlay_hints(event)
+        -- enable_inlay_hints(event) NOTE: toggle on with leader-ui, but don't turn on by default
         enable_code_lenses(event)
       end,
     })
