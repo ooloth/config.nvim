@@ -16,14 +16,14 @@ local get_file_path = function()
   -- In terminal always use plain name
   local file_path = vim.bo.buftype == 'terminal' and '%t'
     or rel_path == '' and '[No Name]'
-    or width < 80 and vim.fn.pathshorten(rel_path, 1)
-    or width < 85 and vim.fn.pathshorten(rel_path, 2)
-    or width < 90 and vim.fn.pathshorten(rel_path, 3)
-    or width < 95 and vim.fn.pathshorten(rel_path, 4)
-    or width < 100 and vim.fn.pathshorten(rel_path, 5)
-    or width < 105 and vim.fn.pathshorten(rel_path, 6)
-    or width < 110 and vim.fn.pathshorten(rel_path, 7)
-    or width < 115 and vim.fn.pathshorten(rel_path, 8)
+    or width < 90 and vim.fn.pathshorten(rel_path, 1)
+    or width < 95 and vim.fn.pathshorten(rel_path, 2)
+    or width < 100 and vim.fn.pathshorten(rel_path, 3)
+    or width < 105 and vim.fn.pathshorten(rel_path, 4)
+    or width < 110 and vim.fn.pathshorten(rel_path, 5)
+    or width < 115 and vim.fn.pathshorten(rel_path, 6)
+    or width < 120 and vim.fn.pathshorten(rel_path, 7)
+    or width < 125 and vim.fn.pathshorten(rel_path, 8)
     or rel_path
 
   if vim.bo.readonly then file_path = file_path .. ' [RO]' end
@@ -40,6 +40,9 @@ local macro_recording_in_progress = function()
 end
 
 local get_attached_tools = function()
+  local width = vim.api.nvim_win_get_width(0)
+  if width < 90 then return '' end
+
   local lsp_servers_attached_to_this_buffer = vim.lsp.get_clients({ bufnr = vim.fn.bufnr('%') })
   local linters_configured_for_this_filetype = require('lint').linters_by_ft[vim.bo.filetype] or {}
   local formatters_configured_for_this_filetype = require('conform').list_formatters_for_buffer(vim.fn.bufnr('%')) or {}
