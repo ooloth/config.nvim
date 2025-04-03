@@ -81,11 +81,27 @@ local get_active_venv = function()
   return '(' .. vim.fs.basename(vim.env.VIRTUAL_ENV) .. ')'
 end
 
+local dapui_filetypes = {
+  ['dap-repl'] = true,
+  ['dapui_breakpoints'] = true,
+  ['dapui_console'] = true,
+  ['dapui_hover'] = true,
+  ['dapui_scopes'] = true,
+  ['dapui_stacks'] = true,
+  ['dapui_watches'] = true,
+}
+
 return {
   'echasnovski/mini.statusline',
   opts = {
     content = {
       active = function()
+        local mocha = require('catppuccin.palettes.mocha')
+
+        if dapui_filetypes[vim.bo.filetype] then
+          return '%#MiniStatuslineInactive#%=%f' -- relative file path (right-aligned)
+        end
+
         -- see: `:h MiniStatusline-example-content`
         -- see: https://github.com/echasnovski/mini.statusline/blob/main/lua/mini/statusline.lua#L606-L631
         local statusline = require('mini.statusline')
@@ -111,7 +127,6 @@ return {
         local venv = get_active_venv()
 
         -- Customize highlight group colors
-        local mocha = require('catppuccin.palettes.mocha')
         vim.api.nvim_set_hl(0, 'MiniStatuslineFilename', { bg = 'none' }) -- no middle bg color across statusline
         vim.api.nvim_set_hl(0, 'MiniStatuslineLspServers', { bg = mocha.surface0 })
         vim.api.nvim_set_hl(0, 'MiniStatuslineDiagnostics', { fg = mocha.yellow })
@@ -131,6 +146,8 @@ return {
         })
       end,
       inactive = function()
+        if dapui_filetypes[vim.bo.filetype] then return '' end
+
         -- see: https://github.com/echasnovski/mini.statusline/blob/main/lua/mini/statusline.lua#L633C30-L633C83
         return '%#MiniStatuslineInactive#%f%=' -- relative file path
       end,
