@@ -213,9 +213,13 @@ return {
         { '<leader>dPc', function() require('dap-python').test_class() end, desc = 'Debug Class', ft = 'python' },
       },
       config = function()
+        local dap_python = require('dap-python')
+
+        dap_python.test_runner = 'pytest'
+
         -- uv will provide its own debugpy executable (ignoring the one in venv, if present)
         -- see: https://github.com/mfussenegger/nvim-dap-python/blob/master/lua/dap-python.lua#L242-L243
-        require('dap-python').setup('uv')
+        dap_python.setup('uv')
       end,
     },
   },
