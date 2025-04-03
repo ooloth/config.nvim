@@ -2,11 +2,32 @@
 
 return {
   'mfussenegger/nvim-dap',
-  recommended = true,
-  desc = 'Debugging support. Requires language specific adapters to be configured. (see lang extras)',
   dependencies = {
     'rcarriga/nvim-dap-ui',
     'theHamsta/nvim-dap-virtual-text',
+    {
+      'rcarriga/cmp-dap',
+      dependencies = { 'hrsh7th/nvim-cmp' },
+      config = function()
+        -- Add completion support in dap-repl, dapui_watches, and dapui_hover buffers
+        require('cmp').setup({
+          enabled = function() return vim.api.nvim_buf_get_option(0, 'buftype') ~= 'prompt' or require('cmp_dap').is_dap_buffer() end,
+        })
+
+        require('cmp').setup.filetype({ 'dap-repl', 'dapui_watches', 'dapui_hover' }, {
+          sources = {
+            { name = 'dap' },
+          },
+        })
+
+        -- FIXME: doesn't work
+        -- vim.api.nvim_create_autocmd('FileType', {
+        --   pattern = { 'dap-repl', 'dapui_watches', 'dapui_hover' },
+        --   callback = function() vim.opt_local.wrap = true end,
+        --   desc = 'Enable line-wrapping for DAP-REPL filetypes',
+        -- })
+      end,
+    },
   },
 
   -- stylua: ignore
