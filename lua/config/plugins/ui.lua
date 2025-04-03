@@ -47,6 +47,8 @@ set('n', '<leader>ur', '<cmd>set rnu! nu!<cr>', { desc = 'Relative line numbers 
 
 -- Clear search highlights on <esc>
 set({ 'i', 'n' }, '<esc>', '<cmd>nohlsearch<cr><esc>', { silent = true })
+-- Toggle line wrapping
+set('n', '<leader>uw', '<cmd>set wrap!<cr>', { desc = 'Line wrapping (toggle)' })
 
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua
