@@ -43,7 +43,7 @@ local autocmd = vim.api.nvim_create_autocmd
 set('n', '<leader>ul', '<cmd>set nu! nornu<cr>', { desc = 'Line numbers (toggle)' })
 
 -- Toggle relative line numbers (show/hide absolute numbers at same time)
-set('n', '<leader>or', '<cmd>set rnu! nu!<cr>', { desc = 'Relative line numbers (toggle)' })
+set('n', '<leader>ur', '<cmd>set rnu! nu!<cr>', { desc = 'Relative line numbers (toggle)' })
 
 -- Clear search highlights on <esc>
 set({ 'i', 'n' }, '<esc>', '<cmd>nohlsearch<cr><esc>', { silent = true })
