@@ -43,23 +43,23 @@ return {
     -- },
     -- icons = { collapsed = '', current_frame = '', expanded = '' },
     -- icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
-    -- layouts = {
-    --   {
-    --     elements = {
-    --       { id = 'scopes', size = 0.45 },
-    --       { id = 'watches', size = 0.15 },
-    --       { id = 'breakpoints', size = 0.15 },
-    --       { id = 'stacks', size = 0.25 },
-    --     },
-    --     position = 'right',
-    --     size = 70,
-    --   },
-    --   {
-    --     elements = { 'repl', 'console' },
-    --     position = 'bottom',
-    --     size = 16,
-    --   },
-    -- },
+    layouts = {
+      {
+        elements = {
+          { id = 'watches', size = 0.15 },
+          { id = 'breakpoints', size = 0.15 },
+          { id = 'stacks', size = 0.25 },
+          { id = 'scopes', size = 0.45 },
+        },
+        position = 'right',
+        size = 0.25,
+      },
+      {
+        elements = { 'console', 'repl' },
+        position = 'bottom',
+        size = 16,
+      },
+    },
     -- mappings = {
     --   edit = 'e',
     --   expand = { 'l', '<CR>', '<2-LeftMouse>' },
