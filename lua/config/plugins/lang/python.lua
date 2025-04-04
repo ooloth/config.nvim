@@ -217,9 +217,14 @@ return {
 
         dap_python.test_runner = 'pytest'
 
+        -- TODO: make this device specific? use uv unless on work laptop?
+
+        -- NOTE: I'd ideally prefer to use the "uv" option since it doesn't require every project to install debugpy and allows
+        -- me to expect a consistent debugpy version in every project. But it immediately exits with an error on my work laptop...
         -- uv will provide its own debugpy executable (ignoring the one in venv, if present)
         -- see: https://github.com/mfussenegger/nvim-dap-python/blob/master/lua/dap-python.lua#L242-L243
-        dap_python.setup('uv')
+        dap_python.setup(python)
+        -- dap_python.setup('uv')
       end,
     },
   },
