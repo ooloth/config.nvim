@@ -1,5 +1,6 @@
 ---@module 'catppuccin'
 
+-- See: https://catppuccin.com/palette/
 -- TODO: integrate with other plugins? https://github.com/catppuccin/nvim?tab=readme-ov-file#integrations
 
 return {

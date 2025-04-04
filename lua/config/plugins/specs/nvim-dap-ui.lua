@@ -9,70 +9,75 @@ return {
     { '<leader>du', function() require('dapui').toggle({}) end, desc = 'Dap UI' },
     { '<leader>de', function() require('dapui').eval() end, desc = 'Eval', mode = { 'n', 'v' } },
   },
-  opts = {
-    -- see: https://github.com/rcarriga/nvim-dap-ui/blob/master/lua/dapui/config/init.lua
-    -- controls = {
-    --   element = 'repl',
-    --   enabled = false,
-    --   icons = {
-    --     pause = '⏸',
-    --     play = '▶',
-    --     step_into = '⏎',
-    --     step_over = '⏭',
-    --     step_out = '⏮',
-    --     step_back = 'b',
-    --     run_last = '▶▶',
-    --     terminate = '⏹',
-    --     disconnect = '⏏',
-    --   },
-    -- },
-    -- element_mappings = {
-    --   scopes = {},
-    --   watches = {},
-    --   stacks = {},
-    --   breakpoints = {},
-    --   console = {},
-    --   repl = {},
-    -- },
-    -- expand_lines = true,
-    -- floating = {
-    --   border = 'single',
-    --   mappings = {
-    --     close = { 'q', '<Esc>' },
-    --   },
-    -- },
-    -- icons = { collapsed = '', current_frame = '', expanded = '' },
-    -- icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
-    layouts = {
-      {
-        elements = {
-          { id = 'stacks', size = 0.25 },
-          { id = 'scopes', size = 0.45 },
-          { id = 'watches', size = 0.15 },
-          { id = 'breakpoints', size = 0.15 },
+  opts = function()
+    local width = vim.api.nvim_win_get_width(0)
+    local height = vim.api.nvim_win_get_height(0)
+
+    return {
+      -- see: https://github.com/rcarriga/nvim-dap-ui/blob/master/lua/dapui/config/init.lua
+      -- controls = {
+      --   element = 'repl',
+      --   enabled = false,
+      --   icons = {
+      --     pause = '⏸',
+      --     play = '▶',
+      --     step_into = '⏎',
+      --     step_over = '⏭',
+      --     step_out = '⏮',
+      --     step_back = 'b',
+      --     run_last = '▶▶',
+      --     terminate = '⏹',
+      --     disconnect = '⏏',
+      --   },
+      -- },
+      -- element_mappings = {
+      --   scopes = {},
+      --   watches = {},
+      --   stacks = {},
+      --   breakpoints = {},
+      --   console = {},
+      --   repl = {},
+      -- },
+      -- expand_lines = true,
+      -- floating = {
+      --   border = 'single',
+      --   mappings = {
+      --     close = { 'q', '<Esc>' },
+      --   },
+      -- },
+      -- icons = { collapsed = '', current_frame = '', expanded = '' },
+      -- icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
+      layouts = {
+        {
+          elements = {
+            { id = 'stacks', size = 0.25 },
+            { id = 'scopes', size = 0.45 },
+            { id = 'watches', size = 0.15 },
+            { id = 'breakpoints', size = 0.15 },
+          },
+          position = 'right',
+          size = 70,
         },
-        position = 'right',
-        size = 70,
+        {
+          elements = { 'console' },
+          position = 'bottom',
+          size = 12,
+        },
       },
-      {
-        elements = { 'console', 'repl' },
-        position = 'bottom',
-        size = 16,
-      },
-    },
-    -- mappings = {
-    --   edit = 'e',
-    --   expand = { 'l', '<CR>', '<2-LeftMouse>' },
-    --   open = 'o',
-    --   remove = 'd',
-    --   repl = 'r',
-    --   toggle = 't',
-    -- },
-    -- render = {
-    --   indent = 1,
-    --   max_value_lines = 1000,
-    -- },
-  },
+      -- mappings = {
+      --   edit = 'e',
+      --   expand = { 'l', '<CR>', '<2-LeftMouse>' },
+      --   open = 'o',
+      --   remove = 'd',
+      --   repl = 'r',
+      --   toggle = 't',
+      -- },
+      -- render = {
+      --   indent = 1,
+      --   max_value_lines = 1000,
+      -- },
+    }
+  end,
   config = function(_, opts)
     local dap = require('dap')
     local dapui = require('dapui')
