@@ -10,8 +10,15 @@ return {
     { '<leader>de', function() require('dapui').eval() end, desc = 'Eval', mode = { 'n', 'v' } },
   },
   opts = function()
-    local width = vim.api.nvim_win_get_width(0)
-    local height = vim.api.nvim_win_get_height(0)
+    local entire_neovim_ui = vim.api.nvim_list_uis()[1]
+    local total_ui_width = entire_neovim_ui.width
+    local total_ui_height = entire_neovim_ui.height
+
+    -- Sidebar should be 1/3 of the total UI width, with a minimum of 20 and a maximum of 80
+    local sidebar_width = math.max(20, math.min(80, math.floor(total_ui_width * 0.33)))
+
+    -- Bottom panel should be 15% of the total UI height, with a minimum of 10 and a maximum of 30
+    local bottom_panel_height = math.max(10, math.min(30, math.floor(total_ui_height * 0.15)))
 
     return {
       -- see: https://github.com/rcarriga/nvim-dap-ui/blob/master/lua/dapui/config/init.lua
@@ -56,12 +63,12 @@ return {
             { id = 'breakpoints', size = 0.15 },
           },
           position = 'right',
-          size = 70,
+          size = sidebar_width,
         },
         {
           elements = { 'console' },
           position = 'bottom',
-          size = 12,
+          size = bottom_panel_height,
         },
       },
       -- mappings = {
