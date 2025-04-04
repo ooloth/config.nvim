@@ -69,6 +69,9 @@ return {
       vim.fn.sign_define(name, { text = text, texthl = texthl, linehl = linehl, numhl = linehl })
     end
 
+    -- NOTE: if launch.json options don't appear, check for a trailing comma or other invalid json (dap parses as json, not jsonc)
+    -- See: https://github.com/mfussenegger/nvim-dap/issues/1442
+
     -- Set up dap configs using vscode launch.json files
     local vscode = require('dap.ext.vscode')
     local json = require('plenary.json')
