@@ -43,10 +43,8 @@ return {
     { '<leader>ds', function() require('dap').step_over() end, desc = 'Step Over' },
     { "<leader>dS", function() require("dap").session() end, desc = "Session" },
     { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
-    { '<leader>du', function() require('dapui').toggle({}) end, desc = 'Dap UI' },
     { '<leader>du', function() require('dapui').toggle({ reset = true }) end, desc = 'Dap UI (toggle)' },
     { '<leader>dw', function() require('dapui').elements.watches.add() end, desc = 'Watch symbol under cursor' },
-    { "<leader>dW", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
     { '<leader>dx', function() require('dap').terminate() end, desc = 'End session' },
   },
 
