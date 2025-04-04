@@ -22,9 +22,9 @@ return {
 
         -- FIXME: doesn't work
         -- vim.api.nvim_create_autocmd('FileType', {
+        --   desc = 'Enable line-wrapping for DAP-REPL filetypes',
         --   pattern = { 'dap-repl', 'dapui_watches', 'dapui_hover' },
         --   callback = function() vim.opt_local.wrap = true end,
-        --   desc = 'Enable line-wrapping for DAP-REPL filetypes',
         -- })
       end,
     },
