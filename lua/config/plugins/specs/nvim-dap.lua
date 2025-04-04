@@ -32,6 +32,7 @@ return {
     { "<leader>dd", function() require("dap").continue() end, desc = "Start/continue" },
     { '<leader>de', function() require('dapui').eval(nil, { enter = true }) end, desc = 'Evaluate', mode = { 'n', 'v' } },
     { '<leader>dg', function() require('dap').goto_() end, desc = 'Go to line (no execute)' },
+    { '<leader>dh', function() require('dapui').eval(nil, { enter = true }) end, desc = 'Hover', mode = { 'n', 'v' } },
     { "<leader>di", function() require("dap").step_into() end, desc = "Step Into" },
     { '<leader>dj', function() require('dap').down() end, desc = 'Move down stack' },
     { '<leader>dk', function() require('dap').up() end, desc = 'Move up stack' },
