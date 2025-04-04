@@ -20,8 +20,8 @@ return {
     'nvim-neotest/nvim-nio',
   },
   keys = {
-    { '<leader>du', function() require('dapui').toggle({ reset = true }) end, desc = 'Dap UI' },
-    { '<leader>de', function() require('dapui').eval() end, desc = 'Eval', mode = { 'n', 'v' } },
+    { '<leader>du', function() require('dapui').toggle({ reset = true }) end, desc = 'Dap UI (toggle)' },
+    { '<leader>de', function() require('dapui').eval(nil, { enter = true }) end, desc = 'Evaluate', mode = { 'n', 'v' } },
   },
   opts = function()
     local entire_neovim_ui = vim.api.nvim_list_uis()[1]
