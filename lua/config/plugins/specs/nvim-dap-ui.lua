@@ -1,5 +1,19 @@
 ---@module 'nvim-dap-ui'
 
+-- See: https://github.com/rcarriga/nvim-dap-ui/issues/248#issuecomment-1856031764
+vim.api.nvim_create_autocmd('BufWinEnter', {
+  desc = 'Set options on DAP windows',
+  group = vim.api.nvim_create_augroup('set_dap_win_options', { clear = true }),
+  pattern = { '\\[dap-repl-*\\]', 'DAP Watches' },
+  callback = function(args)
+    local win = vim.fn.bufwinid(args.buf)
+    vim.schedule(function()
+      if not vim.api.nvim_win_is_valid(win) then return end
+      vim.api.nvim_set_option_value('wrap', true, { win = win })
+    end)
+  end,
+})
+
 return {
   'rcarriga/nvim-dap-ui',
   dependencies = {
