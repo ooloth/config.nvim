@@ -78,5 +78,8 @@ return {
     -- Subtle background instead of underline
     vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = '#232333' }) -- 25% of way from base to surface0
     vim.api.nvim_set_hl(0, 'TreesitterContextBottom', { bg = '#232333' })
+
+    -- More noticeable than default comment color
+    vim.api.nvim_set_hl(0, 'NvimDapVirtualText', { fg = mocha.subtext0 })
   end,
 }
