@@ -14,6 +14,14 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
   end,
 })
 
+-- TODO: calculate appropriate new size each time?
+vim.api.nvim_create_autocmd('VimResized', {
+  desc = 'Reset nvim-dap-ui window sizes after resizing Neovim window',
+  callback = function()
+    if require('dap').session() then require('dapui').open({ reset = true }) end
+  end,
+})
+
 return {
   'rcarriga/nvim-dap-ui',
   dependencies = {
