@@ -6,7 +6,7 @@ return {
     'nvim-neotest/nvim-nio',
   },
   keys = {
-    { '<leader>du', function() require('dapui').toggle({}) end, desc = 'Dap UI' },
+    { '<leader>du', function() require('dapui').toggle({ reset = true }) end, desc = 'Dap UI' },
     { '<leader>de', function() require('dapui').eval() end, desc = 'Eval', mode = { 'n', 'v' } },
   },
   opts = function()
