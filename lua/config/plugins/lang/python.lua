@@ -215,16 +215,14 @@ return {
       config = function()
         local dap_python = require('dap-python')
 
-        dap_python.test_runner = 'pytest'
-
-        -- TODO: make this device specific? use uv unless on work laptop?
-
-        -- NOTE: I'd ideally prefer to use the "uv" option since it doesn't require every project to install debugpy and allows
-        -- me to expect a consistent debugpy version in every project. But it immediately exits with an error on my work laptop...
+        -- NOTE: Ideally, I prefer to use the "uv" option since it doesn't require every project to install debugpy and allows me
+        -- to expect a consistent debugpy version in every project. But it immediately exits with an error on my work laptop...
         -- uv will provide its own debugpy executable (ignoring the one in venv, if present)
         -- see: https://github.com/mfussenegger/nvim-dap-python/blob/master/lua/dap-python.lua#L242-L243
-        dap_python.setup(python)
-        -- dap_python.setup('uv')
+        local python_path = vim.env.IS_WORK == 'true' and python or 'uv'
+
+        dap_python.test_runner = 'pytest'
+        dap_python.setup(python_path)
       end,
     },
   },
