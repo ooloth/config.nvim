@@ -35,8 +35,8 @@ return {
     -- Sidebar should be 1/3 of the total UI width, with a minimum of 20 and a maximum of 80
     local sidebar_width = math.max(40, math.min(80, math.floor(total_ui_width * 0.33)))
 
-    -- Bottom panel should be 15% of the total UI height, with a minimum of 10 and a maximum of 30
-    local bottom_panel_height = math.max(10, math.min(30, math.floor(total_ui_height * 0.15)))
+    -- Bottom panel should be 1/4 of the total UI height, with a minimum of 10 and a maximum of 30
+    local bottom_panel_height = math.max(10, math.min(30, math.floor(total_ui_height * 0.25)))
 
     return {
       -- see: https://github.com/rcarriga/nvim-dap-ui/blob/master/lua/dapui/config/init.lua
