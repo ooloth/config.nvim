@@ -1,5 +1,9 @@
+-- NOTE: prefer debugger over jupyter notebooks
+
 -- TODO: https://www.lazyvim.org/extras/lang/python
 -- TODO: Exploring Data Science Tools and Workflows in NVIM: https://www.youtube.com/watch?v=1xoUmncDwHQ
+
+vim.g.loaded_python3_provider = false
 
 local get_system_executable_path = require('config.util').get_system_executable_path
 
@@ -111,6 +115,16 @@ return {
             },
             python = {
               analysis = {
+                autoImportCompletions = true, -- the main thing I want from pyright
+                autoSearchPaths = true,
+                diagnosticMode = 'openFilesOnly', -- reduce cpu usage
+                exclude = {
+                  '**/.venv/**',
+                  '**/.venv*/**',
+                  '**/venv/**',
+                  '**/venv*/**',
+                  '**/node_modules/**',
+                },
                 -- ignore = { '*' }, -- use ruff for linting -- NOTE: don't ignore '*' or unused code won't be grayed out (disabe individual diagnostics I don't want to see as I encounter them)
                 typeCheckingMode = 'off', -- use mypy for type checking
               },
