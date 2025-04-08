@@ -5,8 +5,8 @@ local util = require('config.util')
 -- custom filename -> filetype associations
 vim.filetype.add({
   extension = {
-    -- see: https://sbulav.github.io/vim/neovim-improving-work-with-terraform/#correctly-detecting-tf-filetype
-    tf = 'terraform',
+    mdx = 'markdown.mdx',
+    tf = 'terraform', -- see: https://sbulav.github.io/vim/neovim-improving-work-with-terraform/#correctly-detecting-tf-filetype
     tfvars = 'terraform',
     tfstate = 'json',
   },
