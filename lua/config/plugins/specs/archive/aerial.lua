@@ -1,5 +1,9 @@
 return {
   'stevearc/aerial.nvim',
+  dependencies = {
+    'nvim-treesitter/nvim-treesitter',
+    'nvim-tree/nvim-web-devicons',
+  },
   opts = {
     -- Jump to symbol in source window when the cursor moves
     autojump = true,
@@ -45,19 +49,6 @@ return {
         ['q'] = 'actions.close',
       },
     },
-  },
-  -- config = function()
-  --   require('aerial').snacks_picker({
-  --     layout = {
-  --       preset = 'dropdown',
-  --       preview = false,
-  --     },
-  --   })
-  -- end,
-  -- Optional dependencies
-  dependencies = {
-    'nvim-treesitter/nvim-treesitter',
-    'nvim-tree/nvim-web-devicons',
   },
   keys = {
     { '<leader>ss', '<cmd>AerialNavToggle<cr>', desc = 'Symbols (editor)' },

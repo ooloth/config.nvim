@@ -131,7 +131,6 @@ set('n', '<leader>eh', function() open_in_split({ direction = 'left' }) end, { d
 set('n', '<leader>el', function() open_in_split({ direction = 'right' }) end, { desc = 'Move one split right', silent = true })
 
 return {
-  require('config.plugins.specs.aerial'), -- file system editor + explorer
   require('config.plugins.specs.mini-files'), -- file system editor + explorer
   require('config.plugins.specs.nvim-ufo'), -- better folding
   require('config.plugins.specs.persistence'), -- session manager
