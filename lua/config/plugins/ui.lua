@@ -1,15 +1,12 @@
--- TODO: fidget: fix bg color
-
 vim.opt.background = 'dark' -- colorschemes that can be light or dark will be made dark
 vim.opt.breakindent = true
--- vim.opt.cmdheight = 0
 vim.opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with substitutions
 vim.opt.cursorline = true -- highlight current line
 vim.opt.fillchars = {
-  foldopen = '',
-  foldclose = '',
-  fold = ' ',
-  foldsep = ' ',
+  -- foldopen = '',
+  -- foldclose = '',
+  -- fold = ' ',
+  -- foldsep = ' ',
   diff = '╱',
   eob = ' ', -- hide ~ at end of buffer
 }
@@ -79,7 +76,7 @@ autocmd('VimResized', {
 
 -- TODO: move to after/ftplugin?
 autocmd('FileType', {
-  desc = 'Enable wrap in these filetypes',
+  desc = 'Enable wrap and spell-checking in these filetypes',
   pattern = { 'gitcommit', 'log', 'markdown', 'text' },
   callback = function()
     vim.opt_local.wrap = true
