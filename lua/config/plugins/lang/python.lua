@@ -103,32 +103,18 @@ return {
 
   {
     'neovim/nvim-lspconfig',
-    -- see: https://www.lazyvim.org/extras/lang/python#nvim-lspconfig
     opts = {
       servers = {
-        -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pyright
-        pyright = {
+        basedpyright = {
           settings = {
-            -- see: https://microsoft.github.io/pyright/#/settings
-            pyright = {
-              disableOrganizeImports = true, -- use ruff for import sorting
-            },
-            python = {
+            basedpyright = {
               analysis = {
-                autoImportCompletions = true, -- the main thing I want from pyright
                 autoSearchPaths = true,
-                diagnosticMode = 'openFilesOnly', -- reduce cpu usage
-                exclude = {
-                  '**/.venv/**',
-                  '**/.venv*/**',
-                  '**/venv/**',
-                  '**/venv*/**',
-                  '**/node_modules/**',
-                },
-                -- ignore = { '*' }, -- use ruff for linting -- NOTE: don't ignore '*' or unused code won't be grayed out (disabe individual diagnostics I don't want to see as I encounter them)
-                typeCheckingMode = 'off', -- use mypy for type checking
+                useLibraryCodeForTypes = true,
+                diagnosticMode = 'openFilesOnly',
+                typeCheckingMode = 'off',
               },
-              pythonPath = python, -- point pyright to venv
+              pythonPath = python, -- point basedpyright to venv
             },
           },
         },
