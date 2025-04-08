@@ -4,7 +4,8 @@
 vim.api.nvim_create_autocmd('BufWinEnter', {
   desc = 'Set options on DAP windows',
   group = vim.api.nvim_create_augroup('set_dap_win_options', { clear = true }),
-  pattern = { '\\[dap-repl-*\\]', 'DAP Watches' },
+  pattern = { 'DAP Watches' },
+  -- pattern = { '\\[dap-repl-*\\]', 'DAP Watches' },
   callback = function(args)
     local win = vim.fn.bufwinid(args.buf)
     vim.schedule(function()
