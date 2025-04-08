@@ -58,8 +58,8 @@ local set_lsp_keymaps = function(lsp_attach_event)
 
   local client = vim.lsp.get_client_by_id(lsp_attach_event.data.client_id)
 
-  -- Set keymap to toggle inlay hints if the language server supports them (this may be unwanted, since they displace some of your code)
-  if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+  -- Set keymap to toggle inlay hints if the language server supports them
+  if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, lsp_attach_event.buf) then
     buffer_map(
       'n',
       '<leader>ui',
@@ -154,7 +154,7 @@ return {
         highlight_references_to_cursor_word_in_editor(event)
         show_active_diagnostics_on_cursor_line()
         change_diagnostic_signs()
-        -- enable_inlay_hints(event) NOTE: toggle on with leader-ui, but don't turn on by default
+        -- enable_inlay_hints(event) -- NOTE: toggle on with leader-ui, but don't turn on by default
         enable_code_lenses(event)
       end,
     })
