@@ -45,6 +45,7 @@ return {
     { "<leader>dS", function() require("dap").session() end, desc = "Session" },
     { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
     { '<leader>du', function() require('dapui').toggle({ reset = true }) end, desc = 'Dap UI (toggle)' },
+    { '<leader>dv', function() require('nvim-dap-virtual-text').toggle() end, desc = 'Virtual text (toggle)' },
     { '<leader>dw', function() require('dapui').elements.watches.add() end, desc = 'Watch symbol under cursor' },
     { '<leader>dx', function() require('dap').terminate() end, desc = 'End session' },
   },
