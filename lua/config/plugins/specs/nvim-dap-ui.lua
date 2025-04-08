@@ -1,23 +1,21 @@
 ---@module 'nvim-dap-ui'
 
--- See: https://github.com/rcarriga/nvim-dap-ui/issues/248#issuecomment-1856031764
-vim.api.nvim_create_autocmd('BufWinEnter', {
-  desc = 'Set options on DAP windows',
-  group = vim.api.nvim_create_augroup('set_dap_win_options', { clear = true }),
-  pattern = { 'DAP Watches' },
-  callback = function(args)
-    local win = vim.fn.bufwinid(args.buf)
-    vim.schedule(function()
-      if not vim.api.nvim_win_is_valid(win) then return end
-      vim.api.nvim_set_option_value('wrap', true, { win = win })
-    end)
-  end,
-})
-
 vim.api.nvim_create_autocmd('BufWinEnter', {
   desc = 'Focus DAP REPL window when it opens',
   pattern = '\\[dap-repl-*\\]',
-  callback = vim.schedule_wrap(function(args) vim.api.nvim_set_current_win(vim.fn.bufwinid(args.buf)) end),
+  callback = vim.schedule_wrap(function(args)
+    local win_id = vim.fn.bufwinid(args.buf)
+    vim.api.nvim_set_current_win(win_id)
+  end),
+})
+
+vim.api.nvim_create_autocmd('BufWinEnter', {
+  desc = 'Wrap lines in DAP Watches window',
+  pattern = { 'DAP Watches' },
+  callback = vim.schedule_wrap(function(args)
+    local win_id = vim.fn.bufwinid(args.buf)
+    vim.api.nvim_set_option_value('wrap', true, { win = win_id })
+  end),
 })
 
 -- TODO: calculate appropriate new size each time?
@@ -38,46 +36,13 @@ return {
     local total_ui_width = entire_neovim_ui.width
     local total_ui_height = entire_neovim_ui.height
 
-    -- Sidebar should be 1/3 of the total UI width, with a minimum of 20 and a maximum of 80
-    local sidebar_width = math.max(40, math.min(80, math.floor(total_ui_width * 0.33)))
+    -- Sidebar should be 30% of the total UI width, with a minimum of 40 and a maximum of 80
+    local sidebar_width = math.max(40, math.min(80, math.floor(total_ui_width * 0.30)))
 
-    -- Bottom panel should be 1/4 of the total UI height, with a minimum of 10 and a maximum of 30
-    local bottom_panel_height = math.max(10, math.min(30, math.floor(total_ui_height * 0.25)))
+    -- Bottom panel should be 30% of the total UI height, with a minimum of 10 and a maximum of 25
+    local bottom_panel_height = math.max(10, math.min(25, math.floor(total_ui_height * 0.30)))
 
     return {
-      -- see: https://github.com/rcarriga/nvim-dap-ui/blob/master/lua/dapui/config/init.lua
-      -- controls = {
-      --   element = 'repl',
-      --   enabled = false,
-      --   icons = {
-      --     pause = '⏸',
-      --     play = '▶',
-      --     step_into = '⏎',
-      --     step_over = '⏭',
-      --     step_out = '⏮',
-      --     step_back = 'b',
-      --     run_last = '▶▶',
-      --     terminate = '⏹',
-      --     disconnect = '⏏',
-      --   },
-      -- },
-      -- element_mappings = {
-      --   scopes = {},
-      --   watches = {},
-      --   stacks = {},
-      --   breakpoints = {},
-      --   console = {},
-      --   repl = {},
-      -- },
-      -- expand_lines = true,
-      -- floating = {
-      --   border = 'single',
-      --   mappings = {
-      --     close = { 'q', '<Esc>' },
-      --   },
-      -- },
-      -- icons = { collapsed = '', current_frame = '', expanded = '' },
-      -- icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
       layouts = {
         {
           elements = {
