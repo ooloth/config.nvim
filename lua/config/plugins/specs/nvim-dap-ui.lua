@@ -5,7 +5,6 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
   desc = 'Set options on DAP windows',
   group = vim.api.nvim_create_augroup('set_dap_win_options', { clear = true }),
   pattern = { 'DAP Watches' },
-  -- pattern = { '\\[dap-repl-*\\]', 'DAP Watches' },
   callback = function(args)
     local win = vim.fn.bufwinid(args.buf)
     vim.schedule(function()
@@ -13,6 +12,12 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
       vim.api.nvim_set_option_value('wrap', true, { win = win })
     end)
   end,
+})
+
+vim.api.nvim_create_autocmd('BufWinEnter', {
+  desc = 'Focus DAP REPL window when it opens',
+  pattern = '\\[dap-repl-*\\]',
+  callback = vim.schedule_wrap(function(args) vim.api.nvim_set_current_win(vim.fn.bufwinid(args.buf)) end),
 })
 
 -- TODO: calculate appropriate new size each time?
