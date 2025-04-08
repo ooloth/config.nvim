@@ -15,7 +15,7 @@ vim.opt.fillchars = {
 }
 vim.opt.laststatus = 2 -- always show statusline
 vim.opt.linebreak = true -- if wrapping lines visually, wrap at readable points
--- vim.opt.list = true -- show invisible whitespace characters (tabs, etc)
+vim.opt.list = true -- show invisible whitespace characters (tabs, etc)
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' } -- define whitespace indicators
 vim.opt.number = false -- show absolute line numbers
 vim.opt.pumblend = 10 -- popup blend transparency (%)
