@@ -8,6 +8,7 @@ return {
   'kevinhwang91/nvim-ufo',
   dependencies = {
     'kevinhwang91/promise-async',
+    'neovim/nvim-lspconfig',
   },
   config = function()
     -- see: https://github.com/kevinhwang91/nvim-ufo?tab=readme-ov-file#minimal-configuration
@@ -18,12 +19,15 @@ return {
 
     require('ufo').setup({
       -- see: https://github.com/kevinhwang91/nvim-ufo?tab=readme-ov-file#customize-configuration
-      -- close_fold_kinds_for_ft = {
-      --   default = { 'imports' }, -- auto fold imports
-      --   json = {},
-      --   python = { 'imports' },
-      -- },
-      -- provider_selector = function() return { 'treesitter', 'indent' } end,
+      close_fold_kinds_for_ft = {
+        default = { 'imports' }, -- auto fold imports
+        json = {},
+        python = { 'imports' },
+      },
+      provider_selector = function(_, filetype, _)
+        if filetype == 'python' then return { 'lsp' } end
+        return { 'lsp', 'indent' }
+      end,
     })
   end,
 }
