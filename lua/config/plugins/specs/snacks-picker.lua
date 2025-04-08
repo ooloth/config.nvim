@@ -86,7 +86,7 @@ return {
     { '<leader>sp', function() Snacks.picker() end, desc = 'Pickers' },
     -- { "<leader>sq", function() Snacks.picker.qflist() end, desc = "Quickfix List" },
     { '<leader>sr', function() Snacks.picker.recent({ filter = { cwd = true } }) end, desc = 'Recent files' },
-    { '<leader>ss', function() Snacks.picker.lsp_workspace_symbols() end, desc = 'Symbols in project' },
+    { '<leader>sS', function() Snacks.picker.lsp_workspace_symbols() end, desc = 'Symbols (project)' },
     -- TODO: '<leader>st' = 'Todos' (see todo-comment.lua)
     -- { "<leader>st", function() Snacks.explorer() end, desc = "File tree" },
     { '<leader>su', function() Snacks.picker.undo() end, desc = 'Undo history' },

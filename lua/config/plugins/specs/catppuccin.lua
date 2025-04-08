@@ -14,6 +14,7 @@ return {
       flavour = 'mocha', -- latte, frappe, macchiato, mocha
       -- see: https://github.com/catppuccin/nvim#integrations
       integrations = {
+        aerial = true,
         cmp = true,
         -- flash = true,
         gitsigns = true,
