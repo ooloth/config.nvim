@@ -36,13 +36,47 @@ vim.opt.wrap = false -- disable line wrap
 local set = vim.keymap.set
 local autocmd = vim.api.nvim_create_autocmd
 
--- Toggle line numbers (when hiding, hide relative numbers too)
-set('n', '<leader>ul', '<cmd>set nu! nornu<cr>', { desc = 'Line numbers (toggle)' })
+local filetypes_that_should_never_have_line_numbers = {
+  ['dap-repl'] = true,
+  ['dapui_breakpoints'] = true,
+  ['dapui_console'] = true,
+  ['dapui_hover'] = true,
+  ['dapui_scopes'] = true,
+  ['dapui_stacks'] = true,
+  ['dapui_watches'] = true,
+}
 
--- Toggle relative line numbers (show/hide absolute numbers at same time)
-set('n', '<leader>ur', '<cmd>set rnu! nu!<cr>', { desc = 'Relative line numbers (toggle)' })
+local toggle_line_numbers_in_all_windows = function()
+  -- If coming from relative line numbers, switch to absolute line numbers; otherwise toggle
+  local new_line_number = vim.wo.relativenumber and true or not vim.wo.number
+  local win_ids = vim.api.nvim_list_wins()
 
--- Toggle line wrapping
+  for _, win_id in ipairs(win_ids) do
+    local bufnr = vim.api.nvim_win_get_buf(win_id)
+    local buffer_filetype = vim.bo[bufnr].filetype
+    local is_filetype_to_skip = filetypes_that_should_never_have_line_numbers[buffer_filetype]
+
+    if not is_filetype_to_skip then
+      vim.api.nvim_set_option_value('number', new_line_number, { win = win_id })
+      vim.api.nvim_set_option_value('relativenumber', false, { win = win_id }) -- always hide
+    end
+  end
+end
+
+local toggle_relative_line_numbers_in_all_windows = function()
+  local current_relative_line_number = vim.wo.relativenumber
+
+  for _, win_id in ipairs(vim.api.nvim_list_wins()) do
+    if not filetypes_that_should_never_have_line_numbers[vim.bo[vim.api.nvim_win_get_buf(win_id)].filetype] then
+      vim.api.nvim_set_option_value('relativenumber', not current_relative_line_number, { win = win_id })
+      vim.api.nvim_set_option_value('number', not current_relative_line_number, { win = win_id }) -- keep in sync
+    end
+  end
+end
+
+set('n', '<leader>ul', toggle_line_numbers_in_all_windows, { desc = 'Line numbers (toggle)' })
+set('n', '<leader>ur', toggle_relative_line_numbers_in_all_windows, { desc = 'Relative line numbers (toggle)' })
+
 set('n', '<leader>uw', '<cmd>set wrap!<cr>', { desc = 'Line wrapping (toggle)' })
 
 -- Clear search, diff update and redraw
