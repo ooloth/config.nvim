@@ -108,12 +108,23 @@ return {
         basedpyright = {
           settings = {
             basedpyright = {
+              -- see: https://docs.basedpyright.com/latest/configuration/language-server-settings/
               analysis = {
+                autoImportCompletions = true,
                 autoSearchPaths = true,
-                useLibraryCodeForTypes = true,
                 diagnosticMode = 'openFilesOnly',
+                inlayHints = {
+                  callArgumentNames = true,
+                  functionReturnTypes = true,
+                  genericTypes = true,
+                  variableTypes = true,
+                },
+                useLibraryCodeForTypes = true,
                 typeCheckingMode = 'off',
               },
+              disableOrganizeImports = true,
+            },
+            python = {
               pythonPath = python, -- point basedpyright to venv
             },
           },
