@@ -22,7 +22,10 @@ return {
     opts = {
       servers = {
         marksman = {}, -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#marksman
-        mdx_analyzer = {}, -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#mdx_analyzer
+        -- FIXME: getting TS-related errors:
+        -- mdx_analyzer = {
+        --   init_options = {}, -- TODO: enable TS support only if typescript installed in workspace
+        -- }, -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#mdx_analyzer
       },
     },
   },
@@ -32,6 +35,7 @@ return {
     opts = {
       formatters_by_ft = {
         markdown = { 'prettier' },
+        mdx = { 'prettier' },
         ['markdown.mdx'] = { 'prettier' },
       },
     },
