@@ -70,12 +70,27 @@ return {
       vim.fn.sign_define(name, { text = text, texthl = texthl, linehl = linehl, numhl = linehl })
     end
 
+    -- Set up dap configs using vscode launch.json files
     -- NOTE: if launch.json options don't appear, check for a trailing comma or other invalid json (dap parses as json, not jsonc)
     -- See: https://github.com/mfussenegger/nvim-dap/issues/1442
-
-    -- Set up dap configs using vscode launch.json files
     local vscode = require('dap.ext.vscode')
     local json = require('plenary.json')
     vscode.json_decode = function(str) return vim.json.decode(json.json_strip_comments(str)) end
+
+    -- Use tmux as external terminal
+    local dap = require('dap')
+    dap.defaults.fallback.external_terminal = {
+      command = 'tmux',
+      args = { 'split-pane', '-c', '.' },
+      -- args = { 'neww', '-F', '#{pane_pid}', '-P', '-n', 'debugger', 'zsh' },
+    }
+
+    -- Hook to modify relevant configuration when starting the debugger
+    -- Use tmux pane as external terminal without impacting colleagues who prefer their integrated IDE terminal
+    dap.listeners.on_config['override_console'] = function(config)
+      config.console = 'externalTerminal'
+      config.external_terminal = dap.defaults.fallback.external_terminal
+      return config
+    end
   end,
 }
