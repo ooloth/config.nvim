@@ -81,8 +81,8 @@ return {
     local dap = require('dap')
     dap.defaults.fallback.external_terminal = {
       command = 'tmux',
-      args = { 'split-pane', '-c', '.' },
-      -- args = { 'neww', '-F', '#{pane_pid}', '-P', '-n', 'debugger', 'zsh' },
+      args = { 'split-window', '-d', '-v', '-l', '15%', '-c', '.' },
+      -- args = { 'new-window', '-a' },
     }
 
     -- Hook to modify relevant configuration when starting the debugger
