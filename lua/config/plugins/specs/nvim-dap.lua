@@ -53,6 +53,7 @@ return {
     { '<leader>de', function() require('dapui').eval(nil, { enter = true }) end, desc = 'Evaluate', mode = { 'n', 'v' } },
     { '<leader>dg', function() require('dap').goto_() end, desc = 'Go to line (no execute)' },
     { '<leader>dh', function() require('dapui').eval(nil, { enter = true }) end, desc = 'Hover', mode = { 'n', 'v' } },
+    { '<leader>di', function() require('nvim-dap-virtual-text').toggle() end, desc = 'Inlay hints (toggle)' },
     { '<leader>dj', function() require('dap').down() end, desc = 'Move down stack' },
     { '<leader>dk', function() require('dap').up() end, desc = 'Move up stack' },
     { "<leader>dl", function() require("dap").run_last() end, desc = "Run Last" },
