@@ -60,8 +60,6 @@ return {
     { '<leader>dp', function() require('dap').pause() end, desc = 'Pause' },
     { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
     { '<leader>dR', function() require('dap').restart() end, desc = 'Restart' },
-    { "<leader>dS", function() require("dap").session() end, desc = "Session" },
-    { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
     { "<leader>dsi", function() require("dap").step_into() end, desc = "Step Into" },
     { '<leader>dso', function() require('dap').step_over() end, desc = 'Step Over' },
     { "<leader>dsu", function() require("dap").step_out() end, desc = "Step Out" },
