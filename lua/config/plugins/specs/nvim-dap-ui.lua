@@ -40,7 +40,7 @@ return {
     local sidebar_width = math.max(40, math.min(110, math.floor(total_ui_width * 0.25)))
 
     -- Bottom panel should be 30% of the total UI height, with a minimum of 10 and a maximum of 25
-    local bottom_panel_height = math.max(10, math.min(25, math.floor(total_ui_height * 0.30)))
+    local bottom_panel_height = math.max(8, math.min(10, math.floor(total_ui_height * 0.15)))
 
     return {
       layouts = {
@@ -55,7 +55,7 @@ return {
           size = sidebar_width,
         },
         {
-          elements = { 'console' },
+          elements = { 'repl' },
           position = 'bottom',
           size = bottom_panel_height,
         },
