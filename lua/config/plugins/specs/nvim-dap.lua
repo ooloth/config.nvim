@@ -1,5 +1,25 @@
 ---@module 'nvim-dap'
 
+-- TODO: warn if no active session?
+-- TODO: create variant to be used in the repl rather than the editor?
+---Start the debugger, pause at a breakpoint, select a dataframe, and run leader-dv
+---See: https://github.com/Willem-J-an/visidata.nvim/blob/master/lua/visidata.lua
+---See: https://www.reddit.com/r/neovim/comments/13nw1mq/comment/jl1w7is/
+local send_selected_dataframe_to_visidata_in_external_terminal = function()
+  local function get_visual_selection()
+    local _, line_start, col_start = unpack(vim.fn.getpos('v'))
+    local _, line_end, col_end = unpack(vim.fn.getpos('.'))
+    local selection = vim.api.nvim_buf_get_text(0, line_start - 1, col_start - 1, line_end - 1, col_end, {})
+    return selection
+  end
+
+  local selected_dataframe = get_visual_selection()[1]
+
+  local dap = require('dap')
+  dap.repl.execute('import subprocess')
+  dap.repl.execute('subprocess.run(["vd", "-f", "csv", "-"], input=' .. selected_dataframe .. '.to_csv(index=False), text=True)')
+end
+
 return {
   'mfussenegger/nvim-dap',
   dependencies = {
@@ -45,7 +65,7 @@ return {
     { "<leader>dS", function() require("dap").session() end, desc = "Session" },
     { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
     { '<leader>du', function() require('dapui').toggle({ reset = true }) end, desc = 'Dap UI (toggle)' },
-    { '<leader>dv', function() require('nvim-dap-virtual-text').toggle() end, desc = 'Virtual text (toggle)' },
+    { '<leader>dv', send_selected_dataframe_to_visidata_in_external_terminal, desc = 'Visidata (send selected dataframe)', mode={ 'v' } },
     { '<leader>dw', function() require('dapui').elements.watches.add() end, desc = 'Watch symbol under cursor' },
     { '<leader>dx', function() require('dap').terminate() end, desc = 'End session' },
   },
