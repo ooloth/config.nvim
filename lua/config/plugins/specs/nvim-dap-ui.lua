@@ -37,7 +37,7 @@ return {
     local total_ui_height = entire_neovim_ui.height
 
     -- Sidebar should be 30% of the total UI width, with a minimum of 40 and a maximum of 80
-    local sidebar_width = math.max(40, math.min(80, math.floor(total_ui_width * 0.30)))
+    local sidebar_width = math.max(40, math.min(110, math.floor(total_ui_width * 0.25)))
 
     -- Bottom panel should be 30% of the total UI height, with a minimum of 10 and a maximum of 25
     local bottom_panel_height = math.max(10, math.min(25, math.floor(total_ui_height * 0.30)))
@@ -46,9 +46,9 @@ return {
       layouts = {
         {
           elements = {
-            { id = 'stacks', size = 0.25 },
+            { id = 'stacks', size = 0.20 },
             { id = 'scopes', size = 0.45 },
-            { id = 'watches', size = 0.15 },
+            { id = 'watches', size = 0.20 },
             { id = 'breakpoints', size = 0.15 },
           },
           position = 'right',
