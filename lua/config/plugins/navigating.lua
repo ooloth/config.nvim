@@ -135,4 +135,5 @@ return {
   require('config.plugins.specs.nvim-ufo'), -- better folding
   require('config.plugins.specs.persistence'), -- session manager
   require('config.plugins.specs.vim-tmux-navigator'), -- move across vim + tmux windows with c-jkhl
+  require('config.plugins.specs.yazi'), -- move across vim + tmux windows with c-jkhl
 }
