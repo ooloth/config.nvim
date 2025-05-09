@@ -152,7 +152,7 @@ return {
       callback = function(event)
         set_lsp_keymaps(event)
         highlight_references_to_cursor_word_in_editor(event)
-        show_active_diagnostics_on_cursor_line()
+        -- show_active_diagnostics_on_cursor_line() -- NOTE: let's see if I miss this
         change_diagnostic_signs()
         -- enable_inlay_hints(event) -- NOTE: toggle on with leader-ui, but don't turn on by default
         enable_code_lenses(event)
