@@ -18,11 +18,11 @@ vim.opt.number = false -- show absolute line numbers
 vim.opt.pumblend = 10 -- popup blend transparency (%)
 vim.opt.pumheight = 15 -- maximum number of entries in a popup
 vim.opt.relativenumber = false -- show relative line numbers
-vim.opt.scrolloff = 5 -- lines of context kept onscreen
+vim.opt.scrolloff = 10 -- lines of context kept onscreen
 vim.opt.shortmess:append({ W = true, I = true, c = true, C = true }) -- abbreviate some messages
 vim.opt.showmode = false -- hide mode since it's already in the status line
-vim.opt.sidescroll = 5
-vim.opt.sidescrolloff = 8 -- columns of context kept onscreen
+vim.opt.sidescroll = 10
+vim.opt.sidescrolloff = 10 -- columns of context kept onscreen
 vim.opt.signcolumn = 'yes' -- always show signcolumn to avoid a layout shift
 vim.opt.smoothscroll = true
 vim.opt.splitbelow = true -- open horizontal splits below
