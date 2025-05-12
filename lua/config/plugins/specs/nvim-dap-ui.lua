@@ -46,10 +46,10 @@ return {
       layouts = {
         {
           elements = {
-            { id = 'stacks', size = 0.20 },
-            { id = 'scopes', size = 0.45 },
+            { id = 'stacks', size = 0.25 },
+            { id = 'scopes', size = 0.35 },
             { id = 'watches', size = 0.20 },
-            { id = 'breakpoints', size = 0.15 },
+            { id = 'breakpoints', size = 0.20 },
           },
           position = 'right',
           size = sidebar_width,
