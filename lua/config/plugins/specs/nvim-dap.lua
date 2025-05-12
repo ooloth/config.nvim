@@ -5,7 +5,7 @@
 ---Start the debugger, pause at a breakpoint, select a dataframe, and run leader-dv
 ---See: https://github.com/Willem-J-an/visidata.nvim/blob/master/lua/visidata.lua
 ---See: https://www.reddit.com/r/neovim/comments/13nw1mq/comment/jl1w7is/
-local send_selected_dataframe_to_visidata_in_external_terminal = function()
+local send_selection_to_visidata_in_external_terminal = function()
   local function get_visual_selection()
     local _, line_start, col_start = unpack(vim.fn.getpos('v'))
     local _, line_end, col_end = unpack(vim.fn.getpos('.'))
@@ -17,6 +17,10 @@ local send_selected_dataframe_to_visidata_in_external_terminal = function()
 
   local dap = require('dap')
   dap.repl.execute('import subprocess')
+
+  -- TODO: add support for json alternative:
+  -- subprocess.run(["vd", "-f", "json", "-"], input=json.dumps(' .. selected_list_of_dicts .. '), text=True)
+
   dap.repl.execute('subprocess.run(["vd", "-f", "csv", "-"], input=' .. selected_dataframe .. '.to_csv(index=False), text=True)')
 end
 
@@ -64,7 +68,7 @@ return {
     { '<leader>dso', function() require('dap').step_over() end, desc = 'Step Over' },
     { "<leader>dsu", function() require("dap").step_out() end, desc = "Step Out" },
     { '<leader>du', function() require('dapui').toggle({ reset = true }) end, desc = 'Dap UI (toggle)' },
-    { '<leader>dv', send_selected_dataframe_to_visidata_in_external_terminal, desc = 'Visidata (send selected dataframe)', mode={ 'v' } },
+    { '<leader>dv', send_selection_to_visidata_in_external_terminal, desc = 'Visidata (send selected dataframe)', mode={ 'v' } },
     { '<leader>dw', function() require('dapui').elements.watches.add() end, desc = 'Watch symbol under cursor' },
     { '<leader>dx', function() require('dap').terminate() end, desc = 'End session' },
   },
