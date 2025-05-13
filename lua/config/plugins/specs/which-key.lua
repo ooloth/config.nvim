@@ -17,6 +17,7 @@ return {
       { '<leader><tab>', group = 'Tab' },
       { '<leader>a', group = 'AI' },
       { '<leader>d', group = 'Debug' },
+      { '<leader>dv', group = 'Visidata' },
       { '<leader>e', group = 'Editor' },
       { '<leader>f', group = 'File' },
       { '<leader>g', group = 'Git' },
