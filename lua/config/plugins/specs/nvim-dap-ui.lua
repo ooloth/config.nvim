@@ -37,7 +37,7 @@ return {
     local total_ui_height = entire_neovim_ui.height
 
     -- Sidebar should be 30% of the total UI width, with a minimum of 40 and a maximum of 80
-    local sidebar_width = math.max(40, math.min(110, math.floor(total_ui_width * 0.25)))
+    local sidebar_width = math.max(50, math.min(110, math.floor(total_ui_width * 0.3)))
 
     -- Bottom panel should be 30% of the total UI height, with a minimum of 10 and a maximum of 25
     local bottom_panel_height = math.max(8, math.min(10, math.floor(total_ui_height * 0.15)))
