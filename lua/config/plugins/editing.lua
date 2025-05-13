@@ -84,4 +84,5 @@ return {
   require('config.plugins.specs.mini-surround'),
   require('config.plugins.specs.netrw'),
   require('config.plugins.specs.nvim-cmp'),
+  require('config.plugins.specs.smartyank'),
 }

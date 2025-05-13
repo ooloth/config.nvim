@@ -91,18 +91,6 @@ vim.cmd([[
   autocmd InsertLeave * set cursorline
 ]])
 
-autocmd('TextYankPost', {
-  desc = 'Highlight yanked text',
-  callback = function()
-    if vim.version().minor >= 11 then
-      vim.hl.on_yank({ higroup = 'Visual', timeout = 200 })
-    else
-      -- vim.highlight.on_yank()
-      vim.highlight.on_yank({ higroup = 'Visual', timeout = 200 })
-    end
-  end,
-})
-
 autocmd('VimResized', {
   desc = 'Equalize splits after resizing Neovim window',
   callback = function() vim.cmd('wincmd =') end,
