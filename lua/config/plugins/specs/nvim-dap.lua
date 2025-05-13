@@ -113,7 +113,7 @@ return {
     local dap = require('dap')
     dap.defaults.fallback.external_terminal = {
       command = 'tmux',
-      args = { 'split-window', '-d', '-v', '-l', '15%', '-c', '.' },
+      args = { 'split-window', '-d', '-v', '-l', '20%', '-c', '.' },
       -- args = { 'new-window', '-a' },
     }
 
