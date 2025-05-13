@@ -1,27 +1,35 @@
 ---@module 'nvim-dap'
 
--- TODO: warn if no active session?
--- TODO: create variant to be used in the repl rather than the editor?
----Start the debugger, pause at a breakpoint, select a dataframe, and run leader-dv
----See: https://github.com/Willem-J-an/visidata.nvim/blob/master/lua/visidata.lua
----See: https://www.reddit.com/r/neovim/comments/13nw1mq/comment/jl1w7is/
-local send_selection_to_visidata_in_external_terminal = function()
-  local function get_visual_selection()
+local function get_visual_selection()
+  local mode = vim.fn.mode()
+  if mode == 'v' then
     local _, line_start, col_start = unpack(vim.fn.getpos('v'))
     local _, line_end, col_end = unpack(vim.fn.getpos('.'))
     local selection = vim.api.nvim_buf_get_text(0, line_start - 1, col_start - 1, line_end - 1, col_end, {})
-    return selection
+    return selection[1]
+  else
+    return vim.fn.expand('<cexpr>')
   end
+end
 
-  local selected_dataframe = get_visual_selection()[1]
+-- TODO: create variant to be used in the repl rather than the editor?
+---Start the debugger, pause at a breakpoint, select a dataframe or list of dicts, and run leader-dvc or leader-dvj
+---See: https://github.com/Willem-J-an/visidata.nvim/blob/master/lua/visidata.lua
+---See: https://www.reddit.com/r/neovim/comments/13nw1mq/comment/jl1w7is/
+---@param format 'csv' | 'json'
+local send_selection_to_visidata_in_external_terminal = function(format)
+  local selection = get_visual_selection()
 
   local dap = require('dap')
   dap.repl.execute('import subprocess')
 
-  -- TODO: add support for json alternative:
-  -- subprocess.run(["vd", "-f", "json", "-"], input=json.dumps(' .. selected_list_of_dicts .. '), text=True)
-
-  dap.repl.execute('subprocess.run(["vd", "-f", "csv", "-"], input=' .. selected_dataframe .. '.to_csv(index=False), text=True)')
+  if format == 'json' then
+    dap.repl.execute('import json')
+    dap.repl.execute('subprocess.run(["vd", "-f", "json", "-"], input=json.dumps(' .. selection .. '), text=True)')
+  else
+    -- TODO: this is pandas; support polars too
+    dap.repl.execute('subprocess.run(["vd", "-f", "csv", "-"], input=' .. selection .. '.to_csv(index=False), text=True)')
+  end
 end
 
 return {
@@ -68,7 +76,8 @@ return {
     { '<leader>dso', function() require('dap').step_over() end, desc = 'Step Over' },
     { "<leader>dsu", function() require("dap").step_out() end, desc = "Step Out" },
     { '<leader>du', function() require('dapui').toggle({ reset = true }) end, desc = 'Dap UI (toggle)' },
-    { '<leader>dv', send_selection_to_visidata_in_external_terminal, desc = 'Visidata (send selected dataframe)', mode={ 'v' } },
+    { '<leader>dvc', function() send_selection_to_visidata_in_external_terminal('csv') end, desc = 'Visidata (dataframe)', mode={ 'n', 'v' } },
+    { '<leader>dvj', function() send_selection_to_visidata_in_external_terminal('json') end, desc = 'Visidata (list of dicts)', mode={ 'n', 'v' } },
     { '<leader>dw', function() require('dapui').elements.watches.add() end, desc = 'Watch symbol under cursor' },
     { '<leader>dx', function() require('dap').terminate() end, desc = 'End session' },
   },
