@@ -54,11 +54,11 @@ return {
           position = 'right',
           size = sidebar_width,
         },
-        {
-          elements = { 'repl' },
-          position = 'bottom',
-          size = bottom_panel_height,
-        },
+        -- {
+        --   elements = { 'repl' },
+        --   position = 'bottom',
+        --   size = bottom_panel_height,
+        -- },
       },
       -- mappings = {
       --   edit = 'e',
