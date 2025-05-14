@@ -9,22 +9,14 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
   end),
 })
 
-vim.api.nvim_create_autocmd('BufWinEnter', {
-  desc = 'Wrap lines in DAP Watches window',
-  pattern = { 'DAP Watches' },
-  callback = vim.schedule_wrap(function(args)
-    local win_id = vim.fn.bufwinid(args.buf)
-    vim.api.nvim_set_option_value('wrap', true, { win = win_id })
-  end),
-})
-
--- TODO: calculate appropriate new size each time?
-vim.api.nvim_create_autocmd('VimResized', {
-  desc = 'Reset nvim-dap-ui window sizes after resizing Neovim window',
-  callback = function()
-    if require('dap').session() then require('dapui').open({ reset = true }) end
-  end,
-})
+-- FIXME: only if already open (don't open the sidebar every time I open the tmux pane)
+-- -- TODO: calculate appropriate new size each time?
+-- vim.api.nvim_create_autocmd('VimResized', {
+--   desc = 'Reset nvim-dap-ui window sizes after resizing Neovim window',
+--   callback = function()
+--     if require('dap').session() then require('dapui').open({ reset = true }) end
+--   end,
+-- })
 
 return {
   'rcarriga/nvim-dap-ui',
