@@ -17,6 +17,8 @@ return {
       { '<leader><tab>', group = 'Tab' },
       { '<leader>a', group = 'AI' },
       { '<leader>d', group = 'Debug' },
+      { '<leader>df', group = 'Floating widget' },
+      { '<leader>ds', group = 'Step' },
       { '<leader>dv', group = 'Visidata' },
       { '<leader>e', group = 'Editor' },
       { '<leader>f', group = 'File' },
