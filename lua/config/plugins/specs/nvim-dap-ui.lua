@@ -37,7 +37,7 @@ return {
     local total_ui_width = entire_neovim_ui.width
     local total_ui_height = entire_neovim_ui.height
 
-    -- Sidebar should be 30% of the total UI width, with a minimum of 40 and a maximum of 80
+    -- Sidebar should be 30% of the total UI width, with a minimum of 50 and a maximum of 110
     local sidebar_width = math.max(50, math.min(110, math.floor(total_ui_width * 0.3)))
 
     -- Bottom panel should be 30% of the total UI height, with a minimum of 10 and a maximum of 25
@@ -45,17 +45,15 @@ return {
 
     return {
       layouts = {
-        {
-          elements = {
-            { id = 'stacks', size = 0.25 },
-            { id = 'scopes', size = 0.35 },
-            { id = 'watches', size = 0.20 },
-            { id = 'breakpoints', size = 0.20 },
-          },
-          position = 'right',
-          size = sidebar_width,
-        },
         -- {
+        --   elements = {
+        --     { id = 'stacks', size = 0.25 },
+        --     { id = 'scopes', size = 0.35 },
+        --     { id = 'watches', size = 0.20 },
+        --     { id = 'breakpoints', size = 0.20 },
+        --   },
+        --   position = 'right',
+        --   size = sidebar_width,
         -- },
         {
           elements = { 'console' },
