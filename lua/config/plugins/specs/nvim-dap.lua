@@ -2,6 +2,7 @@
 
 local function get_visual_selection()
   local mode = vim.fn.mode()
+
   if mode == 'v' then
     local _, line_start, col_start = unpack(vim.fn.getpos('v'))
     local _, line_end, col_end = unpack(vim.fn.getpos('.'))
