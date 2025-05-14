@@ -21,5 +21,6 @@ set('n', '[w', diagnostic_goto('prev', 'WARN'), { desc = 'Prev Warning' })
 return {
   require('config.plugins.specs.nvim-dap'),
   require('config.plugins.specs.nvim-dap-ui'),
+  require('config.plugins.specs.nvim-dap-view'),
   require('config.plugins.specs.nvim-dap-virtual-text'),
 }
