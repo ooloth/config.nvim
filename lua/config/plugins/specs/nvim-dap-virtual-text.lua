@@ -2,5 +2,7 @@
 
 return {
   'theHamsta/nvim-dap-virtual-text',
-  opts = {},
+  opts = {
+    virt_text_pos = 'eol',
+  },
 }
