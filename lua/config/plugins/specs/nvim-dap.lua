@@ -17,7 +17,7 @@ end
 ---See: https://github.com/Willem-J-an/visidata.nvim/blob/master/lua/visidata.lua
 ---See: https://www.reddit.com/r/neovim/comments/13nw1mq/comment/jl1w7is/
 ---@param format 'csv' | 'json'
-local send_selection_to_visidata_in_external_terminal = function(format)
+local send_selection_to_visidata_in_new_tmux_window = function(format)
   local selection = get_visual_selection()
 
   local dap = require('dap')
@@ -89,8 +89,8 @@ return {
     { '<leader>dso', function() require('dap').step_over() end, desc = 'Step Over' },
     { "<leader>dsu", function() require("dap").step_out() end, desc = "Step Out" },
     { '<leader>du', function() require('dapui').toggle({ reset = true }) end, desc = 'Dap UI (toggle)' },
-    { '<leader>dvc', function() send_selection_to_visidata_in_external_terminal('csv') end, desc = 'Visidata (dataframe)', mode={ 'n', 'v' } },
-    { '<leader>dvj', function() send_selection_to_visidata_in_external_terminal('json') end, desc = 'Visidata (list of dicts)', mode={ 'n', 'v' } },
+    { '<leader>dvc', function() send_selection_to_visidata_in_new_tmux_window('csv') end, desc = 'Visidata (dataframe)', mode={ 'n', 'v' } },
+    { '<leader>dvj', function() send_selection_to_visidata_in_new_tmux_window('json') end, desc = 'Visidata (list of dicts)', mode={ 'n', 'v' } },
     { '<leader>dw', function() require('dapui').elements.watches.add() end, desc = 'Watch symbol under cursor' },
     { '<leader>dx', function() require('dap').terminate() end, desc = 'End session' },
   },
