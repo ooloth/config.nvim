@@ -1,21 +1,19 @@
 ---@module 'mini.surround'
 
--- Add/delete/replace surroundings (brackets, quotes, etc.)
-
--- EXAMPLE: gsiw' = Surround word under cursor with ''
--- EXAMPLE: cs'` = Change the surround '' to ``
--- EXAMPLE: ds' = Delete the surrounding ''
--- DOCS: https://github.com/echasnovski/mini.surround
--- DOCS: https://www.lazyvim.org/extras/coding/mini-surround
+-- Surround selection with 'S' in visual mode
+vim.keymap.set('v', 'S', [[:<C-u>lua MiniSurround.add('visual')<CR>]], { silent = true })
 
 return {
   'echasnovski/mini.surround',
   recommended = true,
   opts = {
     mappings = {
-      add = 'gs', -- e.g. gsiw' (normal + visual mode)
-      delete = 'ds', -- e.g. ds' (normal mode)
-      replace = 'cs', -- e.g. cs'" (normal mode)
+      add = 'gsa', -- e.g. gsaiw' (normal + visual mode) Add surrounding in Normal and Visual modes
+      delete = 'gsd', -- e.g. gsd' (normal mode)
+      replace = 'gsr', -- e.g. gsr'" (normal mode)
+      -- add = 'gs', -- e.g. gsiw' (normal + visual mode)
+      -- delete = 'ds', -- e.g. ds' (normal mode)
+      -- replace = 'cs', -- e.g. cs'" (normal mode)
       find = '', -- disable
       find_left = '', -- disable
       highlight = '', -- disable
