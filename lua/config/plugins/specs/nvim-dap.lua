@@ -127,14 +127,13 @@ return {
     dap.defaults.fallback.external_terminal = {
       command = 'tmux',
       args = { 'split-window', '-d', '-v', '-l', '20%', '-c', '.' },
-      -- args = { 'new-window', '-a' },
     }
 
     -- Hook to modify relevant configuration when starting the debugger
     -- Use tmux pane as external terminal without impacting colleagues who prefer their integrated IDE terminal
     dap.listeners.on_config['override_console'] = function(config)
-      config.console = 'externalTerminal'
-      config.external_terminal = dap.defaults.fallback.external_terminal
+      config.console = 'integratedTerminal'
+      -- config.external_terminal = dap.defaults.fallback.external_terminal
       return config
     end
   end,
