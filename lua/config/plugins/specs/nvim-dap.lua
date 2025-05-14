@@ -25,10 +25,18 @@ local send_selection_to_visidata_in_external_terminal = function(format)
 
   if format == 'json' then
     dap.repl.execute('import json')
-    dap.repl.execute('subprocess.run(["vd", "-f", "json", "-"], input=json.dumps(' .. selection .. '), text=True)')
+    dap.repl.execute([[
+proc = subprocess.Popen(["vd", "-f", "json", "-"], text=True, stdin=subprocess.PIPE)
+proc.stdin.write(json.dumps(]] .. selection .. [[))
+proc.stdin.close()
+]])
   else
     -- TODO: this is pandas; support polars too
-    dap.repl.execute('subprocess.run(["vd", "-f", "csv", "-"], input=' .. selection .. '.to_csv(index=False), text=True)')
+    dap.repl.execute([[
+proc = subprocess.Popen(["vd", "-f", "csv", "-"], text=True, stdin=subprocess.PIPE)
+proc.stdin.write(]] .. selection .. [[.to_csv(index=False))
+proc.stdin.close()
+]])
   end
 end
 
