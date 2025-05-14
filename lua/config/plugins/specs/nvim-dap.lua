@@ -5,6 +5,13 @@ local function get_visual_selection()
   if mode == 'v' then
     local _, line_start, col_start = unpack(vim.fn.getpos('v'))
     local _, line_end, col_end = unpack(vim.fn.getpos('.'))
+
+    -- Normalize the positions (support selecting in reverse)
+    if line_start > line_end or (line_start == line_end and col_start > col_end) then
+      line_start, line_end = line_end, line_start
+      col_start, col_end = col_end, col_start
+    end
+
     local selection = vim.api.nvim_buf_get_text(0, line_start - 1, col_start - 1, line_end - 1, col_end, {})
     return selection[1]
   else
