@@ -162,5 +162,10 @@ return {
       -- config.external_terminal = dap.defaults.fallback.external_terminal
       return config
     end
+
+    dap.listeners.after['event_stopped']['center-cursor-line'] = function(session, body)
+      -- When a breakpoint is reached, center the cursor line
+      if body.reason:find('breakpoint') or body.reason:find('exception') then vim.cmd('normal! zz') end
+    end
   end,
 }
