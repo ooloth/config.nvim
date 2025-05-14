@@ -53,6 +53,18 @@ os.system(f"tmux new-window 'sh -c \"vd {tmpfile_path}; rm {tmpfile_path}\"'")
   end
 end
 
+local function start_if_needed_and_run_to_cursor()
+  local dap = require('dap')
+
+  if not dap.session() then
+    dap.set_breakpoint()
+    dap.continue()
+    return
+  end
+
+  dap.run_to_cursor()
+end
+
 return {
   'mfussenegger/nvim-dap',
   dependencies = {
@@ -81,7 +93,7 @@ return {
     -- { "<leader>da", function() require("dap").continue({ before = get_args }) end, desc = "Run with Args" },
     { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
     { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
-    { "<leader>dc", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
+    { "<leader>dc", start_if_needed_and_run_to_cursor, desc = "Run to Cursor" },
     { "<leader>dd", function() require("dap").continue() end, desc = "Start/continue" },
     { '<leader>de', function() require('dapui').eval(nil, { enter = true }) end, desc = 'Evaluate', mode = { 'n', 'v' } },
     { '<leader>dfb', function() require('dapui').float_element('breakpoints', {enter=true, position='center', height=20, width=100}) end, desc = 'Breakpoints' }, 
