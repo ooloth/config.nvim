@@ -9,6 +9,26 @@
 --   return schema.result[1]
 -- end
 
+local get_debugger_status = function()
+  local session = require('dap').session()
+  if not session then return '' end
+
+  local status = require('dap').status()
+  if not status then return '' end
+  -- vim.print(status)
+
+  return 'Debugger active'
+
+  -- local summary = status:lower()
+  -- if status:find('Starting') then summary = 'running' end
+  -- if status:find('Running') then summary = 'running' end
+  -- if status:find('Stopped') then summary = 'paused' end
+  -- if status:find('stopped') then summary = 'paused' end
+  -- -- if status:find('Stopped at line') then summary = 'stopped at L' .. status:match('(%d+)') end
+
+  -- return 'Debugger: ' .. summary
+end
+
 local get_file_path = function()
   local rel_path = vim.fn.expand('%:~:.')
   local width = vim.api.nvim_win_get_width(0)
@@ -116,6 +136,7 @@ return {
 
         -- Get strings to display
         local mode, mode_hl = statusline.section_mode({ trunc_width = 9999 }) -- always truncate to one letter
+        local debugger_status = get_debugger_status()
         local diagnostics = statusline.section_diagnostics({ icon = '', signs = diagnostics_icons, trunc_width = 75 })
         local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 999 }) -- always truncate to just the filetype + icon
         local filepath = get_file_path()
@@ -130,6 +151,7 @@ return {
         vim.api.nvim_set_hl(0, 'MiniStatuslineFilename', { bg = 'none' }) -- no middle bg color across statusline
         vim.api.nvim_set_hl(0, 'MiniStatuslineLspServers', { bg = mocha.surface0 })
         vim.api.nvim_set_hl(0, 'MiniStatuslineDiagnostics', { fg = mocha.yellow })
+        -- vim.api.nvim_set_hl(0, 'MiniStatuslineDebugger', { bg = mocha.green, fg = mocha.base, bold = true })
 
         -- Compose strings into one big statusline string
         return statusline.combine_groups({
@@ -139,6 +161,7 @@ return {
           '%=', -- End left alignment
           { hl = mode_hl, strings = { macro_recording } },
           { hl = mode_hl, strings = { search } },
+          { hl = mode_hl, strings = { debugger_status } },
           { hl = 'MiniStatuslineDiagnostics', strings = { diagnostics } },
           { hl = 'MiniStatuslineLspServers', strings = { tools_attached_to_buffer } },
           { hl = 'MiniStatuslineFileinfo', strings = { fileinfo, venv } },
