@@ -1,11 +1,20 @@
 ---@module 'nvim-dap-ui'
 
 vim.api.nvim_create_autocmd('BufWinEnter', {
-  desc = 'Focus DAP REPL window when it opens',
+  desc = 'Focus DAP REPL window when it appears',
   pattern = '\\[dap-repl-*\\]',
   callback = vim.schedule_wrap(function(args)
     local win_id = vim.fn.bufwinid(args.buf)
     vim.api.nvim_set_current_win(win_id)
+  end),
+})
+
+vim.api.nvim_create_autocmd('BufWinEnter', {
+  desc = 'Scroll DAP console to bottom window when it appears',
+  pattern = '\\[dap-terminal\\]*',
+  callback = vim.schedule_wrap(function(args)
+    local win_id = vim.fn.bufwinid(args.buf)
+    vim.api.nvim_win_set_cursor(win_id, { vim.api.nvim_buf_line_count(args.buf), 0 })
   end),
 })
 
