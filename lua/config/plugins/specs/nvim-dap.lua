@@ -24,18 +24,23 @@ local send_selection_to_visidata_in_external_terminal = function(format)
   dap.repl.execute('import subprocess')
 
   if format == 'json' then
-    dap.repl.execute('import json')
     dap.repl.execute([[
-proc = subprocess.Popen(["vd", "-f", "json", "-"], text=True, stdin=subprocess.PIPE)
-proc.stdin.write(json.dumps(]] .. selection .. [[))
-proc.stdin.close()
+import json, os, tempfile
+with tempfile.NamedTemporaryFile(delete=False, mode='w', suffix='.json') as tmpfile:
+    tmpfile.write(json.dumps(]] .. selection .. [[))
+    tmpfile_path = tmpfile.name
+os.system(f"tmux new-window 'sh -c \"vd {tmpfile_path}; rm {tmpfile_path}\"'")
 ]])
   else
-    -- TODO: this is pandas; support polars too
+    -- TODO: support polars as well as pandas (used below)
+    -- TODO: write to parquet instead of csv?
+    -- TODO: infer types when opening?
     dap.repl.execute([[
-proc = subprocess.Popen(["vd", "-f", "csv", "-"], text=True, stdin=subprocess.PIPE)
-proc.stdin.write(]] .. selection .. [[.to_csv(index=False))
-proc.stdin.close()
+import os, tempfile
+with tempfile.NamedTemporaryFile(delete=False, mode='w', suffix='.csv') as tmpfile:
+    tmpfile.write(]] .. selection .. [[.to_csv(index=False))
+    tmpfile_path = tmpfile.name
+os.system(f"tmux new-window 'sh -c \"vd {tmpfile_path}; rm {tmpfile_path}\"'")
 ]])
   end
 end
