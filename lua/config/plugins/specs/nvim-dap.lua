@@ -65,6 +65,33 @@ local function start_if_needed_and_run_to_cursor()
   dap.run_to_cursor()
 end
 
+---@param element 'breakpoints' | 'console' | 'repl' | 'scopes' | 'stacks' | 'watches'
+local function toggle_element(element)
+  -- TODO: prevent from getting out of sync with layouts config?
+  local layouts_index_by_element = {
+    breakpoints = 1,
+    console = 2,
+    repl = 3,
+    scopes = 4,
+    stacks = 5,
+    watches = 6,
+  }
+
+  local dapui = require('dapui')
+
+  -- set lazy redraw
+  vim.cmd('set lazyredraw')
+  for elem, layouts_index in pairs(layouts_index_by_element) do
+    if elem == element then
+      dapui.toggle({ layout = layouts_index, reset = true })
+    else
+      dapui.close({ layout = layouts_index })
+    end
+  end
+  -- reset redraw
+  vim.cmd('set nolazyredraw')
+end
+
 return {
   'mfussenegger/nvim-dap',
   dependencies = {
@@ -96,12 +123,12 @@ return {
     { "<leader>dc", start_if_needed_and_run_to_cursor, desc = "Run to Cursor" },
     { "<leader>dd", function() require("dap").continue() end, desc = "Start/continue" },
     { '<leader>de', function() require('dapui').eval(nil, { enter = true }) end, desc = 'Evaluate', mode = { 'n', 'v' } },
-    { '<leader>dfb', function() require('dapui').float_element('breakpoints', {enter=true, position='center', height=20, width=100}) end, desc = 'Breakpoints' }, 
-    { '<leader>dfc', function() require('dapui').float_element('console', {enter=true, position='center', height=1000, width=1000}) end, desc = 'Console (integrated terminal)' }, 
-    { '<leader>dfr', function() require('dapui').float_element('repl', {enter=true, position='center', height=1000, width=1000}) end, desc = 'REPL' }, 
-    { '<leader>dfs', function() require('dapui').float_element('stacks', {enter=true, position='center', height=20, width=100}) end, desc = 'Stack frames (stacks)' }, 
-    { '<leader>dfv', function() require('dapui').float_element('scopes', {enter=true, position='center', height=1000, width=1000}) end, desc = 'Variables (scopes)' }, 
-    { '<leader>dfw', function() require('dapui').float_element('watches', {enter=true, position='center', height=20, width=100}) end, desc = 'Watch expressions' }, 
+    { '<leader>dfb', function() require('dapui').float_element('breakpoints', { enter = true, position = 'center', height = 15, width = 60 }) end, desc = 'Breakpoints' },
+    { '<leader>dfr', function() require('dapui').float_element('repl', { enter = true, position = 'center', height = 1000, width = 1000 }) end, desc = 'REPL' }, 
+    { '<leader>dfs', function() require('dapui').float_element('stacks', { enter = true, position = 'center', height = 15, width = 60 }) end, desc = 'Stack frames (stacks)' }, 
+    { '<leader>dft', function() require('dapui').float_element('console', { enter = true, position = 'center', height = 1000, width = 1000 }) end, desc = 'Terminal' }, 
+    { '<leader>dfv', function() require('dapui').float_element('scopes', { enter = true, position = 'center', height = 1000, width = 1000 }) end, desc = 'Variables (scopes)' }, 
+    { '<leader>dfw', function() require('dapui').float_element('watches', { enter = true, position = 'center', height = 15, width = 60 }) end, desc = 'Watch expressions' }, 
     { '<leader>dg', function() require('dap').goto_() end, desc = 'Go to line (no execute)' },
     { '<leader>dh', function() require('dapui').eval(nil, { enter = true }) end, desc = 'Hover', mode = { 'n', 'v' } },
     { '<leader>di', function() require('nvim-dap-virtual-text').toggle() end, desc = 'Inlay hints (toggle)' },
@@ -109,12 +136,19 @@ return {
     { '<leader>dk', function() require('dap').up() end, desc = 'Move up stack' },
     { "<leader>dl", function() require("dap").run_last() end, desc = "Run Last" },
     { '<leader>dp', function() require('dap').pause() end, desc = 'Pause' },
-    { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
+    { '<leader>dr', function() toggle_element('repl') end, desc = 'REPL (toggle)' },
     { '<leader>dR', function() require('dap').restart() end, desc = 'Restart' },
     { "<leader>dsi", function() require("dap").step_into() end, desc = "Step Into" },
     { '<leader>dso', function() require('dap').step_over() end, desc = 'Step Over' },
     { "<leader>dsu", function() require("dap").step_out() end, desc = "Step Out" },
-    { '<leader>du', function() require('dapui').toggle({ reset = true }) end, desc = 'Dap UI (toggle)' },
+    { '<leader>dt', function() toggle_element('console') end, desc = 'Terminal (toggle)' },
+    { '<leader>dub', function() toggle_element('breakpoints') end, desc = 'Breakpoints (toggle)' },
+    { '<leader>dur', function() toggle_element('repl') end, desc = 'REPL (toggle)' },
+    { '<leader>dus', function() toggle_element('stacks') end, desc = 'Stacks by thread (toggle)' },
+    { '<leader>dut', function() toggle_element('console') end, desc = 'Terminal (toggle)' },
+    { '<leader>duv', function() toggle_element('scopes') end, desc = 'Variables (toggle)' },
+    { '<leader>duw', function() toggle_element('watches') end, desc = 'Watches (toggle)' },
+    -- { '<leader>du', function() require('dapui').toggle({ reset = true }) end, desc = 'Dap UI (toggle)' },
     { '<leader>dvc', function() send_selection_to_visidata_in_new_tmux_window('csv') end, desc = 'Visidata (dataframe)', mode={ 'n', 'v' } },
     { '<leader>dvj', function() send_selection_to_visidata_in_new_tmux_window('json') end, desc = 'Visidata (list of dicts)', mode={ 'n', 'v' } },
     { '<leader>dw', function() require('dapui').elements.watches.add() end, desc = 'Watch symbol under cursor' },
@@ -157,7 +191,7 @@ return {
 
     -- Hook to modify relevant configuration when starting the debugger
     -- Use tmux pane as external terminal without impacting colleagues who prefer their integrated IDE terminal
-    dap.listeners.on_config['override_console'] = function(config)
+    dap.listeners.on_config['override-console'] = function(config)
       config.console = 'integratedTerminal'
       -- config.external_terminal = dap.defaults.fallback.external_terminal
       return config

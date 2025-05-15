@@ -57,7 +57,32 @@ return {
         --   size = sidebar_width,
         -- },
         {
+          elements = { 'breakpoints' },
+          position = 'bottom',
+          size = bottom_panel_height,
+        },
+        {
           elements = { 'console' },
+          position = 'bottom',
+          size = bottom_panel_height,
+        },
+        {
+          elements = { 'repl' },
+          position = 'bottom',
+          size = bottom_panel_height,
+        },
+        {
+          elements = { 'scopes' },
+          position = 'bottom',
+          size = bottom_panel_height,
+        },
+        {
+          elements = { 'stacks' },
+          position = 'bottom',
+          size = bottom_panel_height,
+        },
+        {
+          elements = { 'watches' },
           position = 'bottom',
           size = bottom_panel_height,
         },
