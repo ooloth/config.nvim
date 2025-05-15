@@ -197,9 +197,9 @@ return {
       return config
     end
 
-    dap.listeners.after['event_stopped']['center-cursor-line'] = function(session, body)
-      -- When a breakpoint is reached, center the cursor line
-      if body.reason:find('breakpoint') or body.reason:find('exception') then vim.cmd('normal! zz') end
+    dap.listeners.after.event_stopped['position-cursor-line'] = function(session, body)
+      -- When a breakpoint is reached, position the cursor line with "zt"
+      if body.reason:find('breakpoint') or body.reason:find('exception') then vim.cmd('normal! zt') end
     end
   end,
 }
