@@ -1,11 +1,12 @@
 ---@module 'nvim-dap-ui'
 
 vim.api.nvim_create_autocmd('BufWinEnter', {
-  desc = 'Focus DAP REPL window when it appears',
+  desc = 'Focus DAP REPL window in insert mode when it appears',
   pattern = '\\[dap-repl-*\\]',
   callback = vim.schedule_wrap(function(args)
     local win_id = vim.fn.bufwinid(args.buf)
     vim.api.nvim_set_current_win(win_id)
+    vim.cmd('startinsert')
   end),
 })
 
