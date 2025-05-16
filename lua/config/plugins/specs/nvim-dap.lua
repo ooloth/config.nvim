@@ -97,6 +97,7 @@ return {
   dependencies = {
     'rcarriga/nvim-dap-ui',
     'theHamsta/nvim-dap-virtual-text',
+    { 'Joakker/lua-json5', build = './install.sh' }, -- support trailing commas in launch.json
     {
       'rcarriga/cmp-dap',
       dependencies = { 'hrsh7th/nvim-cmp' },
