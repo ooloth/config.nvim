@@ -2,6 +2,13 @@
 
 -- TODO: https://www.lazyvim.org/plugins/formatting
 
+local filetypes_to_never_format = {
+  ['help'] = true,
+  ['gitcommit'] = true,
+  ['gitrebase'] = true,
+  ['python'] = true, -- formatted by the ruff language server instead
+}
+
 return {
   'stevearc/conform.nvim',
   event = { 'BufWritePre' },
@@ -21,11 +28,7 @@ return {
     },
     formatters_by_ft = {
       ['_'] = function() -- "_" applies to filetypes with no formatter configured
-        if vim.bo.filetype ~= 'python' then
-          return { 'trim_whitespace' }
-        else
-          return {} -- Python is formatted by the ruff language server
-        end
+        return filetypes_to_never_format[vim.bo.filetype] and {} or { 'trim_whitespace' }
       end,
     },
     notify_on_error = true,
@@ -33,7 +36,7 @@ return {
     -- formatters = {
     -- dprint = {
     --   condition = function(ctx)
-    --     return vim.fs.find({ "dprint.json" }, { path = ctx.filename, upward = true })[1]
+    --     return vim.fs.find({ "dprint.json" }, { path = ctx.filename, upward = true })[]
     --   end,
     -- }
     -- }
