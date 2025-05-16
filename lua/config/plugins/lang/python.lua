@@ -233,7 +233,7 @@ return {
         local python_path = vim.env.IS_WORK == 'true' and python or 'uv'
 
         dap_python.test_runner = 'pytest'
-        dap_python.setup(python_path)
+        dap_python.setup(python_path, { include_configs = false })
       end,
     },
   },
