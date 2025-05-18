@@ -9,10 +9,12 @@
 
 -- NOTE: press <c-f> while in the rename window to open the command line window in normal mode for easier editing. Press <cr>
 -- while in insert mode to apply the changes and close.
+-- See: https://stackoverflow.com/questions/6920943/navigating-in-vims-command-mode
 
 return {
   'smjonas/inc-rename.nvim',
   opts = {
     preview_empty_name = true,
+    post_hook = function() vim.cmd('wa') end, -- save all buffers after renaming
   },
 }
