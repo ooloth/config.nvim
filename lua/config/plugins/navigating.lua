@@ -15,6 +15,7 @@ local set = vim.keymap.set
 -- swap : and ,
 set({ 'n', 'v' }, ',', ':') -- enter command mode with , instead of :
 set({ 'n', 'v' }, ':', ',') -- navigate f and t results using ;/: (like n/N for / results)
+set('n', 'q,', 'q:', { desc = 'Enter command line window' }) -- also works with c-f while in command prompt
 
 -- better up/down navigation
 set({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true, silent = true })
