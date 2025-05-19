@@ -40,7 +40,6 @@ return {
     },
     presets = {
       command_palette = true, -- position the cmdline and popupmenu together
-      inc_rename = true, -- enables an input dialog for inc-rename.nvim
     },
     routes = {
       {

@@ -48,13 +48,7 @@ local set_lsp_keymaps = function(lsp_attach_event)
   buffer_map('n', 'gh', function() require('noice.lsp').hover() end, 'Show hover doc')
   buffer_map({ 'n', 'x' }, '<leader>ra', vim.lsp.buf.code_action, 'Code action') -- execute a code action, usually your cursor needs to be on top of an error or a suggestion from your LSP for this to activate
   -- rename the variable under your cursor; most Language Servers support renaming across files, etc.
-  buffer_map(
-    'n',
-    '<leader>rs',
-    function() return ':IncRename ' .. vim.fn.expand('<cword>') end,
-    'Rename symbol under cursor',
-    { expr = true }
-  )
+  buffer_map('n', '<leader>rs', vim.lsp.buf.rename, 'Rename symbol under cursor', { expr = true })
 
   local client = vim.lsp.get_client_by_id(lsp_attach_event.data.client_id)
 
@@ -142,7 +136,6 @@ return {
     'folke/noice.nvim', -- for 'gh' keymap
     'hrsh7th/cmp-nvim-lsp', -- extend nvim's default lsp capabilities
     'j-hui/fidget.nvim', -- show lsp updates via discrete UI in the bottom right
-    'smjonas/inc-rename.nvim', -- keymaps: better rename symbol UI
     'stevearc/dressing.nvim', -- keymaps: better vim.ui.select UI (e.g. for code actions)
   },
   config = function(_, opts)
