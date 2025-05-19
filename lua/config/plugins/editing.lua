@@ -27,11 +27,13 @@ end)
 local autocmd = vim.api.nvim_create_autocmd
 local set = vim.keymap.set
 
+set('n', '<leader><leader>', '<cmd>wa<cr>', { desc = 'Save all files' })
+
 -- new file
 set('n', '<leader>fn', ':ene <BAR> startinsert<cr>', { desc = 'New file' })
 
-set('n', '<leader><leader>', '<cmd>wa<cr>', { desc = 'Save all files' })
-set('n', '<leader>rs', ':%s/', { desc = 'Substitute' })
+-- refactoring
+set('n', '<leader>rs', [[:%s/<C-r><C-w>//gc<Left><Left><Left>]], { desc = 'Substitute (cursor word)' })
 
 -- better indenting
 set('v', '<', '<gv')
