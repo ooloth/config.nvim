@@ -9,6 +9,6 @@ return {
     },
   },
   keys = {
-    { 's', mode = { 'n', 'x', 'o' }, function() require('flash').jump() end, desc = 'Search (with flash)' },
+    { 'gj', mode = { 'n', 'x', 'o' }, function() require('flash').jump() end, desc = 'Jump (with flash)' },
   },
 }
