@@ -30,6 +30,7 @@ local set = vim.keymap.set
 -- new file
 set('n', '<leader>fn', ':ene <BAR> startinsert<cr>', { desc = 'New file' })
 
+set('n', '<leader><leader>', '<cmd>wa<cr>', { desc = 'Save all files' })
 set('n', '<leader>rs', ':%s/', { desc = 'Substitute' })
 
 -- better indenting

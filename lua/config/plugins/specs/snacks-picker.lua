@@ -47,11 +47,6 @@ return {
     { 'gI', function() Snacks.picker.lsp_implementations() end, desc = 'Goto implementation' },
     { 'gr', function() Snacks.picker.lsp_references() end, nowait = true, desc = 'References' },
     { 'gy', function() Snacks.picker.lsp_type_definitions() end, desc = 'Goto t[y]pe definition' },
-    {
-      '<leader><space>',
-      function() Snacks.picker.smart({ filter = { cwd = true } }) end,
-      desc = 'Smart find recent files',
-    },
     { '<leader>/', function() Snacks.picker.grep() end, desc = 'Grep' },
     { '<leader>,', function() Snacks.picker.command_history() end, desc = 'Command history' },
     { '<leader>e/', function() Snacks.picker.lines() end, desc = 'Search lines' },
