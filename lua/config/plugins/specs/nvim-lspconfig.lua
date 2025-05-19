@@ -47,8 +47,7 @@ local set_lsp_keymaps = function(lsp_attach_event)
 
   buffer_map('n', 'gh', function() require('noice.lsp').hover() end, 'Show hover doc')
   buffer_map({ 'n', 'x' }, '<leader>ra', vim.lsp.buf.code_action, 'Code action') -- execute a code action, usually your cursor needs to be on top of an error or a suggestion from your LSP for this to activate
-  -- rename the variable under your cursor; most Language Servers support renaming across files, etc.
-  buffer_map('n', '<leader>rs', vim.lsp.buf.rename, 'Rename symbol under cursor', { expr = true })
+  buffer_map('n', '<leader>rr', vim.lsp.buf.rename, 'Rename symbol under cursor', { expr = true })
 
   local client = vim.lsp.get_client_by_id(lsp_attach_event.data.client_id)
 
