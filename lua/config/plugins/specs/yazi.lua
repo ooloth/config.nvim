@@ -11,7 +11,7 @@ return {
     -- 👇 in this section, choose your own keymappings!
     {
       '<leader>syy',
-      mode = { 'n', 'v' },
+      mode = { 'n', 'x' },
       '<cmd>Yazi<cr>',
       desc = 'Open yazi at the current file',
     },

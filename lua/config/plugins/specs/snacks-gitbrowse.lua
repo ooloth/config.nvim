@@ -10,9 +10,9 @@ return {
   },
   -- stylua: ignore
   keys = {
-    { '<leader>go', function() Snacks.gitbrowse.open({ what = 'commit' }) end, desc = 'Open on GitHub', mode = { 'n', 'v' } },
-    { '<leader>gO', function() Snacks.gitbrowse.open({ what = 'permalink' }) end, desc = 'Open on GitHub (permalink)', mode = { 'n', 'v' } },
-    { '<leader>gy', function() Snacks.gitbrowse.open({ what = 'commit' }) end, desc = 'Open on GitHub', mode = { 'n', 'v' } },
-    { '<leader>gY', function() Snacks.gitbrowse.open({ what = 'permalink' }) end, desc = 'Open on GitHub (permalink)', mode = { 'n', 'v' } },
+    { '<leader>go', function() Snacks.gitbrowse.open({ what = 'commit' }) end, desc = 'Open on GitHub', mode = { 'n', 'x' } },
+    { '<leader>gO', function() Snacks.gitbrowse.open({ what = 'permalink' }) end, desc = 'Open on GitHub (permalink)', mode = { 'n', 'x' } },
+    { '<leader>gy', function() Snacks.gitbrowse.open({ what = 'commit' }) end, desc = 'Open on GitHub', mode = { 'n', 'x' } },
+    { '<leader>gY', function() Snacks.gitbrowse.open({ what = 'permalink' }) end, desc = 'Open on GitHub (permalink)', mode = { 'n', 'x' } },
   },
 }

@@ -13,7 +13,7 @@ return {
     icons = { mappings = false },
     sort = { 'alphanum' },
     spec = {
-      mode = { 'n', 'v' }, -- inherited by block of mappings below
+      mode = { 'n', 'x' }, -- inherited by block of mappings below
       { '<leader><tab>', group = 'Tab' },
       { '<leader>a', group = 'AI' },
       { '<leader>d', group = 'Debug' },

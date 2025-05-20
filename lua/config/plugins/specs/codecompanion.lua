@@ -12,10 +12,10 @@ return {
     'zbirenbaum/copilot.lua',
   },
   keys = {
-    { '<leader>a,', '<cmd>CodeCompanionActions<cr>', desc = 'CodeCompanion actions', mode = { 'n', 'v' } },
-    { '<leader>aa', '<cmd>CodeCompanionChat Toggle<cr>', desc = 'Chat editor (toggle)', mode = { 'n', 'v' } },
-    { '<leader>ai', '<cmd>CodeCompanion<cr>', desc = 'Inline assistant', mode = { 'n', 'v' } },
-    { '<leader>as', '<cmd>CodeCompanionChat Add<cr>', desc = 'Send selection to chat', mode = 'v' },
+    { '<leader>a,', '<cmd>CodeCompanionActions<cr>', desc = 'CodeCompanion actions', mode = { 'n', 'x' } },
+    { '<leader>aa', '<cmd>CodeCompanionChat Toggle<cr>', desc = 'Chat editor (toggle)', mode = { 'n', 'x' } },
+    { '<leader>ai', '<cmd>CodeCompanion<cr>', desc = 'Inline assistant', mode = { 'n', 'x' } },
+    { '<leader>as', '<cmd>CodeCompanionChat Add<cr>', desc = 'Send selection to chat', mode = 'x' },
   },
   opts = {
     display = {

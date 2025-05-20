@@ -13,8 +13,8 @@ vim.opt.virtualedit = 'block' -- Allow cursor to move where there is no text in 
 local set = vim.keymap.set
 
 -- swap : and ,
-set({ 'n', 'v' }, ',', ':') -- enter command mode with , instead of :
-set({ 'n', 'v' }, ':', ',') -- navigate f and t results using ;/: (like n/N for / results)
+set({ 'n', 'x' }, ',', ':') -- enter command mode with , instead of :
+set({ 'n', 'x' }, ':', ',') -- navigate f and t results using ;/: (like n/N for / results)
 set('n', 'q,', 'q:', { desc = 'Enter command line window' }) -- also works with c-f while in command prompt
 
 -- better up/down navigation
@@ -24,8 +24,8 @@ set({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', expr = true, 
 set({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', expr = true, silent = true })
 
 -- navigate to beginning + end of line
-set({ 'n', 'v' }, '<S-h>', '^', { silent = true })
-set({ 'n', 'v' }, '<S-l>', '$', { silent = true })
+set({ 'n', 'x' }, '<S-h>', '^', { silent = true })
+set({ 'n', 'x' }, '<S-l>', '$', { silent = true })
 
 -- navigate changes
 set('n', ']c', 'g,', { desc = 'Next change' }) -- go to next change with g;

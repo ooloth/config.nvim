@@ -1,7 +1,7 @@
 ---@module 'mini.surround'
 
 -- Surround selection with 'S' in visual mode
-vim.keymap.set('v', 'S', [[:<C-u>lua MiniSurround.add('visual')<CR>]], { silent = true })
+vim.keymap.set('x', 'S', [[:<C-u>lua MiniSurround.add('visual')<CR>]], { silent = true })
 
 return {
   'echasnovski/mini.surround',

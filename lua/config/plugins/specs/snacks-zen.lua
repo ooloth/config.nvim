@@ -12,8 +12,8 @@ return {
     },
   },
   keys = {
-    { '<leader>em', function() Snacks.zen.zoom() end, desc = 'Maximize (toggle)', mode = { 'n', 'v' } },
-    { '<leader>uz', function() Snacks.zen.zen() end, desc = 'Zen mode (toggle)', mode = { 'n', 'v' } },
-    { '<leader>wm', function() Snacks.zen.zoom() end, desc = 'Maximize (toggle)', mode = { 'n', 'v' } },
+    { '<leader>em', function() Snacks.zen.zoom() end, desc = 'Maximize (toggle)', mode = { 'n', 'x' } },
+    { '<leader>uz', function() Snacks.zen.zen() end, desc = 'Zen mode (toggle)', mode = { 'n', 'x' } },
+    { '<leader>wm', function() Snacks.zen.zoom() end, desc = 'Maximize (toggle)', mode = { 'n', 'x' } },
   },
 }

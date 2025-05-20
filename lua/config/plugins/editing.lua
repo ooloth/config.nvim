@@ -36,23 +36,23 @@ set('n', '<leader>fn', ':ene <BAR> startinsert<cr>', { desc = 'New file' })
 set('n', '<leader>rs', [[:%s/<C-r><C-w>//gc<Left><Left><Left>]], { desc = 'Substitute (cursor word)' })
 
 -- better indenting
-set('v', '<', '<gv')
-set('v', '>', '>gv')
+set('x', '<', '<gv')
+set('x', '>', '>gv')
 
 -- commenting
 set('n', 'gco', 'o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>', { desc = 'Add Comment Below' })
 set('n', 'gcO', 'O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>', { desc = 'Add Comment Above' })
 
 -- sorting
-set('v', '<leader>rs', ':sort i<cr>', { desc = 'Sort selected lines' })
+set('x', '<leader>rs', ':sort i<cr>', { desc = 'Sort selected lines' })
 
 -- -- Move Lines
 -- set('n', '<A-j>', '<cmd>m .+1<cr>==', { desc = 'Move Down' })
 -- set('n', '<A-k>', '<cmd>m .-2<cr>==', { desc = 'Move Up' })
 -- set('i', '<A-j>', '<esc><cmd>m .+1<cr>==gi', { desc = 'Move Down' })
 -- set('i', '<A-k>', '<esc><cmd>m .-2<cr>==gi', { desc = 'Move Up' })
--- set('v', '<A-j>', ":m '>+1<cr>gv=gv", { desc = 'Move Down' })
--- set('v', '<A-k>', ":m '<-2<cr>gv=gv", { desc = 'Move Up' })
+-- set('x', '<A-j>', ":m '>+1<cr>gv=gv", { desc = 'Move Down' })
+-- set('x', '<A-k>', ":m '<-2<cr>gv=gv", { desc = 'Move Up' })
 
 -- Add undo break-points
 set('i', ',', ',<c-g>u')
