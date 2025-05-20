@@ -3,21 +3,20 @@ local M = {}
 M.get_visual_selection = function()
   local mode = vim.fn.mode()
 
-  if mode == 'v' then
-    local _, line_start, col_start = unpack(vim.fn.getpos('v'))
-    local _, line_end, col_end = unpack(vim.fn.getpos('.'))
+  -- If not in visual mode, return the expression under the cursor
+  if mode ~= 'v' then return vim.fn.expand('<cexpr>') end
 
-    -- Normalize the positions (support selecting in reverse)
-    if line_start > line_end or (line_start == line_end and col_start > col_end) then
-      line_start, line_end = line_end, line_start
-      col_start, col_end = col_end, col_start
-    end
+  local _, line_start, col_start = unpack(vim.fn.getpos('v'))
+  local _, line_end, col_end = unpack(vim.fn.getpos('.'))
 
-    local selection = vim.api.nvim_buf_get_text(0, line_start - 1, col_start - 1, line_end - 1, col_end, {})
-    return selection[1]
-  else
-    return vim.fn.expand('<cexpr>')
+  -- Normalize the positions (support selecting in reverse)
+  if line_start > line_end or (line_start == line_end and col_start > col_end) then
+    line_start, line_end = line_end, line_start
+    col_start, col_end = col_end, col_start
   end
+
+  local selection = vim.api.nvim_buf_get_text(0, line_start - 1, col_start - 1, line_end - 1, col_end, {})
+  return selection[1]
 end
 
 M.get_system_executable_path = function(executable_name)
