@@ -11,12 +11,20 @@ return {
         -- see: https://www.lazyvim.org/extras/editor/snacks_picker#snacksnvim-1
         trouble_open = function(...) return require('trouble.sources.snacks').actions.trouble_open.action(...) end,
       },
+      exclude = {
+        '.DS_Store',
+      },
+      filter = {
+        cwd = true, -- filter results by current working directory
+      },
       formatters = {
         file = {
           filename_first = false, -- display filename before the file path
           truncate = 120, -- truncate the file path to (roughly) this length
         },
       },
+      hidden = true, -- include hidden files
+      ignored = true, -- include hidden files
       layouts = {
         -- see: https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#%EF%B8%8F-layouts
         default = {
@@ -64,11 +72,7 @@ return {
     -- NOTE: leader-sd is used by trouble.nvim to open diagnostics in Trouble's quickfix view
     { '<leader>se', function() Snacks.picker.buffers() end, desc = 'Editors (files)' },
     { '<leader>sE', function() Snacks.picker.grep_buffers() end, desc = 'Editors (text)' },
-    {
-      '<leader>sf',
-      function() Snacks.picker.files({ hidden = true, ignored = true }) end,
-      desc = 'Files',
-    },
+    { '<leader>sf', function() Snacks.picker.smart() end, desc = 'Files' },
     { '<leader>sg', function() Snacks.picker.grep() end, desc = 'Grep' },
     { '<leader>sh', function() Snacks.picker.help() end, desc = 'Help pages' },
     { '<leader>sH', function() Snacks.picker.highlights() end, desc = 'Highlights' },
