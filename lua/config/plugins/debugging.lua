@@ -5,13 +5,15 @@ local set = vim.keymap.set
 --- @type table<string, fun(expression: string): string[]>
 local print_to_console_for_ft = {
   python = function(expr)
-    local terminal_width = vim.env.COLUMNS or 80
+    local terminal_width = vim.o.columns - 2 or 100
 
     return {
       'print("")',
-      'print("=" * ' .. vim.o.columns - 2 .. ')',
-      'print(f"{' .. expr .. ' =}")',
-      'print("=" * ' .. vim.o.columns - 2 .. ')',
+      'print("=" * ' .. terminal_width .. ')',
+      'print("' .. expr .. ':")',
+      'print("")',
+      'print(' .. expr .. ')',
+      'print("=" * ' .. terminal_width .. ')',
       'print("")',
     }
   end,
