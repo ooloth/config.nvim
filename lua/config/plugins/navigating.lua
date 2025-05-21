@@ -35,8 +35,7 @@ set('n', 'g:', 'g;', { desc = 'Prev change' }) -- go to previous change with g;
 
 -- navigate editors (buffers)
 -- WARN: don't try to add c-[] maps (c-[ means ESC; c-] navigates to :help keywords)
-set('n', '<tab>', '<cmd>bn<cr>', { desc = 'Next editor' })
-set('n', '<s-tab>', '<cmd>bp<cr>', { desc = 'Prev editor' })
+-- WARN: don't try to add a <Tab> map (they override the <c-i> jumping behavior): https://stackoverflow.com/questions/18175647/jump-with-ctrl-i-doesnt-work-in-my-macvim-but-ctrl-o-works
 set('n', '<leader>`', '<cmd>e#<cr>', { desc = 'Other editor' }) -- switch to last buffer
 set('n', '<leader>ed', '<cmd>bp|bd #<cr>', { desc = 'Close editor' }) -- close buffer but not window
 set('n', '<leader>ee', '<cmd>e#<cr>', { desc = 'Other editor' }) -- switch to last buffer
