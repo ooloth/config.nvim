@@ -1,6 +1,6 @@
 ---@module 'nvim-dap'
 
-local get_visual_selection = require('config.util').get_visual_selection
+local get_visual_selection = require('config.util').get_cursor_expression_or_selection
 
 -- TODO: create variant to be used in the repl rather than the editor?
 ---Start the debugger, pause at a breakpoint, select a dataframe or list of dicts, and run leader-dvc or leader-dvj

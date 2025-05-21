@@ -1,6 +1,7 @@
 local M = {}
 
-M.get_visual_selection = function()
+---@return string|nil
+M.get_cursor_expression_or_selection = function()
   local mode = vim.fn.mode()
 
   -- If not in visual mode, return the expression under the cursor
