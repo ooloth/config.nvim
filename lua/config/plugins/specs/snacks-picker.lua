@@ -11,9 +11,6 @@ return {
         -- see: https://www.lazyvim.org/extras/editor/snacks_picker#snacksnvim-1
         trouble_open = function(...) return require('trouble.sources.snacks').actions.trouble_open.action(...) end,
       },
-      exclude = {
-        '.DS_Store',
-      },
       filter = {
         cwd = true, -- filter results by current working directory
       },
@@ -24,7 +21,6 @@ return {
         },
       },
       hidden = true, -- include hidden files
-      ignored = true, -- include hidden files
       layouts = {
         -- see: https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#%EF%B8%8F-layouts
         default = {
