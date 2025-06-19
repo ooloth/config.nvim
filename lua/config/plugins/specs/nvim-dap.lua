@@ -35,18 +35,6 @@ os.system(f"tmux new-window 'sh -c \"vd {tmpfile_path}; rm {tmpfile_path}\"'")
   end
 end
 
-local function start_if_needed_and_run_to_cursor()
-  local dap = require('dap')
-
-  if not dap.session() then
-    dap.set_breakpoint()
-    dap.continue()
-    return
-  end
-
-  dap.run_to_cursor()
-end
-
 ---@param element 'breakpoints' | 'console' | 'repl' | 'scopes' | 'stacks' | 'watches'
 local function toggle_element(element)
   -- TODO: prevent from getting out of sync with layouts config?
@@ -72,6 +60,20 @@ local function toggle_element(element)
   end
   -- reset redraw
   vim.cmd('set nolazyredraw')
+end
+
+local function start_if_needed_and_run_to_cursor()
+  local dap = require('dap')
+
+  if not dap.session() then
+    dap.set_breakpoint()
+    dap.continue()
+    toggle_element('console')
+    return
+  end
+
+  dap.run_to_cursor()
+  toggle_element('console')
 end
 
 return {
