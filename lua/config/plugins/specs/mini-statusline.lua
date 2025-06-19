@@ -22,9 +22,8 @@ local get_debugger_status = function()
   local summary = status:lower()
   if status:find('Starting') then summary = 'running' end
   if status:find('Running') then summary = 'running' end
-  if status:find('Stopped') then summary = 'stopped' end
-  if status:find('stopped') then summary = 'stopped' end
-  -- if status:find('Stopped at line') then summary = 'stopped at L' .. status:match('(%d+)') end
+  if status:find('Stopped') then summary = 'paused' end
+  if status:find('stopped') then summary = 'paused' end
 
   return 'Debugger ' .. summary
 end
