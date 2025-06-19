@@ -18,8 +18,6 @@ return {
     --   end,
     -- })
 
-    -- optional setup call to override plugin options
-    -- alternatively you can set options with vim.g.grug_far = { ... }
     require('grug-far').setup({
       -- Defaults: https://github.com/MagicDuck/grug-far.nvim/blob/main/lua/grug-far/opts.lua
       helpLine = {
