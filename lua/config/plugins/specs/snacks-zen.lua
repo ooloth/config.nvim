@@ -6,8 +6,8 @@ return {
     zen = {}, -- see: https://github.com/folke/snacks.nvim/blob/main/docs/zen.md#%EF%B8%8F-config
     styles = {
       zoom_indicator = {
-        text = ' 󰊓 ZOOMED 󰊓   ',
-        minimal = false,
+        text = '󰊓 ZOOMED 󰊓',
+        minimal = true,
       },
     },
   },
