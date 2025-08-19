@@ -135,7 +135,7 @@ return {
         -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#ruff
         -- see: https://docs.astral.sh/ruff/editors/setup/#neovim
         ruff = {
-          cmd = { prefer_venv_executable('ruff'), 'server', '--preview' },
+          cmd = { prefer_venv_executable('ruff'), 'server' },
           init_options = {
             settings = {
               -- see: https://docs.astral.sh/ruff/editors/settings/
