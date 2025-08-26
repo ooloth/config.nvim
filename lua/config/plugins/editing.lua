@@ -20,9 +20,8 @@ vim.opt.wildmode = 'longest:full,full' -- command-line completion behavior
 -- Sync clipboard between OS and Neovim (after `UiEnter` because it can increase startup-time)
 vim.schedule(function()
   -- Use OSC52 to sync clipboard in terminal (works over SSH)
-  vim.opt.clipboard = 'osc52'
-
-  -- vim.opt.clipboard = 'unnamedplus'
+  vim.g.clipboard = 'osc52'
+  vim.opt.clipboard = 'unnamedplus'
 
   -- Sync with vim + system clipboards if not in SSH session
   -- vim.opt.clipboard = vim.env.SSH_TTY and '' or 'unnamedplus'
@@ -92,5 +91,5 @@ return {
   require('config.plugins.specs.mini-surround'),
   require('config.plugins.specs.netrw'),
   require('config.plugins.specs.nvim-cmp'),
-  require('config.plugins.specs.smartyank'),
+  -- require('config.plugins.specs.smartyank'),
 }
