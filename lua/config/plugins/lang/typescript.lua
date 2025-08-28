@@ -33,6 +33,8 @@ return {
     'neovim/nvim-lspconfig',
     opts = {
       servers = {
+        -- see: https://github.com/olrtg/emmet-language-server
+        emmet_language_server = {},
         eslint = {
           -- Automatically fix fixable issues on save:
           -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#eslint
