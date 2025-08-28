@@ -14,7 +14,8 @@ return {
   {
     'neovim/nvim-lspconfig',
     opts = {
-      -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#dockerls
+      -- Requires https://github.com/rcjsuen/dockerfile-language-server-nodejs
+      -- See: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#dockerls
       dockerls = {},
     },
   },

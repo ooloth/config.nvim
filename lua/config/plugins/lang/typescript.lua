@@ -35,7 +35,7 @@ return {
       servers = {
         eslint = {
           -- Automatically fix fixable issues on save:
-          -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#eslint
+          -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#eslint
           on_attach = function(_, bufnr)
             vim.api.nvim_create_autocmd('BufWritePre', {
               buffer = bufnr,
@@ -43,7 +43,7 @@ return {
             })
           end,
           -- see: https://github.com/microsoft/vscode-eslint/tree/main?tab=readme-ov-file#settings-options
-          -- defaults: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#eslint
+          -- defaults: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#eslint
           settings = {
             nodePath = vim.fn.getcwd() .. '/node_modules',
             -- helps eslint find the eslintrc when it's placed in a subfolder instead of the cwd root

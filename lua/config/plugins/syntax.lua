@@ -11,7 +11,7 @@ return {}
 --   filename = {
 --     ['Brewfile'] = 'ruby',
 --     ['tsconfig.json'] = 'jsonc',
---     -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#docker_compose_language_service
+--     -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#docker_compose_language_service
 --     ['docker-compose.yaml'] = 'yaml.docker-compose',
 --   },
 --   pattern = {

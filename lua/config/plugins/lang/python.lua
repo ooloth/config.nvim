@@ -132,7 +132,7 @@ return {
         -- TODO: only initialize this if in venv? I wouldn't mind having it on single file projects, but
         -- likely don't want it to be active in older shared projects where flake8, black etc are in use
         -- Ruff Server (provides linting, formatting and code actions)
-        -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#ruff
+        -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#ruff
         -- see: https://docs.astral.sh/ruff/editors/setup/#neovim
         ruff = {
           cmd = { prefer_venv_executable('ruff'), 'server' },
