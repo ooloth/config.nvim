@@ -50,6 +50,8 @@ return {
     ft = { 'markdown', 'codecompanion' }, -- see: https://codecompanion.olimorris.dev/configuration/chat-buffer.html#markdown-rendering
     ---@module 'render-markdown'
     ---@type render.md.UserConfig
-    opts = {},
+    opts = {
+      latex = { enabled = false },
+    },
   },
 }
