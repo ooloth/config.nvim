@@ -33,8 +33,9 @@ return {
     },
     notify_on_error = true,
     formatters = {
-      -- # Example of using dprint only when a dprint.json file is present
+      -- See: https://github.com/stevearc/conform.nvim#customizing-formatters
       -- dprint = {
+      --   Example of using dprint only when a dprint.json file is present
       --   condition = function(ctx)
       --     return vim.fs.find({ "dprint.json" }, { path = ctx.filename, upward = true })[]
       --   end,
