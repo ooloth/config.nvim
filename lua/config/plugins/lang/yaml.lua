@@ -29,12 +29,12 @@ return {
           },
           yaml = {
             -- https://github.com/redhat-developer/yaml-language-server?tab=readme-ov-file#language-server-settings
-            editor = {
-              tabSize = 2, -- does this setting stop eng-infrastructure from setting tab width to 4 on save?
-            },
-            format = {
-              enable = true, -- yaml language server handles formatting
-            },
+            -- editor = {
+            --   tabSize = 2,
+            -- },
+            -- format = {
+            --   enable = true, -- yaml language server handles formatting
+            -- },
             keyOrdering = false,
             schemas = require('schemastore').yaml.schemas(), -- and linting
             schemaStore = {
@@ -50,12 +50,12 @@ return {
     end,
   },
 
-  -- {
-  --   'stevearc/conform.nvim',
-  --   opts = {
-  --     formatters_by_ft = {
-  --       yaml = { 'prettier' },
-  --     },
-  --   },
-  -- },
+  {
+    'stevearc/conform.nvim',
+    opts = {
+      formatters_by_ft = {
+        yaml = { 'prettier' },
+      },
+    },
+  },
 }
