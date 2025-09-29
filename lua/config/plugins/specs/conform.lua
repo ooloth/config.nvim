@@ -32,13 +32,20 @@ return {
       end,
     },
     notify_on_error = true,
-    -- # Example of using dprint only when a dprint.json file is present
-    -- formatters = {
-    -- dprint = {
-    --   condition = function(ctx)
-    --     return vim.fs.find({ "dprint.json" }, { path = ctx.filename, upward = true })[]
-    --   end,
-    -- }
-    -- }
+    formatters = {
+      -- # Example of using dprint only when a dprint.json file is present
+      -- dprint = {
+      --   condition = function(ctx)
+      --     return vim.fs.find({ "dprint.json" }, { path = ctx.filename, upward = true })[]
+      --   end,
+      -- }
+      prettier = {
+        env = {
+          -- Support TypeScript config file format
+          -- See: https://prettier.io/docs/configuration#typescript-configuration-files
+          NODE_OPTIONS = '--experimental-strip-types',
+        },
+      },
+    },
   },
 }
