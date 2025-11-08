@@ -22,6 +22,7 @@ vim.diagnostic.config({
     source = true,
   },
   severity_sort = true,
+  signs = diagnostic_signs_by_severity,
   update_in_insert = false,
   virtual_text = {
     spacing = 4,
@@ -92,15 +93,6 @@ local highlight_references_to_cursor_word_in_editor = function(lsp_attach_event)
   end
 end
 
-local change_diagnostic_signs = function()
-  -- see: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua#L134-L143
-  for severity, icon in pairs(diagnostic_signs_by_severity) do
-    local name = vim.diagnostic.severity[severity]:lower():gsub('^%l', string.upper)
-    name = 'DiagnosticSign' .. name
-    vim.fn.sign_define(name, { text = icon, texthl = name, numhl = '' })
-  end
-end
-
 local show_active_diagnostics_on_cursor_line = function()
   -- see: https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#show-line-diagnostics-automatically-in-hover-window
   vim.api.nvim_create_autocmd('CursorHold', {
@@ -145,7 +137,6 @@ return {
         set_lsp_keymaps(event)
         highlight_references_to_cursor_word_in_editor(event)
         -- show_active_diagnostics_on_cursor_line() -- NOTE: let's see if I miss this
-        change_diagnostic_signs()
         -- enable_inlay_hints(event) -- NOTE: toggle on with leader-ui, but don't turn on by default
         enable_code_lenses(event)
       end,
