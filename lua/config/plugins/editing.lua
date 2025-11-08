@@ -19,9 +19,11 @@ vim.opt.wildmode = 'longest:full,full' -- command-line completion behavior
 
 -- Sync clipboard between OS and Neovim (after `UiEnter` because it can increase startup-time)
 vim.schedule(function()
-  -- Use OSC52 to support copy/paste over SSH in tmux
-  vim.g.clipboard = 'osc52'
-  vim.opt.clipboard = 'unnamedplus'
+  if not vim.env.SSH_TTY then
+    -- To support copy/paste over SSH, only set clipboard if not in ssh to make sure the OSC 52 integration works automatically
+    -- See: https://github.com/LazyVim/LazyVim/discussions/2715#discussioncomment-8752148
+    vim.opt.clipboard = 'unnamedplus' -- Sync with system clipboard
+  end
 end)
 
 local autocmd = vim.api.nvim_create_autocmd
