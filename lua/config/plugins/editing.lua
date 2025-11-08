@@ -74,10 +74,7 @@ autocmd('FileType', {
 -- Don't prefix comment characters to newlines after comments
 -- https://neovim.discourse.group/t/options-formatoptions-not-working-when-put-in-init-lua/3746/5
 autocmd('BufEnter', {
-  callback = function()
-    vim.opt.formatoptions:remove({ 'r', 'o' })
-    -- vim.opt.formatoptions:remove { 'c', 'r', 'o' }
-  end,
+  callback = function() vim.opt.formatoptions:remove({ 'r', 'o' }) end,
 })
 
 autocmd('TextYankPost', {
@@ -93,4 +90,5 @@ return {
   require('config.plugins.specs.mini-surround'),
   require('config.plugins.specs.netrw'),
   require('config.plugins.specs.nvim-cmp'),
+  require('config.plugins.specs.ts-comments'),
 }
