@@ -14,6 +14,7 @@ vim.filetype.add({
   filename = {
     ['Brewfile'] = 'ruby',
     ['tsconfig.json'] = 'jsonc',
+    ['vifmrc'] = 'vim',
     -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#docker_compose_language_service
     ['docker-compose.yaml'] = 'yaml.docker-compose',
   },
