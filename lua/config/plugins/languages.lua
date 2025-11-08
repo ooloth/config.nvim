@@ -3,6 +3,7 @@
 local util = require('config.util')
 
 -- custom filename -> filetype associations
+-- see: https://neovim.io/doc/user/lua.html#vim.filetype
 vim.filetype.add({
   extension = {
     mdx = 'markdown.mdx',
@@ -18,10 +19,10 @@ vim.filetype.add({
   },
   pattern = {
     ['docker-compose.*%.yaml'] = 'yaml.docker-compose',
-    ['.*/kitty/.*%.conf'] = 'conf',
-    ['.*/kitty/.*/.*%.conf'] = 'conf',
-    ['.*/.vscode/.*%.json'] = 'jsonc',
-    ['.*/vscode/.*%.json'] = 'jsonc',
+    ['.*/kitty/.+%.conf'] = 'kitty',
+    ['.*/kitty/.*/.+%.conf'] = 'kitty',
+    ['.*/.vscode/.%.json'] = 'jsonc',
+    ['.*/vscode/.%.json'] = 'jsonc',
   },
 })
 
