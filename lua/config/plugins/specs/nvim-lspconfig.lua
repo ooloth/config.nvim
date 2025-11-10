@@ -3,10 +3,9 @@
 -- TODO: gd: go straight to definition?
 -- TODO: inlay hints: configure to show only some (e.g. show arg types but hide function reference counts?)
 -- TODO: more ideas: https://github.com/ilias777/nvim/blob/1d0f2e122525869025c4fd6171d69a23020234e1/lua/plugins/lsp/lsp-config.lua
-
 -- DOCS: https://www.lazyvim.org/plugins/lsp
 
-local diagnostic_signs_by_severity = {
+local signs_by_severity = {
   [vim.diagnostic.severity.ERROR] = ' ',
   [vim.diagnostic.severity.WARN] = ' ',
   [vim.diagnostic.severity.INFO] = ' ',
@@ -22,12 +21,14 @@ vim.diagnostic.config({
     source = true,
   },
   severity_sort = true,
-  signs = diagnostic_signs_by_severity,
+  signs = {
+    text = signs_by_severity,
+  },
   update_in_insert = false,
   virtual_text = {
     spacing = 4,
     source = 'if_many',
-    prefix = function(diagnostic) return diagnostic_signs_by_severity[diagnostic.severity] end,
+    prefix = function(diagnostic) return signs_by_severity[diagnostic.severity] end,
   },
 })
 
@@ -53,7 +54,7 @@ local set_lsp_keymaps = function(lsp_attach_event)
   local client = vim.lsp.get_client_by_id(lsp_attach_event.data.client_id)
 
   -- Set keymap to toggle inlay hints if the language server supports them
-  if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, lsp_attach_event.buf) then
+  if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, lsp_attach_event.buf) then
     buffer_map(
       'n',
       '<leader>ui',
@@ -67,7 +68,7 @@ local highlight_references_to_cursor_word_in_editor = function(lsp_attach_event)
   local client = vim.lsp.get_client_by_id(lsp_attach_event.data.client_id)
 
   -- Highlight references to word under cursor
-  if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+  if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
     local highlight_augroup = vim.api.nvim_create_augroup('lsp-highlight', { clear = false })
     vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
       buffer = lsp_attach_event.buf,
