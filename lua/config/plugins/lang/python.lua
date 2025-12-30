@@ -93,6 +93,9 @@ end
 -- get the python executable from the project venv (if active) for pyright, dap and neotest
 local python = prefer_venv_executable('python')
 
+-- LSP SERVERS --
+vim.lsp.enable('ty')
+
 return {
   {
     'nvim-treesitter/nvim-treesitter',
