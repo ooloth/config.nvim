@@ -108,30 +108,30 @@ return {
     'neovim/nvim-lspconfig',
     opts = {
       servers = {
-        basedpyright = {
-          settings = {
-            basedpyright = {
-              -- see: https://docs.basedpyright.com/latest/configuration/language-server-settings/
-              analysis = {
-                autoImportCompletions = true,
-                autoSearchPaths = true,
-                diagnosticMode = 'openFilesOnly',
-                inlayHints = {
-                  callArgumentNames = true,
-                  functionReturnTypes = true,
-                  genericTypes = true,
-                  variableTypes = true,
-                },
-                useLibraryCodeForTypes = true,
-                typeCheckingMode = 'off',
-              },
-              disableOrganizeImports = true,
-            },
-            python = {
-              pythonPath = python, -- point basedpyright to venv
-            },
-          },
-        },
+        -- basedpyright = {
+        --   settings = {
+        --     basedpyright = {
+        --       -- see: https://docs.basedpyright.com/latest/configuration/language-server-settings/
+        --       analysis = {
+        --         autoImportCompletions = true,
+        --         autoSearchPaths = true,
+        --         diagnosticMode = 'openFilesOnly',
+        --         inlayHints = {
+        --           callArgumentNames = true,
+        --           functionReturnTypes = true,
+        --           genericTypes = true,
+        --           variableTypes = true,
+        --         },
+        --         useLibraryCodeForTypes = true,
+        --         typeCheckingMode = 'off',
+        --       },
+        --       disableOrganizeImports = true,
+        --     },
+        --     python = {
+        --       pythonPath = python, -- point basedpyright to venv
+        --     },
+        --   },
+        -- },
         -- TODO: only initialize this if in venv? I wouldn't mind having it on single file projects, but
         -- likely don't want it to be active in older shared projects where flake8, black etc are in use
         -- Ruff Server (provides linting, formatting and code actions)
@@ -147,6 +147,9 @@ return {
             },
           },
         },
+        -- ty = {
+        --   cmd = { prefer_venv_executable('ty'), 'server' },
+        -- },
       },
       setup = {
         ruff = function()
