@@ -92,105 +92,78 @@ end
 
 -- get the python executable from the project venv (if active) for pyright, dap and neotest
 local python = prefer_venv_executable('python')
+local ruff = prefer_venv_executable('ruff')
+local ty = prefer_venv_executable('ty')
 
+-----------------
 -- LSP SERVERS --
+-----------------
+
+-- ty lsp server (provides type checking)
+-- see: https://docs.astral.sh/ty/editors/#neovim
+vim.lsp.config('ty', {
+  cmd = { ty, 'server' },
+  settings = {
+    -- see: https://docs.astral.sh/ty/reference/editor-settings/
+    logLevel = 'warn',
+  },
+})
 vim.lsp.enable('ty')
+
+-- ruff lsp server (provides linting and formatting)
+-- see: https://docs.astral.sh/ruff/editors/setup/#neovim
+vim.lsp.config('ruff', {
+  cmd = { ruff, 'server' },
+  settings = {
+    -- see: https://docs.astral.sh/ruff/editors/settings/
+    configurationPreference = 'filesystemFirst',
+    logLevel = 'warn',
+  },
+})
+vim.lsp.enable('ruff')
+
+-- see: https://docs.astral.sh/ruff/editors/setup/#neovim
+vim.api.nvim_create_autocmd('LspAttach', {
+  desc = 'LSP: Disable ruff server hover capability',
+  group = vim.api.nvim_create_augroup('lsp_attach_disable_ruff_hover', { clear = true }),
+  callback = function(event)
+    local client = vim.lsp.get_client_by_id(event.data.client_id)
+    if client == nil then return end
+    if client.name == 'ruff' then
+      client.server_capabilities.hoverProvider = false -- Disable hover in favor of ty
+    end
+  end,
+})
+
+-- see: https://github.com/astral-sh/ruff/issues/12514
+-- see: https://github.com/astral-sh/ruff/discussions/12308
+vim.api.nvim_create_autocmd('BufWritePost', {
+  desc = 'LSP: Sort imports on save using ruff server code action',
+  pattern = { '*.py' },
+  callback = function(event)
+    for _, client in pairs(vim.lsp.get_clients({ bufnr = event.buf })) do
+      if client.name == 'ruff' then
+        vim.lsp.buf.code_action({
+          context = {
+            only = { 'source.organizeImports' },
+            diagnostics = {},
+          },
+          apply = true,
+        })
+        -- Save after sorting to dismiss ruff warning a couple seconds sooner
+        -- Delay the write operation 100ms to ensure the code action is applied first
+        vim.defer_fn(function() vim.cmd('update') end, 100)
+        break
+      end
+    end
+  end,
+})
 
 return {
   {
     'nvim-treesitter/nvim-treesitter',
     opts = {
       ensure_installed = { 'python', 'requirements' },
-    },
-  },
-
-  {
-    'neovim/nvim-lspconfig',
-    opts = {
-      servers = {
-        -- basedpyright = {
-        --   settings = {
-        --     basedpyright = {
-        --       -- see: https://docs.basedpyright.com/latest/configuration/language-server-settings/
-        --       analysis = {
-        --         autoImportCompletions = true,
-        --         autoSearchPaths = true,
-        --         diagnosticMode = 'openFilesOnly',
-        --         inlayHints = {
-        --           callArgumentNames = true,
-        --           functionReturnTypes = true,
-        --           genericTypes = true,
-        --           variableTypes = true,
-        --         },
-        --         useLibraryCodeForTypes = true,
-        --         typeCheckingMode = 'off',
-        --       },
-        --       disableOrganizeImports = true,
-        --     },
-        --     python = {
-        --       pythonPath = python, -- point basedpyright to venv
-        --     },
-        --   },
-        -- },
-        -- TODO: only initialize this if in venv? I wouldn't mind having it on single file projects, but
-        -- likely don't want it to be active in older shared projects where flake8, black etc are in use
-        -- Ruff Server (provides linting, formatting and code actions)
-        -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#ruff
-        -- see: https://docs.astral.sh/ruff/editors/setup/#neovim
-        ruff = {
-          cmd = { prefer_venv_executable('ruff'), 'server' },
-          init_options = {
-            settings = {
-              -- see: https://docs.astral.sh/ruff/editors/settings/
-              configurationPreference = 'filesystemFirst',
-              logLevel = 'warn',
-            },
-          },
-        },
-        -- ty = {
-        --   cmd = { prefer_venv_executable('ty'), 'server' },
-        -- },
-      },
-      setup = {
-        ruff = function()
-          -- see: https://docs.astral.sh/ruff/editors/setup/#neovim
-          vim.api.nvim_create_autocmd('LspAttach', {
-            desc = 'LSP: Disable ruff server hover capability',
-            group = vim.api.nvim_create_augroup('lsp_attach_disable_ruff_hover', { clear = true }),
-            callback = function(event)
-              local client = vim.lsp.get_client_by_id(event.data.client_id)
-              if client == nil then return end
-              if client.name == 'ruff' then
-                client.server_capabilities.hoverProvider = false -- Disable hover in favor of Pyright
-              end
-            end,
-          })
-
-          -- see: https://github.com/astral-sh/ruff/issues/12514
-          -- see: https://github.com/astral-sh/ruff/discussions/12308
-          vim.api.nvim_create_autocmd('BufWritePost', {
-            desc = 'LSP: Sort imports on save using ruff server code action',
-            pattern = { '*.py' },
-            callback = function(event)
-              for _, client in pairs(vim.lsp.get_clients({ bufnr = event.buf })) do
-                if client.name == 'ruff' then
-                  vim.lsp.buf.code_action({
-                    context = {
-                      only = { 'source.organizeImports' },
-                      diagnostics = {},
-                    },
-                    apply = true,
-                  })
-                  -- Save after sorting to dismiss ruff warning a couple seconds sooner
-                  -- Delay the write operation 100ms to ensure the code action is applied first
-                  vim.defer_fn(function() vim.cmd('update') end, 100)
-                  break
-                end
-              end
-            end,
-          })
-        end,
-      },
     },
   },
 
