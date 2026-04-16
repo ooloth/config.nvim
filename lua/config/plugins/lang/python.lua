@@ -161,13 +161,6 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 
 return {
   {
-    'nvim-treesitter/nvim-treesitter',
-    opts = {
-      ensure_installed = { 'python', 'requirements' },
-    },
-  },
-
-  {
     'stevearc/conform.nvim',
     opts = {
       formatters_by_ft = {

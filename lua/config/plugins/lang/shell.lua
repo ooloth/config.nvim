@@ -9,13 +9,6 @@ vim.treesitter.language.register('bash', 'zsh')
 
 return {
   {
-    'nvim-treesitter/nvim-treesitter',
-    opts = {
-      ensure_installed = { 'bash' },
-    },
-  },
-
-  {
     'neovim/nvim-lspconfig',
     opts = {
       servers = {

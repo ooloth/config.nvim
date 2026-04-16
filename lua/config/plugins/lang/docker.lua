@@ -5,13 +5,6 @@
 
 return {
   {
-    'nvim-treesitter/nvim-treesitter',
-    opts = {
-      ensure_installed = { 'dockerfile' },
-    },
-  },
-
-  {
     'neovim/nvim-lspconfig',
     opts = {
       -- Requires https://github.com/rcjsuen/dockerfile-language-server-nodejs

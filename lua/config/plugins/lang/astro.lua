@@ -1,13 +1,5 @@
 return {
   {
-    'nvim-treesitter/nvim-treesitter',
-    opts = {
-      -- see: https://github.com/virchau13/tree-sitter-astro/#troubleshooting
-      ensure_installed = { 'astro', 'css', 'typescript', 'tsx' },
-    },
-  },
-
-  {
     'neovim/nvim-lspconfig',
     opts = {
       servers = {

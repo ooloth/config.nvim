@@ -3,13 +3,6 @@
 
 return {
   {
-    'nvim-treesitter/nvim-treesitter',
-    opts = {
-      ensure_installed = { 'lua', 'luadoc', 'luap' },
-    },
-  },
-
-  {
     'neovim/nvim-lspconfig',
     opts = {
       servers = {

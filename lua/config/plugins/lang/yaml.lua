@@ -10,13 +10,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 return {
   {
-    'nvim-treesitter/nvim-treesitter',
-    opts = {
-      ensure_installed = { 'yaml' },
-    },
-  },
-
-  {
     'neovim/nvim-lspconfig',
     dependencies = {
       'b0o/schemastore.nvim',

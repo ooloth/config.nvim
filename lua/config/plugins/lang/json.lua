@@ -1,12 +1,5 @@
 return {
   {
-    'nvim-treesitter/nvim-treesitter',
-    opts = {
-      ensure_installed = { 'jq', 'json', 'json5', 'jsonc' },
-    },
-  },
-
-  {
     'neovim/nvim-lspconfig',
     dependencies = {
       'b0o/schemastore.nvim',

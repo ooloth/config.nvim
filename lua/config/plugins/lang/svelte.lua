@@ -5,11 +5,4 @@
 -- TODO: testing?
 -- TODO: dap?
 
-return {
-  {
-    'nvim-treesitter/nvim-treesitter',
-    opts = {
-      ensure_installed = { 'svelte' },
-    },
-  },
-}
+return {}

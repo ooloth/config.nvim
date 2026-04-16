@@ -23,13 +23,6 @@ end
 
 return {
   {
-    'nvim-treesitter/nvim-treesitter',
-    opts = {
-      ensure_installed = { 'javascript', 'jsdoc', 'typescript', 'tsx' },
-    },
-  },
-
-  {
     'neovim/nvim-lspconfig',
     opts = {
       servers = {

@@ -2,13 +2,6 @@
 
 return {
   {
-    'nvim-treesitter/nvim-treesitter',
-    opts = {
-      ensure_installed = { 'hcl', 'terraform' },
-    },
-  },
-
-  {
     'neovim/nvim-lspconfig',
     opts = {
       servers = {
