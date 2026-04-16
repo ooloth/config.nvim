@@ -111,13 +111,9 @@ end
 
 -- NOTE: requires configuring each LSP server to provide the code lenses
 local enable_code_lenses = function(lsp_attach_event)
-  -- see: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua#L159-L168
+  -- vim.lsp.codelens.enable() handles refresh + autocmds internally (0.10+)
   if vim.lsp.codelens then
-    vim.lsp.codelens.refresh()
-    vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
-      buffer = lsp_attach_event.buf,
-      callback = vim.lsp.codelens.refresh,
-    })
+    vim.lsp.codelens.enable(true, { bufnr = lsp_attach_event.buf })
   end
 end
 
