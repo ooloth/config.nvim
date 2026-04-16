@@ -1,4 +1,6 @@
-return {}
+return {
+  require('config.plugins.specs.ts-install'),
+}
 
 -- -- custom filename -> filetype associations
 -- vim.filetype.add({

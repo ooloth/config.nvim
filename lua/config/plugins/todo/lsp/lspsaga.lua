@@ -1,14 +1,8 @@
-local extend = require('config.util').extend
-
 return {
   'nvimdev/lspsaga.nvim',
   event = 'BufRead',
   dependencies = {
     { 'nvim-tree/nvim-web-devicons' },
-    {
-      'nvim-treesitter/nvim-treesitter',
-      opts = function(_, opts) extend(opts.ensure_installed, { 'markdown', 'markdown_inline' }) end,
-    },
   },
   keys = function()
     return {

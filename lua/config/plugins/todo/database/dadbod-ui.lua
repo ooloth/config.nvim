@@ -1,16 +1,10 @@
 -- see: https://www.youtube.com/watch?v=NhTPVXP8n7w
 
-local extend = require('config.util').extend
-
 return {
   'kristijanhusak/vim-dadbod-ui',
   dependencies = {
     { 'tpope/vim-dadbod', lazy = true },
     { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
-    {
-      'nvim-treesitter/nvim-treesitter',
-      opts = function(_, opts) extend(opts.ensure_installed, { 'sql' }) end,
-    },
     {
       'folke/which-key.nvim',
       opts = {

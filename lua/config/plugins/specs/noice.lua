@@ -10,7 +10,6 @@ return {
   dependencies = {
     'MunifTanjim/nui.nvim', -- used for proper rendering and multiple views
     'folke/snacks.nvim',
-    'nvim-treesitter/nvim-treesitter',
   },
   opts = {
     lsp = {

@@ -28,6 +28,5 @@ vim.filetype.add({
 })
 
 return {
-  require('config.plugins.specs.nvim-treesitter'),
   util.require_all_files_in_config_directory('plugins/lang'),
 }

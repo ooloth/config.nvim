@@ -10,7 +10,6 @@ return {
   dependencies = {
     'antoinemadec/FixCursorHold.nvim',
     'nvim-neotest/nvim-nio',
-    'nvim-treesitter/nvim-treesitter',
     'nvim-lua/plenary.nvim',
   },
   keys = {
