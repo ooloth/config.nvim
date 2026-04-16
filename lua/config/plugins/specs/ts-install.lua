@@ -52,6 +52,12 @@ end, { desc = 'Shrink treesitter selection' })
 
 return {
   'lewis6991/ts-install.nvim',
+  dependencies = {
+    -- ts-install reads nvim-treesitter's parser database internally via
+    -- require('nvim-treesitter.parsers'). It must be on the runtimepath.
+    -- lazy = true means it is installed but its setup() is never called.
+    { 'nvim-treesitter/nvim-treesitter', branch = 'main', lazy = true },
+  },
   opts = {
     auto_install = true, -- install missing parser when entering a buffer
   },
