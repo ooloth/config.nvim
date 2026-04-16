@@ -12,11 +12,15 @@ local function select_node(node)
   local sr, sc, er, ec = node:range()
   -- treesitter: 0-indexed rows, 0-indexed byte cols, ec is exclusive end
   -- setpos: 1-indexed line, 1-indexed byte col
+  --
+  -- IMPORTANT: exit visual mode BEFORE setting marks. When called from a visual
+  -- keymap, ESC inside normal! would overwrite '</'> with the current visual
+  -- selection, discarding the marks we just set. Exiting first is harmless in
+  -- normal mode (ESC clears pending input) and correct in visual mode.
+  vim.cmd('normal! \27')
   vim.fn.setpos("'<", { 0, sr + 1, sc + 1, 0 })
   vim.fn.setpos("'>", { 0, er + 1, math.max(1, ec), 0 })
-  -- \27 = Esc (exits any mode cleanly), then jump to '<, charwise visual, extend to '>
-  -- Works identically whether called from normal or visual mode context
-  vim.cmd('normal! \27`<v`>')
+  vim.cmd('normal! `<v`>')
 end
 
 vim.keymap.set('n', '<cr>', function()
