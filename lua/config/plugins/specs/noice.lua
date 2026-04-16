@@ -35,6 +35,7 @@ return {
       enabled = true,
     },
     notify = {
+      -- snacks-notifier.lua owns vim.notify; disable Noice's hook to avoid conflict
       enabled = false,
     },
     presets = {

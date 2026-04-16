@@ -141,6 +141,11 @@ return {
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
 
+    -- Prefer UTF-8 position encoding so servers that support it use a consistent
+    -- encoding. Servers that only speak UTF-16 still use UTF-16; Neovim tracks
+    -- each client's encoding separately so mixing is handled correctly.
+    capabilities.general = { positionEncodings = { 'utf-8', 'utf-16' } }
+
     -- Avoid an nvim-ufo error in the yaml-language-server
     -- see: https://github.com/redhat-developer/yaml-language-server/issues/912#issuecomment-1797097638
     capabilities.textDocument.foldingRange = {
