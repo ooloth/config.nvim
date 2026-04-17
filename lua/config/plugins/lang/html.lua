@@ -1,5 +1,7 @@
---  TODO: lsp?
---  TODO: linting: https://htmlhint.com/docs/user-guide/getting-started
+-- TODO: linting: https://htmlhint.com/docs/user-guide/getting-started
+
+-- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#html
+vim.lsp.enable('html')
 
 return {
   {
