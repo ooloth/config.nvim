@@ -8,41 +8,30 @@ vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP: Enable formatting capability from Yaml LS',
 })
 
-return {
-  {
-    'neovim/nvim-lspconfig',
-    dependencies = {
-      'b0o/schemastore.nvim',
-    },
-    opts = function(_, opts) -- using function syntax to support lazy loading schemastore below
-      opts.servers.yamlls = {
-        settings = {
-          redhat = {
-            telemetry = { enabled = false },
-          },
-          yaml = {
-            -- https://github.com/redhat-developer/yaml-language-server?tab=readme-ov-file#language-server-settings
-            -- editor = {
-            --   tabSize = 2,
-            -- },
-            -- format = {
-            --   enable = true, -- yaml language server handles formatting
-            -- },
-            keyOrdering = false,
-            schemas = require('schemastore').yaml.schemas(), -- and linting
-            schemaStore = {
-              -- see: https://github.com/b0o/SchemaStore.nvim?tab=readme-ov-file#usage
-              enable = false, -- must disable built-in schemaStore support to use schemas from SchemaStore.nvim plugin
-              url = '', -- avoid TypeError: Cannot read properties of undefined (reading 'length')
-            },
-            validate = true,
-          },
+-- https://github.com/redhat-developer/yaml-language-server?tab=readme-ov-file#language-server-settings
+-- see: https://github.com/b0o/SchemaStore.nvim?tab=readme-ov-file#usage
+-- vim.schedule defers until after lazy.nvim loads plugins, so schemastore is available
+vim.schedule(function()
+  vim.lsp.config('yamlls', {
+    settings = {
+      redhat = {
+        telemetry = { enabled = false },
+      },
+      yaml = {
+        keyOrdering = false,
+        schemas = require('schemastore').yaml.schemas(), -- and linting
+        schemaStore = {
+          enable = false, -- must disable built-in schemaStore support to use schemas from SchemaStore.nvim plugin
+          url = '', -- avoid TypeError: Cannot read properties of undefined (reading 'length')
         },
-      }
-      return opts
-    end,
-  },
+        validate = true,
+      },
+    },
+  })
+end)
+vim.lsp.enable('yamlls')
 
+return {
   {
     'stevearc/conform.nvim',
     opts = {

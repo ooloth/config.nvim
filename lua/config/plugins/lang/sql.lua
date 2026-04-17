@@ -2,14 +2,6 @@
 -- TODO: formatting?
 -- TODO: linting?
 
-return {
-  {
-    'neovim/nvim-lspconfig',
-    opts = {
-      servers = {
-        sqlls = {}, -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#sqlls
-      },
-      setup = {},
-    },
-  },
-}
+vim.lsp.enable('sqlls') -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#sqlls
+
+return {}

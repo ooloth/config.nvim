@@ -1,14 +1,7 @@
-return {
-  {
-    'neovim/nvim-lspconfig',
-    opts = {
-      servers = {
-        -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#astro
-        astro = {},
-      },
-    },
-  },
+-- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#astro
+vim.lsp.enable('astro')
 
+return {
   {
     'stevearc/conform.nvim',
     opts = {

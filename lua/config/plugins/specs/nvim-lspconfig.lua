@@ -126,7 +126,7 @@ return {
     'j-hui/fidget.nvim', -- show lsp updates via discrete UI in the bottom right
     'stevearc/dressing.nvim', -- keymaps: better vim.ui.select UI (e.g. for code actions)
   },
-  config = function(_, opts)
+  config = function()
     -- Enable behavior that should exist while any LSP is attached
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
@@ -153,23 +153,8 @@ return {
       lineFoldingOnly = true,
     }
 
-    -- Set up all servers configured via nvim-lspconfig's "opts.servers" table in each lang/* file
-    for server_name, server_options in pairs(opts.servers) do
-      -- Merge neovim's LSP capabilities + nvim-cmp's capabilities + any overrides I've defined for this server
-      server_options.capabilities = vim.tbl_deep_extend(
-        'force',
-        capabilities,
-        require('cmp_nvim_lsp').default_capabilities(),
-        server_options.capabilities or {}
-      )
-
-      -- Set up server
-      require('lspconfig')[server_name].setup(server_options)
-    end
-
-    -- Call all server setup functions configured via nvim-lspconfig's "opts.setup" table in each lang/* file
-    for _, server_setup in pairs(opts.setup) do
-      server_setup()
-    end
+    vim.lsp.config('*', {
+      capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities()),
+    })
   end,
 }

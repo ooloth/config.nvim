@@ -21,81 +21,71 @@ local function prefer_node_modules_executable(executable_name)
   return executable_name
 end
 
-return {
-  {
-    'neovim/nvim-lspconfig',
-    opts = {
-      servers = {
-        -- see: https://github.com/olrtg/emmet-language-server
-        emmet_language_server = {},
-        eslint = {
-          -- Automatically fix fixable issues on save:
-          -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#eslint
-          on_attach = function(_, bufnr)
-            vim.api.nvim_create_autocmd('BufWritePre', {
-              buffer = bufnr,
-              command = 'EslintFixAll',
-            })
-          end,
-          -- see: https://github.com/microsoft/vscode-eslint/tree/main?tab=readme-ov-file#settings-options
-          -- defaults: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#eslint
-          settings = {
-            nodePath = vim.fn.getcwd() .. '/node_modules',
-            -- helps eslint find the eslintrc when it's placed in a subfolder instead of the cwd root
-            workingDirectory = { mode = 'auto' },
-          },
-        },
-        ts_ls = {
-          keys = function() return {} end,
-          -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#ts_ls
-          -- see: https://github.com/typescript-language-server/typescript-language-server/blob/master/docs/configuration.md#tsserver-options
-          settings = {
-            completions = {
-              completeFunctionCalls = true,
-            },
-            javascript = {
-              inlayHints = {
-                includeInlayEnumMemberValueHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all';
-                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayVariableTypeHints = false,
-              },
-            },
-            typescript = {
-              inlayHints = {
-                includeInlayEnumMemberValueHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all';
-                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayVariableTypeHints = false,
-              },
-            },
-          },
-        },
+-- see: https://github.com/olrtg/emmet-language-server
+vim.lsp.enable('emmet_language_server')
+
+-- Automatically fix fixable issues on save
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#eslint
+-- see: https://github.com/microsoft/vscode-eslint/tree/main?tab=readme-ov-file#settings-options
+vim.lsp.config('eslint', {
+  on_attach = function(_, bufnr)
+    vim.api.nvim_create_autocmd('BufWritePre', {
+      buffer = bufnr,
+      command = 'EslintFixAll',
+    })
+  end,
+  settings = {
+    nodePath = vim.fn.getcwd() .. '/node_modules',
+    -- helps eslint find the eslintrc when it's placed in a subfolder instead of the cwd root
+    workingDirectory = { mode = 'auto' },
+  },
+})
+vim.lsp.enable('eslint')
+
+-- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#ts_ls
+-- see: https://github.com/typescript-language-server/typescript-language-server/blob/master/docs/configuration.md#tsserver-options
+-- TODO: confirm it's ok to do this rather than using typescript-language-server
+vim.api.nvim_create_autocmd('LspAttach', {
+  desc = 'LSP: Prefer local TypeScript executable',
+  group = vim.api.nvim_create_augroup('lsp_attach_use_local_typescript', { clear = true }),
+  callback = function(event)
+    local client = vim.lsp.get_client_by_id(event.data.client_id)
+    if client == nil then return end
+    if client.name == 'ts_ls' then client.config.cmd = { prefer_node_modules_executable('tsserver'), '--stdio' } end
+  end,
+})
+vim.lsp.config('ts_ls', {
+  settings = {
+    completions = {
+      completeFunctionCalls = true,
+    },
+    javascript = {
+      inlayHints = {
+        includeInlayEnumMemberValueHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all';
+        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayVariableTypeHints = false,
       },
-      setup = {
-        ts_ls = function()
-          vim.api.nvim_create_autocmd('LspAttach', {
-            desc = 'LSP: Prefer local TypeScript executable',
-            group = vim.api.nvim_create_augroup('lsp_attach_use_local_typescript', { clear = true }),
-            callback = function(event)
-              local client = vim.lsp.get_client_by_id(event.data.client_id)
-              if client == nil then return end
-              -- TODO: confirm it's ok to do this rather than using typscript-language-server
-              -- prefer local TypeScript executable (if available)
-              if client.name == 'ts_ls' then client.config.cmd = { prefer_node_modules_executable('tsserver'), '--stdio' } end
-            end,
-          })
-        end,
+    },
+    typescript = {
+      inlayHints = {
+        includeInlayEnumMemberValueHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all';
+        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayVariableTypeHints = false,
       },
     },
   },
+})
+vim.lsp.enable('ts_ls')
 
+return {
   {
     'stevearc/conform.nvim',
     opts = {

@@ -3,22 +3,14 @@
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
 
+-- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#marksman
+vim.lsp.enable('marksman')
+-- FIXME: mdx_analyzer getting TS-related errors; enable when fixed
+-- vim.lsp.enable('mdx_analyzer') -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#mdx_analyzer
+
 return {
   {
     'davidmh/mdx.nvim',
-  },
-
-  {
-    'neovim/nvim-lspconfig',
-    opts = {
-      servers = {
-        marksman = {}, -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#marksman
-        -- FIXME: getting TS-related errors:
-        -- mdx_analyzer = {
-        --   init_options = {}, -- TODO: enable TS support only if typescript installed in workspace
-        -- }, -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#mdx_analyzer
-      },
-    },
   },
 
   {

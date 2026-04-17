@@ -1,15 +1,8 @@
 -- TODO: https://www.lazyvim.org/xtras/lang/terraform
 
-return {
-  {
-    'neovim/nvim-lspconfig',
-    opts = {
-      servers = {
-        terraformls = {},
-      },
-    },
-  },
+vim.lsp.enable('terraformls')
 
+return {
   {
     'stevearc/conform.nvim',
     opts = {

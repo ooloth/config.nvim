@@ -7,17 +7,10 @@
 -- https://github.com/nvim-treesitter/nvim-treesitter/issues/655#issuecomment-1476880919
 vim.treesitter.language.register('bash', 'zsh')
 
-return {
-  {
-    'neovim/nvim-lspconfig',
-    opts = {
-      servers = {
-        -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#bashls
-        bashls = {},
-      },
-    },
-  },
+-- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#bashls
+vim.lsp.enable('bashls')
 
+return {
   {
     'stevearc/conform.nvim',
     opts = {
