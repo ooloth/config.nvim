@@ -1,5 +1,3 @@
----WARN: multiple debug sessions aren't supported at this point: https://github.com/igorlfs/nvim-dap-view/issues/50
-
 ---@module 'dap-view'
 
 return {

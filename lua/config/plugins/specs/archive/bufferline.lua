@@ -1,5 +1,3 @@
--- TODO: https://www.lazyvim.org/plugins/ui#bufferlinenvim
-
 return {
   'akinsho/bufferline.nvim',
   event = 'VeryLazy',

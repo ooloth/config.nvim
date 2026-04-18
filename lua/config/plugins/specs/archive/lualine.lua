@@ -1,7 +1,5 @@
 -- NOTE: using mini.statusline instead
 
--- TODO: https://www.lazyvim.org/plugins/ui#lualinenvim
--- TODO: show @recording messages in statusline instead of notify pop-ups? https://github.com/folke/noice.nvim/wiki/Configuration-Recipes#show-recording-messages
 
 local Util = require('lazyvim.util')
 local icons = require('lazyvim.config').icons
@@ -69,7 +67,6 @@ local options = {
 }
 
 local empty = {
-  -- TODO: return '' if no diagnostics?
   function() return '█' end,
   padding = 0,
   color = { fg = catppuccin['base'], bg = catppuccin['base'] },
@@ -138,7 +135,7 @@ return {
     lazy = false,
     opts = function()
       return {
-        extensions = { 'neo-tree', 'nvim-dap-ui', 'quickfix', 'toggleterm' }, -- TODO: floaterm? others?
+        extensions = { 'neo-tree', 'nvim-dap-ui', 'quickfix', 'toggleterm' },
         inactive_sections = {},
         options = options,
         sections = sections,

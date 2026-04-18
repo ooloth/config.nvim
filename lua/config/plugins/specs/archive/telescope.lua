@@ -1,9 +1,3 @@
--- TODO: https://www.lazyvim.org/extras/editor/telescope
--- TODO: how to restrict searches to certain paths?
--- TODO: how to include/exclude certain file/folder patterns from a search?
--- TODO: use nvim-notify extension? does noice replace that?
--- TODO: exclude /archive from file search results?
-
 -- Telescope is a fuzzy finder that comes with a lot of different things that
 -- it can fuzzy find! It's more than just a "file finder", it can search
 -- many different aspects of Neovim, your workspace, LSP, and more!
@@ -149,7 +143,6 @@ return {
     vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = 'Grep any string' })
     vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = 'Help' })
     vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = 'Keymaps' })
-    -- TODO: '<leader>sl' = 'Links in buffer' (see urlview.lua)
     vim.keymap.set('n', '<leader>sm', builtin.marks, { desc = 'Marks' })
     vim.keymap.set('n', '<leader>sM', builtin.man_pages, { desc = 'Man pages' })
     vim.keymap.set('n', '<leader>sn', extensions.noice.noice, { desc = 'Notifications (messages)' })
@@ -157,7 +150,6 @@ return {
     vim.keymap.set('n', '<leader>sp', builtin.builtin, { desc = 'Telescope pickers' })
     -- <leader>sr = 'Search references' (see lsp.lua)
     vim.keymap.set('n', '<leader>ss', builtin.live_grep, { desc = 'String' })
-    -- TODO: '<leader>st' = 'Todo' (see todo-comment.lua)
     vim.keymap.set('n', '<leader>su', extensions.undo.undo, { desc = 'Undo history' })
     vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = 'Word under cursor' })
     vim.keymap.set('n', '<leader>sz', builtin.resume, { desc = 'Resume last search' })

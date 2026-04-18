@@ -1,6 +1,3 @@
--- TODO: toggle maximized for scratch terminal? if I use wintype=split, can I just use the normal leader-em? otherwise: https://github.com/voldikss/vim-floaterm/issues/57
--- TODO: https://github.com/voldikss/vim-floaterm?tab=readme-ov-file#advanced-topics
-
 vim.g.floaterm_borderchars = ''
 vim.g.floaterm_title = ''
 
@@ -71,7 +68,7 @@ return {
   keys = {
     { '<leader>gg', function() toggle_if_running_else_create('lazygit') end, desc = 'Lazygit' },
     { '<c-g>', function() toggle_if_running_else_create('lazygit') end, desc = 'Lazygit' },
-    { '<c-t>', function() toggle_if_running_else_create('scratch') end, desc = 'Open scratch terminal' }, -- TODO: toggle most recent terminal instead?
+    { '<c-t>', function() toggle_if_running_else_create('scratch') end, desc = 'Open scratch terminal' },
     { '<c-g>', mode = 't', '<cmd>FloatermHide<cr>', desc = 'Hide Lazygit' },
     { '<c-t>', mode = 't', '<cmd>FloatermHide<cr>', desc = 'Hide terminal' },
     { '<c-z>', mode = 't', function() toggle_maximized('scratch') end, desc = 'Toggle maximized terminal' },

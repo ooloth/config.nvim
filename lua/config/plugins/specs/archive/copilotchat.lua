@@ -1,6 +1,3 @@
--- TODO: https://www.lazyvim.org/extras/coding/copilot-chat
--- TODO: https://github.com/CopilotC-Nvim/CopilotChat.nvim
-
 -- see: https://github.com/jellydn/lazy-nvim-ide/blob/main/lua/plugins/extras/copilot-chat.lua
 ---Get all the changes in the git repository
 ---@param staged? boolean
