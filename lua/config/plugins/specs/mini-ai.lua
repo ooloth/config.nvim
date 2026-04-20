@@ -1,6 +1,7 @@
 ---@module 'mini.ai'
 
 -- Extend and create a/i text objects
+-- See: https://github.com/nvim-mini/mini.ai#installation
 -- Provides treesitter-backed textobjects (f/c) plus extras like "b" (block) and "q" (quote)
 -- Adds the "an/in" (around/inside next) and "al/il" (around/inside last) movements
 --
@@ -13,7 +14,8 @@
 -- CHAT: mini.ai vs. treesitter-textobjects for treesitter keymaps: https://github.com/echasnovski/mini.nvim/discussions/243
 
 return {
-  'echasnovski/mini.ai',
+  'nvim-mini/mini.ai',
+  version = false, -- latest
   event = 'VeryLazy',
   dependencies = {
     -- Provides queries/{lang}/textobjects.scm files that define @function.outer/inner, @class.outer/inner, etc.
@@ -28,7 +30,7 @@ return {
       n_lines = 500,
       custom_textobjects = {
         f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
-        c = ai.gen_spec.treesitter({ a = '@class.outer',    i = '@class.inner'    }),
+        c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }),
       },
     }
   end,
