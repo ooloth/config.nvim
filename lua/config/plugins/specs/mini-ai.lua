@@ -21,7 +21,8 @@ return {
     -- Provides queries/{lang}/textobjects.scm files that define @function.outer/inner, @class.outer/inner, etc.
     -- Only its runtime query files are used — its Lua modules are never loaded.
     -- This does NOT reintroduce nvim-treesitter; ts-install.nvim manages parser installation.
-    { 'nvim-treesitter/nvim-treesitter-textobjects', lazy = true },
+    -- See: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+    { 'nvim-treesitter/nvim-treesitter-textobjects', branch = 'main', lazy = true },
   },
   opts = function()
     local ai = require('mini.ai')
