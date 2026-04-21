@@ -19,6 +19,7 @@ vim.filetype.add({
     ['docker-compose.yaml'] = 'yaml.docker-compose',
   },
   pattern = {
+    ['Brewfile.*'] = 'ruby',
     ['docker-compose.*%.yaml'] = 'yaml.docker-compose',
     ['.*/kitty/.+%.conf'] = 'kitty',
     ['.*/kitty/.*/.+%.conf'] = 'kitty',
