@@ -2,6 +2,7 @@
 
 return {
   'folke/trouble.nvim',
+  version = false, -- trust main branch (since this is folke)
   opts = {
     focus = true, -- focus Trouble window when it opens
     indent_guides = false,
