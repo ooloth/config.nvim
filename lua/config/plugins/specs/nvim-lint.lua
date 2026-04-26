@@ -13,6 +13,7 @@ return {
       markdown = {}, -- disable vale
       rst = {}, -- disable vale
       text = {}, -- disable vale
+      rust = { 'clippy' },
     },
   },
   config = function(_, opts)
