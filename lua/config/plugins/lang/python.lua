@@ -1,6 +1,4 @@
 -- NOTE: prefer debugger over jupyter notebooks
-
--- TODO: https://www.lazyvim.org/extras/lang/python
 -- TODO: Exploring Data Science Tools and Workflows in NVIM: https://www.youtube.com/watch?v=1xoUmncDwHQ
 
 vim.g.loaded_python3_provider = false
