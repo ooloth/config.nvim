@@ -1,7 +1,3 @@
---  TODO: lsp
---  TODO: linting
---  TODO: dap
-
 return {
   {
     'stevearc/conform.nvim',
@@ -28,11 +24,34 @@ return {
           end,
           default_settings = {
             -- rust-analyzer language server configuration
-            ['rust-analyzer'] = {},
+            ['rust-analyzer'] = {
+              checkOnSave = {
+                command = 'clippy',
+              },
+              inlayHints = {
+                enable = true,
+                typeHints = { enable = true },
+                chainingHints = { enable = true },
+                closureReturnTypeHints = { enable = 'with_block' },
+              },
+              hover = {
+                documentation = { enable = true },
+                actions = { enable = true },
+              },
+              procMacro = {
+                enable = true,
+              },
+            },
           },
         },
         -- DAP configuration
-        dap = {},
+        dap = {
+          adapter = {
+            type = 'executable',
+            command = 'lldb-vscode',
+            name = 'lldb',
+          },
+        },
       }
     end,
   },
