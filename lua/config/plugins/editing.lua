@@ -1,5 +1,6 @@
 vim.opt.autoindent = true -- copy indent from current line when starting new one
 -- vim.opt.autowrite = true -- Enable auto write
+vim.opt.backupcopy = 'yes' -- Avoid issues with file permissions and symlinks when editing files
 vim.opt.completeopt = 'menu,menuone,noselect'
 vim.opt.confirm = true -- confirm what to do before closing unsaved buffer
 vim.opt.expandtab = true -- Use spaces instead of tabs
