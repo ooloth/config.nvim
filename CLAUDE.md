@@ -4,8 +4,8 @@ This is a personal Neovim configuration built on [kickstart.nvim](https://github
 
 ## Domain vocabulary
 
-- **Spec file** — a single file in `lua/config/plugins/specs/` that returns one lazy.nvim plugin spec table. Each spec file configures exactly one plugin.
-- **Category file** — a file in `lua/config/plugins/` (e.g. `editing.lua`, `lsp.lua`) that sets editor-wide options/keymaps for a theme and returns a table of `require()`d spec files for that category. Category files require manual registration of new specs.
+- **Spec file** — a single file in `lua/config/plugins/specs/` that typically returns one lazy.nvim plugin spec table. A spec file may also return an empty table (to disable a plugin or set globals only without declaring a plugin spec).
+- **Category file** — a file in `lua/config/plugins/` (e.g. `editing.lua`, `lsp.lua`) that sets editor-wide options/keymaps for that category and returns a table of `require()`d spec files for that category. Category files require manual registration of new specs.
 - **Lang file** — a file in `lua/config/plugins/lang/` (e.g. `python.lua`, `go.lua`) that returns a table of plugin specs for a specific language. Lang files are auto-loaded by `util.require_all_files_in_config_directory` — no manual registration needed.
 - **`opts` vs `config`** — prefer `opts = { ... }` over `config = function() ... end` when the plugin supports it. `opts` is simpler and composable. Use `config` only when you need side effects beyond passing options (e.g. setting up autocommands, calling `vim.diagnostic.config`, etc.).
 - **Lazy-loading events** — `VeryLazy` defers a plugin until after the UI is ready. `BufNewFile`/`BufRead`/`BufWritePre` load on buffer activity. `keys`, `cmd`, and `ft` load on first use of a keymap, command, or filetype. Prefer the most specific trigger to keep startup fast.
@@ -22,7 +22,7 @@ StyLua is the only formatter. Its settings are in `.stylua.toml` (130-column wid
 
 ## Exercising real code paths
 
-Full Neovim execution requires a running display and is not possible in a headless CI environment. The closest you can get is:
+Interactive UI verification requires a running display. Headless invocations can still exercise startup and health checks in any environment:
 
 ```bash
 # Start Neovim in headless mode to check for startup errors (exits immediately)
