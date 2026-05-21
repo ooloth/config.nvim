@@ -57,7 +57,7 @@ set('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit All' })
 
 -- navigate tabs
 set('n', ']<tab>', '<cmd>tabnext<cr>', { desc = 'Next tab' })
-set('n', '[<tab>', '<cmd>tabprevious<cr>', { desc = 'Next tab' })
+set('n', '[<tab>', '<cmd>tabprevious<cr>', { desc = 'Prev tab' })
 set('n', '<leader><tab><tab>', '<cmd>tabnew<cr>', { desc = 'New tab' })
 set('n', '<leader><tab>]', '<cmd>tabnext<cr>', { desc = 'Next tab' })
 set('n', '<leader><tab>n', '<cmd>tabnext<cr>', { desc = 'Next tab' })
