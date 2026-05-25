@@ -8,8 +8,8 @@ Run these before and after making changes to verify nothing is broken:
 # Check formatting (must pass before committing)
 stylua --check .
 
-# Load the config headlessly to catch Lua errors and plugin spec issues
-nvim --headless -c "lua require('config')" -c "qa"
+# Load the config module headlessly to catch Lua errors
+nvim --headless -u NONE --cmd "set rtp^=." -c "lua require('config')" -c "qa"
 ```
 
 If `stylua --check .` reports violations, fix them with `stylua .`.
