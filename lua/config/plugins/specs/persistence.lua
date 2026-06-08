@@ -11,6 +11,12 @@ return {
     { '<leader>qd', function() require('persistence').stop() end, desc = "Don't Save Current Session" },
   },
   init = function()
-    require('persistence').load() -- automatically restore session on start
+    -- Defer past lazy.nvim's synchronous setup so all event listeners (BufRead,
+    -- FileType, etc.) are registered before the session opens buffers. Without
+    -- this, treesitter highlighting and LSP don't attach on startup because their
+    -- autocmds don't exist yet when the session fires these events during lazy's
+    -- init phase. vim.schedule runs after the current call stack (including all of
+    -- lazy.setup()) unwinds, so all listeners are wired up before the session loads.
+    vim.schedule(function() require('persistence').load() end)
   end,
 }
