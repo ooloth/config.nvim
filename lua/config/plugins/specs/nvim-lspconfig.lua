@@ -62,6 +62,13 @@ local set_lsp_keymaps = function(lsp_attach_event)
       'Inlay hints (toggle)'
     )
   end
+
+  if vim.lsp.codelens then
+    buffer_map('n', '<leader>uc', function()
+      local enabled = vim.lsp.codelens.is_enabled and vim.lsp.codelens.is_enabled({ bufnr = lsp_attach_event.buf })
+      vim.lsp.codelens.enable(not enabled, { bufnr = lsp_attach_event.buf })
+    end, 'Code lenses (toggle)')
+  end
 end
 
 local highlight_references_to_cursor_word_in_editor = function(lsp_attach_event)
@@ -112,9 +119,7 @@ end
 -- NOTE: requires configuring each LSP server to provide the code lenses
 local enable_code_lenses = function(lsp_attach_event)
   -- vim.lsp.codelens.enable() handles refresh + autocmds internally (0.10+)
-  if vim.lsp.codelens then
-    vim.lsp.codelens.enable(true, { bufnr = lsp_attach_event.buf })
-  end
+  if vim.lsp.codelens then vim.lsp.codelens.enable(true, { bufnr = lsp_attach_event.buf }) end
 end
 
 return {
@@ -135,7 +140,7 @@ return {
         highlight_references_to_cursor_word_in_editor(event)
         -- show_active_diagnostics_on_cursor_line() -- NOTE: let's see if I miss this
         -- enable_inlay_hints(event) -- NOTE: toggle on with leader-ui, but don't turn on by default
-        enable_code_lenses(event)
+        -- enable_code_lenses(event) -- NOTE: toggle on with leader-uc, but don't turn on by default
       end,
     })
 
