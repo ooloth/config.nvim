@@ -9,6 +9,23 @@ return {
   },
 
   {
+    'nvim-neotest/neotest',
+    dependencies = {
+      'rouge8/neotest-rust',
+    },
+    opts = function()
+      return {
+        adapters = {
+          require('neotest-rust')({
+            args = { '--no-capture' },
+            dap_adapter = 'lldb',
+          }),
+        },
+      }
+    end,
+  },
+
+  {
     -- see: https://github.com/mrcjkb/rustaceanvim?tab=readme-ov-file#inbox_tray-installation
     'mrcjkb/rustaceanvim',
     version = '^4', -- Recommended
