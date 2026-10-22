@@ -1,4 +1,4 @@
--- Tests for the <c-h>/<c-l> mappings in lua/config/plugins/specs/vim-tmux-navigator.lua.
+-- Tests for the <c-h>/<c-j>/<c-k>/<c-l> mappings in lua/config/plugins/specs/vim-tmux-navigator.lua.
 --
 -- Run with: nvim --clean --headless -l tests/navigation_test.lua
 --
@@ -43,7 +43,7 @@ local function fresh_state(env)
   vim.env.TMUX = env.tmux
   vim.env.REX_SESSION = env.rex_session
   recorded = { tmux = {}, rex = {}, warnings = {} }
-  for _, direction in ipairs({ 'Left', 'Right' }) do
+  for _, direction in ipairs({ 'Left', 'Down', 'Up', 'Right' }) do
     vim.api.nvim_create_user_command(
       'TmuxNavigate' .. direction,
       function() table.insert(recorded.tmux, direction) end,
@@ -149,10 +149,10 @@ test('outside tmux, ctrl+h and ctrl+l are also mapped in terminal mode', functio
   end
 end)
 
-test('inside tmux, terminal mode keeps ctrl+h and ctrl+l for the program in the terminal', function()
+test('inside tmux, terminal mode keeps ctrl+h/j/k/l for the program in the terminal', function()
   local tmux_spec = load_spec('/tmp/tmux-504/default,1,0')
   for _, key in ipairs(tmux_spec.keys) do
-    if key[1] == '<c-h>' or key[1] == '<c-l>' then
+    if vim.tbl_contains({ '<c-h>', '<c-j>', '<c-k>', '<c-l>' }, key[1]) then
       assert(not vim.tbl_contains(key.mode, 't'), key[1] .. ' modes: ' .. vim.inspect(key.mode))
     end
   end
@@ -184,6 +184,43 @@ test('in a split terminal, ctrl+l moves to the next neovim window', function()
   equal(recorded.rex, {}, 'rex calls')
 end)
 
+local vertical = { ['<c-j>'] = { tmux = 'Down', rex = 'down' }, ['<c-k>'] = { tmux = 'Up', rex = 'up' } }
+
+test('inside tmux, ctrl+j and ctrl+k go to tmux', function()
+  fresh_state({ tmux = '/tmp/tmux-504/default,1,0', rex_session = 'session:test' })
+  press('<c-j>')
+  press('<c-k>')
+  equal(recorded.tmux, { 'Down', 'Up' }, 'tmux calls')
+  equal(recorded.rex, {}, 'rex calls')
+end)
+
+test('outside any multiplexer, ctrl+j and ctrl+k move between stacked neovim windows', function()
+  fresh_state({})
+  vim.cmd('split') -- the left column is now two windows, cursor in the top one
+  local top = vim.api.nvim_get_current_win()
+  press('<c-j>')
+  assert(vim.api.nvim_get_current_win() ~= top, 'ctrl+j did not leave the top window')
+  press('<c-k>')
+  equal(vim.api.nvim_get_current_win(), top, 'window after ctrl+k')
+  equal(recorded.rex, {}, 'rex calls')
+end)
+
+test('at the top and bottom edges inside rex, ctrl+k and ctrl+j ask rex to focus up and down', function()
+  for lhs, names in pairs(vertical) do
+    fresh_state({ rex_session = 'session:test' })
+    press(lhs)
+    equal(#recorded.rex, 1, lhs .. ' rex calls')
+    local script = recorded.rex[1][6]
+    assert(script:find('direction = "' .. names.rex .. '"', 1, true), lhs .. ' script: ' .. script)
+  end
+end)
+
+test('outside tmux, all four keys are mapped in terminal mode', function()
+  for _, lhs in ipairs({ '<c-h>', '<c-j>', '<c-k>', '<c-l>' }) do
+    assert(vim.tbl_contains(modes(lhs), 't'), lhs .. ' modes: ' .. vim.inspect(modes(lhs)))
+  end
+end)
+
 test("the plugin's own mappings don't replace ours when it loads", function()
   local plugin = vim.fn.expand('~/.local/share/nvim-ide/lazy/vim-tmux-navigator/plugin/tmux_navigator.vim')
   assert(vim.fn.filereadable(plugin) == 1, 'plugin not installed at ' .. plugin .. '; open nvim-ide once to install it')
@@ -193,7 +230,7 @@ test("the plugin's own mappings don't replace ours when it loads", function()
   assert(type(spec.init) == 'function', 'spec has no init to switch off the plugin mappings')
   spec.init()
   vim.cmd('source ' .. plugin)
-  for _, lhs in ipairs({ '<c-h>', '<c-l>' }) do
+  for _, lhs in ipairs({ '<c-h>', '<c-j>', '<c-k>', '<c-l>' }) do
     equal(vim.fn.maparg(lhs, 'n', false, true).callback, mapping(lhs), lhs .. ' mapping after the plugin loads')
   end
 end)
