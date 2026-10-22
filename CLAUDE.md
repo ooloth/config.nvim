@@ -20,6 +20,8 @@ stylua --check .
 
 StyLua is the only formatter. Its settings are in `.stylua.toml` (130-column width, 2-space indent, single quotes, always-parenthesise calls, sort requires).
 
+The tests and how to run them are in [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## Exercising real code paths
 
 Interactive UI verification requires a running display. Headless invocations can still exercise startup and health checks in any environment:
@@ -33,6 +35,15 @@ nvim --headless -c "checkhealth config.util" -c "qall"
 ```
 
 These will surface missing dependencies and Lua errors on startup but won't exercise plugin behaviour. Manual verification requires opening Neovim interactively.
+
+To drive a live Neovim, open a scratch file with no swap file and an RPC socket, then query it rather than typing into it:
+
+```bash
+NVIM_APPNAME=nvim-ide nvim -n --listen "$scratch/nvim.sock" "$scratch/file.txt"
+nvim --clean --headless --server "$scratch/nvim.sock" --remote-expr 'mode()'
+```
+
+Never send keystrokes to a Neovim that may have restored a session. The keys land in whatever real file it reopened, and auto-save can write them to disk. `:` does not open the command line in this config (`,` does), so typed commands become buffer text.
 
 ## Non-obvious constraints
 
