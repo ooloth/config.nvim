@@ -48,6 +48,7 @@ return {
       },
       show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
       transparent_background = true, -- disables setting the background color.
+      float = { transparent = true }, -- floats too (Snacks terminals and lazygit link to NormalFloat)
       -- styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
       --   booleans = {},
       --   comments = { 'italic' }, -- Change the style of comments
