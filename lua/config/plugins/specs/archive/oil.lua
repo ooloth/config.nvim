@@ -1,6 +1,5 @@
 -- NOTE: using mini.files instead
 
-
 return {
   'stevearc/oil.nvim',
   dependencies = {

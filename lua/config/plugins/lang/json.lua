@@ -2,17 +2,19 @@
 -- see: https://github.com/b0o/SchemaStore.nvim?tab=readme-ov-file#usage
 -- FIXME: why does tsconfig.json not seem to receive validations? (yaml working fine)
 -- vim.schedule defers until after lazy.nvim loads plugins, so schemastore is available
-vim.schedule(function()
-  vim.lsp.config('jsonls', {
-    settings = {
-      json = {
-        format = { enable = true },
-        schemas = require('schemastore').json.schemas(),
-        validate = { enable = true },
+vim.schedule(
+  function()
+    vim.lsp.config('jsonls', {
+      settings = {
+        json = {
+          format = { enable = true },
+          schemas = require('schemastore').json.schemas(),
+          validate = { enable = true },
+        },
       },
-    },
-  })
-end)
+    })
+  end
+)
 vim.lsp.enable('jsonls')
 
 return {
