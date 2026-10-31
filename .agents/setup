@@ -151,6 +151,8 @@ install_plugins() {
 local lazy = require('lazy')
 require('lazy.core.config').options.headless.process = false
 lazy.restore({ wait = true, show = false })
+-- An orb started from an older snapshot still has plugins the config has since removed
+lazy.clean({ wait = true, show = false })
 local built = vim.tbl_filter(function(plugin) return plugin.build ~= nil end, lazy.plugins())
 if #built > 0 then lazy.build({ wait = true, show = false, plugins = built }) end
 local failed = 0
