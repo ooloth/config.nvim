@@ -2,5 +2,9 @@
 .DS_Store
 
 # Mine
-.agents/
+.agents/*
+!.agents/setup
 .trekker/
+
+# Amp orbs
+.amp/portals/*
