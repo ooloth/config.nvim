@@ -10,6 +10,9 @@ cd "${repo}"
 NEOVIM_VERSION="0.12.6"
 STYLUA_VERSION="2.6.0"
 TREE_SITTER_VERSION="0.27.1"
+LAZYGIT_VERSION="0.66.2"
+YAZI_VERSION="26.9.1"
+NERD_FONTS_VERSION="3.5.1"
 
 step() {
   local name="$1" start=${SECONDS}
@@ -65,6 +68,52 @@ install_tree_sitter() {
   rm -rf "${tmp}"
 }
 
+# snacks.nvim's lazygit popup and yazi.nvim run these when opened, so neither works without them
+install_lazygit() {
+  if [[ "$(lazygit --version 2>/dev/null)" == *"version=${LAZYGIT_VERSION},"* ]]; then
+    echo "lazygit ${LAZYGIT_VERSION} already installed"
+    return
+  fi
+  local tmp
+  tmp="$(mktemp -d)"
+  curl -fsSL "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_linux_x86_64.tar.gz" |
+    tar -xz -C "${tmp}" lazygit
+  sudo install -m 0755 "${tmp}/lazygit" /usr/local/bin/lazygit
+  rm -rf "${tmp}"
+}
+
+# The musl build, so it doesn't depend on Debian 12's glibc version
+install_yazi() {
+  if [[ "$(yazi --version 2>/dev/null)" == *"Version: ${YAZI_VERSION} "* ]]; then
+    echo "yazi ${YAZI_VERSION} already installed"
+    return
+  fi
+  local tmp name="yazi-x86_64-unknown-linux-musl"
+  tmp="$(mktemp -d)"
+  curl -fsSL -o "${tmp}/yazi.zip" "https://github.com/sxyazi/yazi/releases/download/v${YAZI_VERSION}/${name}.zip"
+  unzip -q "${tmp}/yazi.zip" -d "${tmp}"
+  sudo install -m 0755 "${tmp}/${name}/yazi" "${tmp}/${name}/ya" /usr/local/bin/
+  rm -rf "${tmp}"
+}
+
+# The config's icons come from a Nerd Font, which a terminal in the Desktop tab needs to draw them.
+# Fontconfig falls back to this symbols-only font for those glyphs.
+install_nerd_font() {
+  local dir="${HOME}/.local/share/fonts/nerd-fonts-symbols-${NERD_FONTS_VERSION}"
+  if [[ -d "${dir}" ]]; then
+    echo "Nerd Font symbols ${NERD_FONTS_VERSION} already installed"
+    return
+  fi
+  local tmp
+  tmp="$(mktemp -d)"
+  curl -fsSL "https://github.com/ryanoasis/nerd-fonts/releases/download/v${NERD_FONTS_VERSION}/NerdFontsSymbolsOnly.tar.xz" |
+    tar -xJ -C "${tmp}"
+  rm -rf "${HOME}"/.local/share/fonts/nerd-fonts-symbols-*
+  mkdir -p "$(dirname "${dir}")"
+  mv "${tmp}" "${dir}"
+  fc-cache -f "${dir}"
+}
+
 # The nvim-ide entry point loads this repo from ~/Repos/ooloth/config.nvim, and
 # util.require_all_files_in_config_directory reads lang files from that path too
 link_checkout() {
@@ -91,15 +140,45 @@ install_entry_point() {
 }
 
 # Install every plugin at the commit lazy-lock.json pins, so the tests find them in
-# ~/.local/share/nvim-ide/lazy/. Warm runs only confirm the checkouts.
+# ~/.local/share/nvim-ide/lazy/. Warm runs only confirm the checkouts. Neovim exits 0 when a clone
+# or build fails, so this exits 1 itself when a plugin is missing or any of its tasks failed.
+# Headless lazy.nvim streams a command's output instead of recording a failed exit as an error, so
+# the script turns that off and reruns every plugin's build step, which startup ran unchecked.
 install_plugins() {
-  NVIM_APPNAME=nvim-ide nvim --headless '+Lazy! restore' +qa
-  echo
+  local tmp
+  tmp="$(mktemp -d)"
+  cat >"${tmp}/restore.lua" <<'LUA'
+local lazy = require('lazy')
+require('lazy.core.config').options.headless.process = false
+lazy.restore({ wait = true, show = false })
+local built = vim.tbl_filter(function(plugin) return plugin.build ~= nil end, lazy.plugins())
+if #built > 0 then lazy.build({ wait = true, show = false, plugins = built }) end
+local failed = 0
+for _, plugin in ipairs(lazy.plugins()) do
+  if not plugin._.installed then
+    failed = failed + 1
+    io.stderr:write('\nnot installed: ' .. plugin.name)
+  end
+  for _, task in ipairs(plugin._.tasks or {}) do
+    if task:has_errors() then
+      failed = failed + 1
+      io.stderr:write('\n' .. plugin.name .. ' ' .. task.name .. ' failed:\n' .. task:output(vim.log.levels.ERROR))
+    end
+  end
+end
+io.stderr:write('\n')
+vim.cmd(failed > 0 and 'cquit 1' or 'qall')
+LUA
+  NVIM_APPNAME=nvim-ide nvim --headless -c "luafile ${tmp}/restore.lua"
+  rm -rf "${tmp}"
 }
 
 step "neovim" install_neovim
 step "stylua" install_stylua
 step "tree-sitter" install_tree_sitter
+step "lazygit" install_lazygit
+step "yazi" install_yazi
+step "nerd font" install_nerd_font
 step "checkout link" link_checkout
 step "nvim-ide entry point" install_entry_point
 step "plugins" install_plugins
