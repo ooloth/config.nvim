@@ -62,15 +62,30 @@ Language files in `lua/config/plugins/lang/<lang>.lua` are auto-loaded — no ma
 Create or edit the file for the relevant language and return a table of plugin specs:
 
 ```lua
--- lua/config/plugins/lang/python.lua
+-- lua/config/plugins/lang/rust.lua
 return {
   {
-    'neovim/nvim-lspconfig',
-    opts = { servers = { pyright = {} } },
+    'stevearc/conform.nvim',
+    opts = { formatters_by_ft = { rust = { 'rustfmt' } } },
   },
+}
+```
+
+Language servers are turned on at the top of the lang file with `vim.lsp.enable('<server>')`, plus
+`vim.lsp.config('<server>', { ... })` for settings (see `lang/json.lua`).
+
+When the language server is the formatter, the filetype still needs a non-empty conform entry. Without
+one, the `'_'` catch-all in `specs/conform.lua` claims the filetype with `trim_whitespace`, and conform
+never falls back to the LSP:
+
+```lua
+-- lua/config/plugins/lang/toml.lua
+vim.lsp.enable('taplo')
+
+return {
   {
     'stevearc/conform.nvim',
-    opts = { formatters_by_ft = { python = { 'black' } } },
+    opts = { formatters_by_ft = { toml = { lsp_format = 'fallback' } } },
   },
 }
 ```
