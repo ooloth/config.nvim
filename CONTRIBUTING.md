@@ -17,8 +17,10 @@ run, so a test loads only what it requires itself.
 `lua/config/plugins/specs/vim-tmux-navigator.lua`: tmux, Neovim splits, and the handoff to Rex panes
 at the edge. `tests/colors_test.lua` checks that normal windows and floats, including Snacks
 terminals and the lazygit popup, have no background of their own, so they show the terminal's.
+`tests/persistence_test.lua` checks that headless Neovim never loads persistence.nvim, so a scripted
+run can't restore or overwrite a saved session.
 
-Both load installed plugins from `~/.local/share/nvim-ide/lazy/`, so open Neovim with
+The navigation and colors tests load installed plugins from `~/.local/share/nvim-ide/lazy/`, so open Neovim with
 `NVIM_APPNAME=nvim-ide` once before running them on a new machine.
 
 There is no CI. Run both commands before committing.

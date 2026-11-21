@@ -3,6 +3,10 @@
 
 return {
   'folke/persistence.nvim',
+  -- Headless runs (scripts, agents, checks) must not restore or overwrite the session saved for the
+  -- working directory. The arguments are fixed at startup, unlike nvim_list_uis(), which can be empty
+  -- before the terminal UI attaches.
+  cond = not vim.tbl_contains(vim.v.argv, '--headless'),
   event = 'BufReadPre', -- only start session saving when an actual file is opened
   opts = { options = vim.opt.sessionoptions:get() },
   keys = {

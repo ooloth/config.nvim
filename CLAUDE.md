@@ -45,7 +45,7 @@ nvim --clean --headless --server "$scratch/nvim.sock" --remote-expr 'mode()'
 
 Never send keystrokes to a Neovim that may have restored a session. The keys land in whatever real file it reopened, and auto-save can write them to disk. `:` does not open the command line in this config (`,` does), so typed commands become buffer text.
 
-Run headless or scripted Neovim from a folder made with `mktemp -d`, and copy in any files the check needs. persistence.nvim restores the session for the working directory on startup and saves it again on exit, so a run started inside a real project replaces that project's saved session.
+Headless Neovim never loads persistence.nvim (see `specs/persistence.lua`). A Neovim started without `--headless`, such as the RPC-driven one above, restores the session for its working directory and saves it again on exit, so start it from a folder made with `mktemp -d`.
 
 ## Non-obvious constraints
 
