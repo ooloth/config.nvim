@@ -88,7 +88,7 @@ local get_linter_options = function(linter)
   return linter_options
 end
 
--- get the python executable from the project venv (if active) for pyright, dap and neotest
+-- get the python executable from the project venv (if active) for dap and neotest
 local python = prefer_venv_executable('python')
 local ruff = prefer_venv_executable('ruff')
 local ty = prefer_venv_executable('ty')
