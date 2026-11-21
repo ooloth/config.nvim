@@ -28,10 +28,10 @@ Interactive UI verification requires a running display. Headless invocations can
 
 ```bash
 # Start Neovim in headless mode to check for startup errors (exits immediately)
-nvim --headless -c "qall"
+NVIM_APPNAME=nvim-ide nvim --headless -c "qall"
 
 # Run the built-in health checks for a specific module
-nvim --headless -c "checkhealth config.util" -c "qall"
+NVIM_APPNAME=nvim-ide nvim --headless -c "checkhealth config.util" -c "qall"
 ```
 
 These will surface missing dependencies and Lua errors on startup but won't exercise plugin behaviour. Manual verification requires opening Neovim interactively.
@@ -44,6 +44,8 @@ nvim --clean --headless --server "$scratch/nvim.sock" --remote-expr 'mode()'
 ```
 
 Never send keystrokes to a Neovim that may have restored a session. The keys land in whatever real file it reopened, and auto-save can write them to disk. `:` does not open the command line in this config (`,` does), so typed commands become buffer text.
+
+Run headless or scripted Neovim from a folder made with `mktemp -d`, and copy in any files the check needs. persistence.nvim restores the session for the working directory on startup and saves it again on exit, so a run started inside a real project replaces that project's saved session.
 
 ## Non-obvious constraints
 
